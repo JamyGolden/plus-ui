@@ -1,0 +1,70 @@
+* { margin: 0; padding: 0; }
+h2 { border-bottom: 2px solid #f1f1f1; margin: 40px 0 20px; }
+/* #1, #2 */
+.nostabs-content { font-weight: bold; font-size: 24px; text-transform: uppercase; }
+
+
+
+.nosformselect { background: green; clear: both; cursor: default; float: left; width: 200px; position: relative; }
+	.nosformselect-selected { float: left; height: 20px; }
+	.nosformselect ul { background: orange; clear: both; margin: 0; padding: 0; width: 100%; position: absolute; left: 0; top: 20px; }
+		.nosformselect li:hover { background: papayawhip; }
+	.nosformselect-button { background: red; float: right; height: 20px; text-indent: -9999px; width: 20px; position: absolute; right: 0; top: 0; }
+
+	/* States */
+	.nosformselect-active { background: orange; z-index: 50; }
+
+.nosformselect-default { background: green; position: relative; }
+	.nosformselect-default select { position: relative; z-index: 1; }
+	.nosformselect-default-placeholder { position: absolute; left: 0; top: 0; }
+	.nosformselect-default select { opacity: 0; filter: alpha(opacity=0); }
+
+	/* States */
+	.nosformselect-default-active { background: orange; z-index: 50; }
+
+	/* Form Checkbox */
+	.nosformcheckbox { background: red; display: inline-block; height: 10px; width: 10px;
+		/* IE7 hack to mimic inline-block */
+		*display: inline;
+		*zoom: 1;
+	}
+	.nosformcheckbox-checked { background: green; }
+
+	/* NosFormRadio */
+	.nosformradio { background: red; height: 10px; margin-bottom: 5px; width: 10px; }
+	.nosformradio-checked { background: green; }
+
+	/* NosFormFile */
+	.nosformfile { background: salmon; width: 200px; position: relative; }
+		.nosformfile-placeholder { position: absolute; left: 0; top: 0; }
+		.nosformfile input { cursor: default !important; opacity: 0; filter: alpha(opacity=0); }
+
+	/* NosTooltip */
+	.nostooltip-container { position: relative; }
+	.nostooltip { display: none; position: absolute; left: 0; top: -20px; }
+	.nostooltip-container:hover .nostooltip { display: block; }
+
+
+
+/* Extra - http://lea.verou.me/2011/03/custom-select-drop-downs-with-css3/ */
+#select-no-js { background: url(i/field.png) no-repeat left top; height: 34px; width: 172px; position: relative; }
+
+    /* Select arrow styling */
+    #select-no-js .button { background: #341611 url(i/arrow.png) no-repeat center center; color: white; font-size: 60%; height: 30px; line-height: 30px; padding: 0 7px; width: 10px; position: absolute; top: 2px; right: 2px;
+
+        pointer-events:none; /* https://developer.mozilla.org/en/CSS/pointer-events */
+    }
+
+    #select-no-js select { background: none; color: #fff; display: inline-block; border: none; padding: 4px 3px 3px 5px; margin: 0; font: inherit; width: 100%;
+            
+        outline:none; /* remove focus ring from Webkit */
+        -webkit-appearance:none; /* remove the strong OSX influence from Webkit */
+    }
+    	#select-no-js option { background: #341611; color: #fff; }
+
+	    /* for Webkit's CSS-only solution */
+	    @media screen and (-webkit-min-device-pixel-ratio:0) {
+	        #select-no-js select {
+	            padding-right:30px;    
+	        }
+	    }
