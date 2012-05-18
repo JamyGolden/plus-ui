@@ -16,8 +16,6 @@ jQuery.fn.extend({
 			var $el = $(this),
 				$contentChildren = $el.find('.nostabs-content').children();
 
-				$el.data().test = 'test nosTabs';
-
 			$contentChildren.hide().eq( 0 ).show();
 
 			// Dynamically create the tabs
@@ -27,10 +25,11 @@ jQuery.fn.extend({
 					'class': 'nostabs-nav'
 				}).prependTo( $el );
 
-				$contentChildren.each ( function () {
+				$contentChildren.each ( function (i) {
 
 					$('<li />', {
-						text: $(this).attr('data-nostabs-title')
+						'class'	: i == 0 ? 'is-active' : '', // First tab is active
+						'text'	: $(this).attr('data-nostabs-title')
 					}).appendTo( $nosTabsNav );
 					
 				});
