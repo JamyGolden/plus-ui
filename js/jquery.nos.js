@@ -92,15 +92,15 @@ jQuery.fn.extend({
 
 			$el.val( val ).focus(function() {
 
-			    if ( $el.val() == val ){
-			            $el.val("");
-			    };
+				if ( $el.val() == val ){
+						$el.val("");
+				};
 			   
 			}).blur(function(){
 
-			    if ( $el.val() == '' ) {
-			    	$el.val( val );
-			    };
+				if ( $el.val() == '' ) {
+					$el.val( val );
+				};
 
 			});
 
@@ -108,99 +108,102 @@ jQuery.fn.extend({
 			
 		});
 
-
 	}, // nosPlaceholder()
 	nosFormSelect: function( placeholder, defaultDropdown, zIndex ){
+
+		return this.each(function(){
 		
-		function toggleFormList() {
-			$fauxSelect.toggleClass('nosformselect-active').find( $list ).toggle();
-		}
+			function toggleFormList() {
+				$fauxSelect.toggleClass('nosformselect-active').find( $list ).toggle();
+			}
 
-		var $el = this;
+			var $el = $(this);
 
-		var selectInputs = document.getElementsByTagName('select');
+			var selectInputs = document.getElementsByTagName('select');
 
-		if ( defaultDropdown == true ) {
+			if ( defaultDropdown == true ) {
 
-			var activeClass = 'nosformselect-default-active';
+				var activeClass = 'nosformselect-default-active';
 
-			$el.wrap(
-				$('<div />', {
-					'class': 'nosformselect-default'
-				})
-			);
-			var $fauxSelect = $el.parent();
+				$el.wrap(
+					$('<div />', {
+						'class': 'nosformselect-default'
+					})
+				);
+				var $fauxSelect = $el.parent();
 
-			// Adding select placeholder text
-			var $placeholderText = $('<span />', {
-				'class': 'nosformselect-default-placeholder',
-				text: placeholder
-			}).prependTo( $fauxSelect );
-
-
-			// Events
-			$el.click( function(e) {
-
-				$fauxSelect.toggleClass( activeClass );
-
-			}).change( function() {
-
-				var text = $el.find(':selected').text();
-				$placeholderText.text(text);
-
-			}).blur(function() {
-				$fauxSelect.removeClass( activeClass );
-			}); // .select li.click
-
-		} else {
-
-			var $fauxSelect = $('<div />', {
-				'class': 'nosformselect'
-			});
-
-			$el.hide().before( $fauxSelect );
-
-			// Adding dropdown button for cross-browser support
-			$('<span />', {
-				'class': 'nosformselect-button',
-				text: 'Drop Down'
-			}).appendTo( $fauxSelect );
-
-			// Creating List
-			var $list = $('<ul />').appendTo( $fauxSelect ).hide();
-			$el.find('option').each( function( i ) {
-				$('<li />', {
-					'class': i == 0 ? 'nosformselect-active' : '',
-					text: $(this).text()
-				}).appendTo( $fauxSelect.find('ul') );
-			});
-
-			// Adding select placeholder text
-			var $placeholder = $('<span />', {
-				'class': 'nosformselect-selected',
-				text: placeholder ? placeholder : $fauxSelect.find('li').eq(0).text()
-			}).insertBefore( $list );
+				// Adding select placeholder text
+				var $placeholderText = $('<span />', {
+					'class': 'nosformselect-default-placeholder',
+					text: placeholder
+				}).prependTo( $fauxSelect );
 
 
-			// Events
-			$fauxSelect.click( function(e) {
-				toggleFormList();
-			});
+				// Events
+				$el.click( function(e) {
 
-			$fauxSelect.find('li').click( function(e) {
+					$fauxSelect.toggleClass( activeClass );
 
-				var $this = $(this),
-					index = $this.index(),
-					text = $this.text();
+				}).change( function() {
 
-				$this.addClass('nosformselect-active').siblings().removeClass('nosformselect-active');
-				$placeholder.text(text);
+					var text = $el.find(':selected').text();
+					$placeholderText.text(text);
 
-				$el.find('option').removeAttr('selected').eq(index).attr('selected', 'selected');
+				}).blur(function() {
+					$fauxSelect.removeClass( activeClass );
+				}); // .select li.click
 
-			}); // .select li.click
+			} else {
 
-		};
+				var $fauxSelect = $('<div />', {
+					'class': 'nosformselect'
+				});
+
+				$el.hide().before( $fauxSelect );
+
+				// Adding dropdown button for cross-browser support
+				$('<span />', {
+					'class': 'nosformselect-button',
+					text: 'Drop Down'
+				}).appendTo( $fauxSelect );
+
+				// Creating List
+				var $list = $('<ul />').appendTo( $fauxSelect ).hide();
+				$el.find('option').each( function( i ) {
+					$('<li />', {
+						'class': i == 0 ? 'nosformselect-active' : '',
+						text: $(this).text()
+					}).appendTo( $fauxSelect.find('ul') );
+				});
+
+				// Adding select placeholder text
+				var $placeholder = $('<span />', {
+					'class': 'nosformselect-selected',
+					text: placeholder ? placeholder : $fauxSelect.find('li').eq(0).text()
+				}).insertBefore( $list );
+
+
+				// Events
+				$fauxSelect.click( function(e) {
+					toggleFormList();
+				});
+
+				$fauxSelect.find('li').click( function(e) {
+
+					var $this = $(this),
+						index = $this.index(),
+						text = $this.text();
+
+					$this.addClass('nosformselect-active').siblings().removeClass('nosformselect-active');
+					$placeholder.text(text);
+
+					$el.find('option').removeAttr('selected').eq(index).attr('selected', 'selected');
+
+				}); // .select li.click
+
+			};
+
+		}); // each
 
 	}, // nosFormSelect
 	nosAnalytics: function( ua, trackPageviewVal, eventTracker ){
@@ -214,14 +217,14 @@ jQuery.fn.extend({
 			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
 			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
 		})();
-	    
-	    if (eventTracker == true ){
+		
+		if (eventTracker == true ){
 
-	        function gatrackevent(cat,action,label,value){try{pageTracker._trackEvent(cat,action,label,value);}catch(err){}}
+			function gatrackevent(cat,action,label,value){try{pageTracker._trackEvent(cat,action,label,value);}catch(err){}}
 
-	        if (typeof(eventTracker) == 'object' && eventTracker.selectVal == true){
-	        	function gatrackselectvalue(cat,action,selectname,value){try{var index=document.getElementById(selectname).selectedIndex;var text=document.getElementById(selectname).options[index].text;var finaltext=text;gatrackevent(cat,action,finaltext,value);}catch(err){}}
-	    	}
+			if (typeof(eventTracker) == 'object' && eventTracker.selectVal == true){
+				function gatrackselectvalue(cat,action,selectname,value){try{var index=document.getElementById(selectname).selectedIndex;var text=document.getElementById(selectname).options[index].text;var finaltext=text;gatrackevent(cat,action,finaltext,value);}catch(err){}}
+			}
 
 		} // if trackCode
 
@@ -287,7 +290,7 @@ jQuery.fn.extend({
 			});
 
 
-        }); // return this.each
+		}); // return this.each
 
 	}, // nosFormRadio()
 	nosTooltip: function( tooltipText ){
@@ -305,7 +308,7 @@ jQuery.fn.extend({
 
 			$el.wrap( $container ).after( $tooltip );
 
-        }); // return this.each
+		}); // return this.each
 
 	} // nosTooltip()
 });
