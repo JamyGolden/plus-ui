@@ -256,7 +256,7 @@ jQuery.fn.extend({
 			var $el = $(this),
 				$fauxCheckbox = $('<div />', {
 				'class': 'nosformradio nosforminput'
-			}).insertBefore( $el );
+			}).insertBefore( $el.hide() );
 
 			$fauxCheckbox.click( function(){ 
 				var $this = $(this);
