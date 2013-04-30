@@ -256,13 +256,15 @@ jQuery.fn.extend({
 			var $el = $(this),
 				$fauxCheckbox = $('<div />', {
 				'class': 'nosformradio nosforminput'
-			}).insertBefore( $el.hide() );
+			}).insertBefore( $el );
 
 			$fauxCheckbox.click( function(){ 
 				var $this = $(this);
 
+				console.log($el.attr('checked', 'checked').siblings('input[name="' + $el.attr('name') + '"]'))
+
 				$this.addClass('nosformradio-checked').siblings('.nosformradio').removeClass('nosformradio-checked');
-				$el.attr('checked', 'checked').siblings('input[name="' + $el.attr('name') + '"]').removeAttr('checked');
+				$el.prop('checked', 'checked').siblings('input[name="' + $el.attr('name') + '"]').removeAttr('checked');
 
 			});
 		
