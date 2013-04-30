@@ -262,7 +262,7 @@ jQuery.fn.extend({
 				var $this = $(this);
 
 				$this.addClass('nosformradio-checked').siblings('.nosformradio').removeClass('nosformradio-checked');
-				$el.attr('checked', 'checked').siblings('input[name="' + $el.attr('name') + '"').removeAttr('checked');
+				$el.attr('checked', 'checked').siblings('input[name="' + $el.attr('name') + '"]').removeAttr('checked');
 
 			});
 		
