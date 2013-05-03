@@ -159,6 +159,12 @@ jQuery.fn.extend({
 					'class': 'nosformselect'
 				});
 
+				if($el.attr('disabled') == 'true'){
+					$fauxSelect.attr('data-disabled', 'true').addClass('nosformselect-is-disabled');
+				} else {
+					$fauxSelect.prop('data-disabled', 'false');
+				};
+
 				$el.hide().before( $fauxSelect );
 
 				// Adding dropdown button for cross-browser support
@@ -182,10 +188,12 @@ jQuery.fn.extend({
 					text: placeholder ? placeholder : $fauxSelect.find('li').eq(0).text()
 				}).insertBefore( $list );
 
-
 				// Events
 				$fauxSelect.click( function(e) {
-					toggleFormList();
+					if (typeof $fauxSelect.data('disabled') == 'undefined' 
+						|| $fauxSelect.data('disabled') !== true) {
+						toggleFormList();
+					}
 				});
 
 				$fauxSelect.find('li').click( function(e) {
