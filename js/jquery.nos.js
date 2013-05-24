@@ -237,7 +237,7 @@ jQuery.fn.extend({
 		} // if trackCode
 
 	}, // nosAnalytics()
-	nosFormInputCheckbox: function(){
+	nosFormInputCheckbox: function(clickEvent){
 
 		return this.each(function(){
 
@@ -252,12 +252,16 @@ jQuery.fn.extend({
 				$this.toggleClass('nosformcheckbox-checked nosforminput');
 
 				!$el.attr('checked') ? $el.attr('checked', 'checked') : $el.removeAttr('checked'); 
+
+				if(typeof clickEvent === 'function') {
+					clickEvent();
+				};
 			});
 			
 		}); // this.each()
 
 	}, // nosFormCheckbox()
-	nosFormInputRadio: function(){
+	nosFormInputRadio: function(clickEvent){
 
 		return this.each(function(){
 
@@ -273,6 +277,10 @@ jQuery.fn.extend({
 
 				$this.addClass('nosformradio-checked').siblings('.nosformradio').removeClass('nosformradio-checked');
 				$el.prop('checked', 'checked').siblings('input[name="' + $el.attr('name') + '"]').removeAttr('checked');
+
+				if(typeof clickEvent === 'function') {
+					clickEvent();
+				};
 
 			});
 		
