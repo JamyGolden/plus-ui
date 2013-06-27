@@ -254,7 +254,7 @@ jQuery.fn.extend({
 				!$el.attr('checked') ? $el.attr('checked', 'checked') : $el.removeAttr('checked'); 
 
 				if(typeof clickEvent === 'function') {
-					clickEvent();
+					clickEvent($el);
 				};
 			});
 			
@@ -279,7 +279,7 @@ jQuery.fn.extend({
 				$el.prop('checked', 'checked').siblings('input[name="' + $el.attr('name') + '"]').removeAttr('checked');
 
 				if(typeof clickEvent === 'function') {
-					clickEvent();
+					clickEvent($el);
 				};
 
 			});
