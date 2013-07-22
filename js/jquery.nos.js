@@ -112,14 +112,12 @@ jQuery.fn.extend({
 	nosFormSelect: function( placeholder, defaultDropdown, zIndex ){
 
 		return this.each(function(){
-		
+
 			function toggleFormList() {
 				$fauxSelect.toggleClass('nosformselect-active').find( $list ).toggle();
 			}
 
 			var $el = $(this);
-
-			var selectInputs = document.getElementsByTagName('select');
 
 			if ( defaultDropdown == true ) {
 
@@ -127,7 +125,8 @@ jQuery.fn.extend({
 
 				$el.wrap(
 					$('<div />', {
-						'class': 'nosformselect-default'
+						'class': 'nosformselect-default',
+						'id': 'nosformselect-' + $el.attr('id')
 					})
 				);
 				var $fauxSelect = $el.parent();
@@ -137,7 +136,6 @@ jQuery.fn.extend({
 					'class': 'nosformselect-default-placeholder',
 					text: placeholder
 				}).prependTo( $fauxSelect );
-
 
 				// Events
 				$el.click( function(e) {
@@ -156,7 +154,8 @@ jQuery.fn.extend({
 			} else {
 
 				var $fauxSelect = $('<div />', {
-					'class': 'nosformselect'
+					'class': 'nosformselect',
+					'id': 'nosformselect-' + $el.attr('id')
 				});
 
 				if($el.attr('disabled') == 'true'){
@@ -272,8 +271,6 @@ jQuery.fn.extend({
 
 			$fauxCheckbox.click( function(){ 
 				var $this = $(this);
-
-				console.log($el.attr('checked', 'checked').siblings('input[name="' + $el.attr('name') + '"]'))
 
 				$this.addClass('nosformradio-checked').siblings('.nosformradio').removeClass('nosformradio-checked');
 				$el.prop('checked', 'checked').siblings('input[name="' + $el.attr('name') + '"]').removeAttr('checked');
