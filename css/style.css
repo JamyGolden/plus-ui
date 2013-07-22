@@ -29,10 +29,12 @@ h2 { border-bottom: 2px solid #f1f1f1; margin: 40px 0 20px; }
 		*zoom: 1;
 	}
 	.nosformcheckbox-checked { background: green; }
+	.nosformcheckbox-disabled { background: #999; }
 
 	/* NosFormRadio */
 	.nosformradio { background: red; height: 10px; margin-bottom: 5px; width: 10px; }
 	.nosformradio-checked { background: green; }
+	.nosformradio-disabled { background: #999; }
 
 	/* NosFormFile */
 	.nosformfile { background: salmon; width: 200px; position: relative; }

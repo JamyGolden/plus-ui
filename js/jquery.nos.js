@@ -1,7 +1,6 @@
 /*
-* jQuery NOs 0.1.7
+* jQuery NOs 0.1.8
 *
-* Copyright 2011
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
 (function( $, undefined ) {
@@ -245,8 +244,21 @@ jQuery.fn.extend({
 				'class': 'nosformcheckbox'
 			}).insertBefore( $el.hide() );
 
+			if(typeof $el.attr('disabled') !== 'undefined'){
+				$fauxCheckbox.addClass('nosformcheckbox-disabled');
+			} else {
+				$fauxCheckbox.removeClass('nosformcheckbox-disabled');
+			}
+
 			$fauxCheckbox.click( function(){ 
 				var $this = $(this);
+
+				if(typeof $el.attr('disabled') !== 'undefined'){
+					$fauxCheckbox.addClass('nosformcheckbox-disabled');
+					return;
+				} else {
+					$fauxCheckbox.removeClass('nosformcheckbox-disabled');
+				}
 
 				$this.toggleClass('nosformcheckbox-checked nosforminput');
 
@@ -269,8 +281,21 @@ jQuery.fn.extend({
 				'class': 'nosformradio nosforminput'
 			}).insertBefore( $el.hide() );
 
+			if(typeof $el.attr('disabled') !== 'undefined'){
+				$fauxCheckbox.addClass('nosformradio-disabled');
+			} else {
+				$fauxCheckbox.removeClass('nosformradio-disabled');
+			}
+
 			$fauxCheckbox.click( function(){ 
 				var $this = $(this);
+
+				if(typeof $el.attr('disabled') !== 'undefined'){
+					$fauxCheckbox.addClass('nosformradio-disabled');
+					return;
+				} else {
+					$fauxCheckbox.removeClass('nosformradio-disabled');
+				}
 
 				$this.addClass('nosformradio-checked').siblings('.nosformradio').removeClass('nosformradio-checked');
 				$el.prop('checked', 'checked').siblings('input[name="' + $el.attr('name') + '"]').removeAttr('checked');

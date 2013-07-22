@@ -24,6 +24,8 @@ $(document).ready(function() {
 		alert('clicked');
 	});
 
+	$('#checkbox-form2').find('input[type="checkbox"]').nosFormInputCheckbox();
+
 	$('#radio-form').find('input[type="radio"]').nosFormInputRadio(function(){
 		alert('clicked');
 	});
