@@ -80,7 +80,7 @@ jQuery.fn.extend({
 			if ( typeof( callback ) == 'function' ) callback( $el );
 			
 		}); this.each()
-		
+
 	}, // nosAccordion()
 	nosFormInputPlaceholder: function( placeholderText, callback ) {
 
@@ -122,6 +122,20 @@ jQuery.fn.extend({
 
 			var $el = $(this);
 
+			function isDisabled($el, $fauxEl) {
+				if(typeof $el.attr('disabled') == 'string'){
+
+					$fauxEl.addClass('nosformselect-disabled');
+					return true;
+
+				} else {
+
+					$fauxEl.removeClass('nosformselect-disabled');
+					return false;
+
+				}
+			}
+
 			if ( defaultDropdown == true ) {
 
 				var activeClass = 'nosformselect-default-active';
@@ -140,8 +154,12 @@ jQuery.fn.extend({
 					text: placeholder
 				}).prependTo( $fauxSelect );
 
+				isDisabled($el, $fauxSelect); // Applied for styling alone.
+
 				// Events
 				$el.click( function(e) {
+
+					isDisabled($el, $fauxSelect); // Applied for styling alone.
 
 					$fauxSelect.toggleClass( activeClass );
 
@@ -151,7 +169,9 @@ jQuery.fn.extend({
 					$placeholderText.text(text);
 
 				}).blur(function() {
+
 					$fauxSelect.removeClass( activeClass );
+
 				}); // .select li.click
 
 			} else {
@@ -190,12 +210,15 @@ jQuery.fn.extend({
 					text: placeholder ? placeholder : $fauxSelect.find('li').eq(0).text()
 				}).insertBefore( $list );
 
+				isDisabled($el, $fauxSelect);
+
 				// Events
 				$fauxSelect.click( function(e) {
-					if (typeof $fauxSelect.data('disabled') == 'undefined' 
-						|| $fauxSelect.data('disabled') !== true) {
-						toggleFormList();
-					}
+					if(isDisabled($el, $fauxSelect) === true) { // Return if select is disabled
+						return;
+					};
+
+					toggleFormList();
 				});
 
 				$fauxSelect.find('li').click( function(e) {

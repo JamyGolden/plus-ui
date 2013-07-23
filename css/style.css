@@ -11,6 +11,7 @@ h2 { border-bottom: 2px solid #f1f1f1; margin: 40px 0 20px; }
 		.nosformselect li:hover { background: papayawhip; }
 	.nosformselect-button { background: red; float: right; height: 20px; text-indent: -9999px; width: 20px; position: absolute; right: 0; top: 0; }
 
+
 	/* States */
 	.nosformselect-active { background: orange; z-index: 50; }
 
@@ -19,6 +20,8 @@ h2 { border-bottom: 2px solid #f1f1f1; margin: 40px 0 20px; }
 	.nosformselect-default-placeholder { position: absolute; left: 0; top: 0; }
 	.nosformselect-default select { opacity: 0; filter: alpha(opacity=0); }
 
+	.nosformselect-disabled { background: #999; }
+	
 	/* States */
 	.nosformselect-default-active { background: orange; z-index: 50; }
 
