@@ -89,22 +89,26 @@ jQuery.fn.extend({
 			var $el = $(this),
 				val = placeholderText ? placeholderText : $el.attr('placeholder');
 
-			$el.val( val ).focus(function() {
+			function focusInput(){
+				if($el.val() == val){
+					$el.val("")
+				}
+			}
 
-				if ( $el.val() == val ){
-						$el.val("");
-				};
-			   
-			}).blur(function(){
+			function blurInput(){
+				if($el.val() == ""){
+					$el.val(val)
+				}
+			}
 
-				if ( $el.val() == '' ) {
-					$el.val( val );
-				};
+			// Set value
+			$el.val(val);
 
-			});
+			// Turn off functions
+			$el.off('focus.placeholder').off('blur.placeholder');
 
-			if ( typeof( callback ) == 'function' ) callback( $el );
-			
+			// Turn on functions
+			$el.on('focus.placeholder', focusInput).on('blur.placeholder', blurInput);
 		});
 
 	}, // nosPlaceholder()
