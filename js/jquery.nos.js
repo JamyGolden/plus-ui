@@ -112,7 +112,7 @@ jQuery.fn.extend({
 		});
 
 	}, // nosPlaceholder()
-	nosFormSelect: function( placeholder, defaultDropdown, zIndex ){
+	nosFormSelect: function( placeholder, defaultDropdown, clickEvent ){
 
 		return this.each(function(){
 
@@ -167,6 +167,10 @@ jQuery.fn.extend({
 
 					var text = $el.find(':selected').text();
 					$placeholderText.text(text);
+
+					if(typeof clickEvent === 'function') {
+						clickEvent($el, $fauxSelect);
+					};
 
 				}).blur(function() {
 
@@ -230,7 +234,11 @@ jQuery.fn.extend({
 					$this.addClass('nosformselect-active').siblings().removeClass('nosformselect-active');
 					$placeholder.text(text);
 
-					$el.find('option').removeAttr('selected').eq(index).attr('selected', 'selected');
+					$el.find('option').prop('selected', false).eq(index).prop('selected', true);
+
+					if(typeof clickEvent === 'function') {
+						clickEvent($el, $fauxSelect);
+					};
 
 				}); // .select li.click
 
