@@ -112,7 +112,7 @@ jQuery.fn.extend({
 		});
 
 	}, // nosPlaceholder()
-	nosFormSelect: function( placeholder, defaultDropdown, clickEvent ){
+	nosFormSelect: function( placeholder, defaultDropdown, clickEvent, disable ){
 
 		return this.each(function(){
 
@@ -138,6 +138,13 @@ jQuery.fn.extend({
 
 			if ( defaultDropdown == true ) {
 
+				// Remove custom styling
+				// Restore element back to original state
+				if(disable === true){
+					$el.off().unwrap();
+					return;
+				}
+
 				var activeClass = 'nosformselect-default-active';
 
 				$el.wrap(
@@ -157,13 +164,13 @@ jQuery.fn.extend({
 				isDisabled($el, $fauxSelect); // Applied for styling alone.
 
 				// Events
-				$el.click( function(e) {
+				$el.on('click', function(e) {
 
 					isDisabled($el, $fauxSelect); // Applied for styling alone.
 
 					$fauxSelect.toggleClass( activeClass );
 
-				}).change( function() {
+				}).on('change', function() {
 
 					var text = $el.find(':selected').text();
 					$placeholderText.text(text);
@@ -172,13 +179,21 @@ jQuery.fn.extend({
 						clickEvent($el, $fauxSelect);
 					};
 
-				}).blur(function() {
+				}).on('blur', function() {
 
 					$fauxSelect.removeClass( activeClass );
 
 				}); // .select li.click
 
 			} else {
+
+				// Remove custom styling
+				// Restore element back to original state
+				if(disable === true){
+					$el.show().prev().off().find('li').off();
+					$el.prev().remove();
+					return;
+				};
 
 				var $fauxSelect = $('<div />', {
 					'class': 'nosformselect',
@@ -217,7 +232,7 @@ jQuery.fn.extend({
 				isDisabled($el, $fauxSelect);
 
 				// Events
-				$fauxSelect.click( function(e) {
+				$fauxSelect.on('click', function(e) {
 					if(isDisabled($el, $fauxSelect) === true) { // Return if select is disabled
 						return;
 					};
@@ -225,7 +240,9 @@ jQuery.fn.extend({
 					toggleFormList();
 				});
 
-				$fauxSelect.find('li').click( function(e) {
+				$fauxSelect.find('li').on('click', function(e) {
+
+					e.stopPropagation();
 
 					var $this = $(this),
 						index = $this.index(),
@@ -239,6 +256,8 @@ jQuery.fn.extend({
 					if(typeof clickEvent === 'function') {
 						clickEvent($el, $fauxSelect);
 					};
+
+					toggleFormList();
 
 				}); // .select li.click
 
