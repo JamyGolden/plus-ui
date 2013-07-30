@@ -141,7 +141,7 @@ jQuery.fn.extend({
 				// Remove custom styling
 				// Restore element back to original state
 				if(disable === true){
-					$el.off().unwrap();
+					$el.off().unwrap('.nosformselect-default');
 					return;
 				}
 
@@ -190,8 +190,8 @@ jQuery.fn.extend({
 				// Remove custom styling
 				// Restore element back to original state
 				if(disable === true){
-					$el.show().prev().off().find('li').off();
-					$el.prev().remove();
+					$el.show().prev('.nosformselect').off().find('li').off();
+					$el.prev('.nosformselect').remove();
 					return;
 				};
 
