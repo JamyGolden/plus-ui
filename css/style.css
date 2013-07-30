@@ -1,4 +1,7 @@
 * { margin: 0; padding: 0; }
+body {
+	font-family: sans-serif;
+}
 h2 { border-bottom: 2px solid #f1f1f1; margin: 40px 0 20px; }
 /* #1, #2 */
 .nosui-tabs-content { font-weight: bold; font-size: 24px; text-transform: uppercase; }
@@ -13,6 +16,7 @@ h2 { border-bottom: 2px solid #f1f1f1; margin: 40px 0 20px; }
 	.nosui-formselect--active { background: orange; z-index: 50; }
 
 .nosui-formselect--default { background: green; position: relative; }
+
 	.nosui-formselect--default .nosui-formselect__element { opacity: 0; filter: alpha(opacity=0); position: relative; z-index: 1; }
 	.nosui-formselect--default .nosui-formselect__placeholder { position: absolute; left: 0; top: 0; }
 
@@ -28,8 +32,8 @@ h2 { border-bottom: 2px solid #f1f1f1; margin: 40px 0 20px; }
 		*zoom: 1;
 	}
 
-	.nosui-formcheckbox-checked { background: green; }
-	.nosui-formcheckbox-disabled { background: #999; }
+	.nosui-formcheckbox--checked { background: green; }
+	.nosui-formcheckbox--disabled { background: #999; }
 
 	/* NosFormRadio */
 	.nosui-formradio { background: red; height: 10px; margin-bottom: 5px; width: 10px; }
@@ -47,5 +51,9 @@ h2 { border-bottom: 2px solid #f1f1f1; margin: 40px 0 20px; }
 	.nosui-tooltip-container:hover .nosui-tooltip { display: block; }
 
 .nosui-tooltip {
-	background
+	color: #fff;
+	background: #444;
+	border: 1px solid #333;
+	border-radius: 3px;
+	padding: 2px 5px;
 }

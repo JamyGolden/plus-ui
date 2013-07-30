@@ -6,14 +6,16 @@
 (function( $, undefined ) {
 
 window.NosUIApp = {
-	initMethod: function(options){
+	defineOptions: function(options){
 		if(typeof options !== 'object'){
-			options = {};
+			return {};
+		} else {
+			return options;
 		}
 	},
 	form: {
 		isDisabled: function($el, $fauxEl, className) {
-			if(typeof $el.attr('disabled') == 'string'){
+			if($el.prop('disabled')){
 				$fauxEl.addClass(className);
 				return true;
 			} else {
@@ -101,20 +103,44 @@ jQuery.fn.extend({
 		}); this.each()
 
 	}, // nosAccordion()
-	nosFormInputPlaceholder: function( placeholderText, callback ) {
+	nosFormInputPlaceholder: function( options, disableMethod ) {
+		options = NosUIApp.defineOptions(options);
 
 		return this.each(function(){
 
-			var $el = $(this),
-				val = placeholderText ? placeholderText : $el.attr('placeholder');
+			var $el = $(this);
+
+			if(typeof options.text === 'string') {
+				val = options.text;
+			} else {
+				val =  $el.attr('aplaceholder');
+			}
+
+			// The value hasn't been defined 
+			// and cannot be guessed either.
+			// Everything should stop here
+			if(typeof val !== 'string') {
+				return;
+			}
+
 
 			function focusInput(){
+				// Focus Callback
+				if(typeof options.onFocus === 'function') {
+					options.onFocus($el);
+				};
+
 				if($el.val() == val){
 					$el.val('')
 				}
 			}
 
 			function blurInput(){
+				// Blur Callback
+				if(typeof options.onBlur === 'function') {
+					options.onBlur($el);
+				};
+
 				if($el.val() == ''){
 					$el.val(val)
 				}
@@ -127,15 +153,20 @@ jQuery.fn.extend({
 			// Incase this is called twice
 			$el.off('focus.placeholder').off('blur.placeholder');
 
+			// Disable this method
+			// Return here before the elements have the functionality 
+			// turned on
+			if(disableMethod === true){
+				return;
+			};
+
 			// Turn on functions
 			$el.on('focus.placeholder', focusInput).on('blur.placeholder', blurInput);
 		});
 
 	}, // nosPlaceholder()
 	nosFormSelect: function( options, disableMethod ){
-	// nosFormSelect: function( placeholder, defaultDropdown, clickEvent, disable ){
-
-		NosUIApp.initMethod();
+		options = NosUIApp.defineOptions(options);
 
 		var elAttrNames = {
 			typeDefault: {
@@ -145,12 +176,13 @@ jQuery.fn.extend({
 			typeCustom: {
 				'name': 'nosui-formselect--custom',
 				'dataName': 'nosui-formselect-type-custom',
+				'dataSelected': 'nosui-formselect-selected',
 				'list': 'nosui-formselect__list',
 				'item': 'nosui-formselect__item',
 				'activeItem': 'nosui-formselect__item--active'
 			},
 			'el': 'nosui-formselect__element',
-			'name': 'nosui-formselect',
+			'className': 'nosui-formselect',
 			'active': 'nosui-formselect--active',
 			'disabled': 'nosui-formselect--disabled',
 			'placeholder': 'nosui-formselect__placeholder',
@@ -166,16 +198,19 @@ jQuery.fn.extend({
 			// Remove custom styling
 			// Restore element back to original state
 			if(disableMethod === true && $el.data(elAttrNames.typeDefault.dataName)){
-
+				// Changing the data on the element to 
+				// reflect that it has been disabled
 				$el.data(elAttrNames.typeDefault.dataName, false).off().unwrap();
+
 				return;
-
 			} else if(disableMethod === true && $el.data(elAttrNames.typeCustom.dataName)){
-
+				// Changing the data on the element to 
+				// reflect that it has been disabled
 				$el.data(elAttrNames.typeCustom.dataName, false).show();
+
+				// Turn off fauxEl and fauxOptions events
 				$el.prev().off().find('li').off().end().remove();
 				return;
-
 			};
 
 			if ( options.defaultDropdown == true ) {
@@ -185,8 +220,8 @@ jQuery.fn.extend({
 					.addClass(elAttrNames.el)
 					.wrap(
 						$('<div />', {
-							'class': elAttrNames.name + ' ' + elAttrNames.typeDefault.name,
-							'id': $el.attr('id') ? elAttrNames.name + '-' + $el.attr('id') : false
+							'class': elAttrNames.className + ' ' + elAttrNames.typeDefault.name,
+							'id': $el.attr('id') ? elAttrNames.className + '-' + $el.attr('id') : ''
 						})
 					);
 
@@ -249,8 +284,8 @@ jQuery.fn.extend({
 				};
 
 				var $fauxSelect = $('<div />', {
-					'class': elAttrNames.name,
-					'id': $el.attr('id') ? elAttrNames.name + '-' + $el.attr('id') : ''
+					'class': elAttrNames.className,
+					'id': $el.attr('id') ? elAttrNames.className + '-' + $el.attr('id') : ''
 				});
 
 				// Check if is disabled
@@ -272,14 +307,15 @@ jQuery.fn.extend({
 				$elOptions.each( function( i ) {
 					$('<div />', {
 						'class': i == 0 ? elAttrNames.typeCustom.activeItem + ' ' + elAttrNames.typeCustom.item : elAttrNames.typeCustom.item,
-						'text': $(this).text(),
-						'data-nosformselect-selected': $(this).prop('selected')
-					}).appendTo( $list );
+						'text': $(this).text()
+					})
+						.data(elAttrNames.typeCustom.dataSelected, $(this).prop('selected'))
+						.appendTo( $list );
 				});
 
 				var $fauxOptions = $fauxSelect.find('.' + elAttrNames.typeCustom.item),
 					$fauxSelectedOption = $fauxOptions.filter(function(){
-						return $(this).data('nosformselect-selected');
+						return $(this).data(elAttrNames.typeCustom.dataSelected);
 					});
 
 				// If nothing is selected, select the first in the list
@@ -335,37 +371,42 @@ jQuery.fn.extend({
 		}); // each
 
 	}, // nosFormSelect
-	nosFormInputCheckbox: function(clickEvent){
+	nosFormInputCheckbox: function(options){
+
+		options = NosUIApp.defineOptions(options);
+
+		var elAttrNames = {
+			'className': 'nosui-formcheckbox',
+			'inputClass': 'nosui-forminput-text',
+			'disabledClass': 'nosui-formcheckbox--disabled',
+			'checkedClass': 'nosui-formcheckbox--checked'
+		};
 
 		return this.each(function(){
 
 			var $el = $(this),
 				$fauxCheckbox = $('<div />', {
-				'class': 'nosformcheckbox'
+				'class': elAttrNames.className + ' ' + elAttrNames.inputClass
 			}).insertBefore( $el.hide() );
 
-			if(typeof $el.attr('disabled') !== 'undefined'){
-				$fauxCheckbox.addClass('nosformcheckbox-disabled');
-			} else {
-				$fauxCheckbox.removeClass('nosformcheckbox-disabled');
-			}
+			NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass);
 
 			$fauxCheckbox.click( function(){ 
 				var $this = $(this);
 
-				if(typeof $el.attr('disabled') !== 'undefined'){
-					$fauxCheckbox.addClass('nosformcheckbox-disabled');
-					return;
+				NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass);
+
+				$this.toggleClass(elAttrNames.checkedClass);
+
+				// Toggle Attribute
+				if($el.prop('checked')){
+					$el.prop('checked', false);
 				} else {
-					$fauxCheckbox.removeClass('nosformcheckbox-disabled');
-				}
+					$el.prop('checked', true);
+				};
 
-				$this.toggleClass('nosformcheckbox-checked nosforminput');
-
-				!$el.attr('checked') ? $el.attr('checked', 'checked') : $el.removeAttr('checked'); 
-
-				if(typeof clickEvent === 'function') {
-					clickEvent($el);
+				if(typeof options.onClick === 'function') {
+					options.onClick($el);
 				};
 			});
 			
@@ -436,7 +477,7 @@ jQuery.fn.extend({
 	nosTooltip: function( tooltipText ){
 
 		var elAttrNames = {
-			'name': 'nosui-tooltip',
+			'className': 'nosui-tooltip',
 			'container': 'nosui-tooltip-container',
 			'dataName': 'nostooltip'
 		};
@@ -448,7 +489,7 @@ jQuery.fn.extend({
 					'class'	: elAttrNames.container
 				}),
 				$tooltip = $('<div />', {
-					'class'	: elAttrNames.name,
+					'class'	: elAttrNames.className,
 					text 	: tooltipText ? tooltipText : $el.data(elAttrNames.dataName)
 				});
 
