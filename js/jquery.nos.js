@@ -113,7 +113,7 @@ jQuery.fn.extend({
 			if(typeof options.text === 'string') {
 				val = options.text;
 			} else {
-				val =  $el.attr('aplaceholder');
+				val =  $el.attr('placeholder');
 			}
 
 			// The value hasn't been defined 

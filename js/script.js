@@ -16,9 +16,12 @@ $(document).ready(function() {
 
 	$('#inputfile').nosFormInputFile('Random Placeholder Text');
 
-	$('#select').nosFormSelect('Placeholder Text', false, function($el, $fauxSelect){
-		$el.prop('disabled', true)
-		$fauxSelect.addClass('nosformselect-disabled')
+	$('#select').nosFormSelect({
+		placeholder: 'Placeholder Text', 
+		onClick: function($el, $fauxSelect){
+			$el.prop('disabled', true);
+			$fauxSelect.addClass('nosformselect-disabled');
+		}
 	});
 
 	$('#select-alt').nosFormSelect({
