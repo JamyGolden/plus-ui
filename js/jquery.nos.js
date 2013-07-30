@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.3
+* jQuery NOs 0.5
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -176,23 +176,23 @@ jQuery.fn.extend({
 
 		var elAttrNames = {
 			typeDefault: {
-				'name'        : 'nosui-formselect--default',
+				'defaultClass': 'nosui-formselect--default',
 				'dataName'    : 'nosui-formselect-type-default'
 			},
 			typeCustom: {
-				'name'        : 'nosui-formselect--custom',
-				'dataName'    : 'nosui-formselect-type-custom',
-				'dataSelected': 'nosui-formselect-selected',
-				'list'        : 'nosui-formselect__list',
-				'item'        : 'nosui-formselect__item',
-				'activeItem'  : 'nosui-formselect__item--active'
+				'defaultClass'   : 'nosui-formselect--custom',
+				'dataName'       : 'nosui-formselect-type-custom',
+				'dataSelected'   : 'nosui-formselect-selected',
+				'listClass'      : 'nosui-formselect__list',
+				'itemClass'      : 'nosui-formselect__item',
+				'activeItemClass': 'nosui-formselect__item--active'
 			},
-			'el'              : 'nosui-formselect__element',
-			'className'       : 'nosui-formselect',
-			'active'          : 'nosui-formselect--active',
-			'disabled'        : 'nosui-formselect--disabled',
-			'placeholder'     : 'nosui-formselect__placeholder',
-			'dropdownButton'  : 'nosui-formselect__dropdown-button'
+			'elClass'            : 'nosui-formselect__element',
+			'fauxElClass'        : 'nosui-formselect',
+			'activeClass'        : 'nosui-formselect--active',
+			'disabledClass'      : 'nosui-formselect--disabled',
+			'dropdownButtonClass': 'nosui-formselect__dropdown-button',
+			'placeholderClass'   : 'nosui-formselect__placeholder'
 		};
 
 		return this.each(function(){
@@ -200,7 +200,7 @@ jQuery.fn.extend({
 			var $el = $(this),
 				$elOptions = $el.find('option');
 
-			$el.addClass(elAttrNames.el);
+			$el.addClass(elAttrNames.elClass);
 			// Remove custom styling
 			// Restore element back to original state
 			if(disableMethod === true && $el.data(elAttrNames.typeDefault.dataName)){
@@ -223,11 +223,11 @@ jQuery.fn.extend({
 
 				// Adding element physical properties
 				$el.data(elAttrNames.typeDefault.dataName, true)
-					.addClass(elAttrNames.el)
+					.addClass(elAttrNames.elClass)
 					.wrap(
 						$('<div />', {
-							'class': elAttrNames.className + ' ' + elAttrNames.typeDefault.name,
-							'id': $el.attr('id') ? elAttrNames.className + '-' + $el.attr('id') : ''
+							'class': elAttrNames.fauxElClass + ' ' + elAttrNames.typeDefault.defaultClass,
+							'id': $el.attr('id') ? elAttrNames.fauxElClass + '-' + $el.attr('id') : ''
 						})
 					);
 
@@ -239,20 +239,20 @@ jQuery.fn.extend({
 					placeholderText = $selectedOption.length ? $selectedOption.text() : $elOptions.first().text(),
 					// Adding select placeholder text
 					$placeholder = $('<div />', {
-						'class': elAttrNames.placeholder,
+						'class': elAttrNames.placeholderClass,
 						'text': placeholderText
 					}).prependTo( $fauxSelect );
 
 				// Applied for disabled styling if applied
-				NosUIApp.form.isDisabled($el, $fauxSelect, elAttrNames.disabled);
+				NosUIApp.form.isDisabled($el, $fauxSelect, elAttrNames.disabledClass);
 
 				// Events
 				$el.on({
 					click: function(e) {
 
 						// Applied for disabled styling if applied
-						NosUIApp.form.isDisabled($el, $fauxSelect, elAttrNames.disabled);
-						$fauxSelect.toggleClass( elAttrNames.active );
+						NosUIApp.form.isDisabled($el, $fauxSelect, elAttrNames.disabledClass);
+						$fauxSelect.toggleClass( elAttrNames.activeClass );
 
 						// Event Callback
 						if(typeof options.onClick === 'function') {
@@ -286,40 +286,40 @@ jQuery.fn.extend({
 				$el.data(elAttrNames.typeCustom.dataName, true);
 
 				function toggleDropdown($fauxSelect) {
-					$fauxSelect.toggleClass(elAttrNames.active).find( $list ).toggle();
+					$fauxSelect.toggleClass(elAttrNames.activeClass).find('.' + elAttrNames.typeCustom.listClass).toggle();
 				};
 
 				var $fauxSelect = $('<div />', {
-					'class': elAttrNames.className,
-					'id': $el.attr('id') ? elAttrNames.className + '-' + $el.attr('id') : ''
+					'class': elAttrNames.fauxElClass + ' ' + elAttrNames.typeCustom.defaultClass,
+					'id': $el.attr('id') ? elAttrNames.fauxElClass + '-' + $el.attr('id') : ''
 				});
 
 				// Check if is disabled
 				// If so add the necessary classes
-				NosUIApp.form.isDisabled($el, $fauxSelect, elAttrNames.disabled);
+				NosUIApp.form.isDisabled($el, $fauxSelect, elAttrNames.disabledClass);
 
 				$el.hide().before( $fauxSelect );
 
 				// Creating List
 				var $list = $('<div />', {
-						'class': elAttrNames.typeCustom.list
+						'class': elAttrNames.typeCustom.listClass
 					}).appendTo( $fauxSelect ).hide(),
 
 					$dropdownButton = $('<div />', {
-						'class': elAttrNames.dropdownButton
+						'class': elAttrNames.dropdownButtonClass
 					}).appendTo( $fauxSelect );
 
 				// For each option, create a fauxOption
 				$elOptions.each( function( i ) {
 					$('<div />', {
-						'class': i == 0 ? elAttrNames.typeCustom.activeItem + ' ' + elAttrNames.typeCustom.item : elAttrNames.typeCustom.item,
+						'class': i == 0 ? elAttrNames.typeCustom.activeItemClass + ' ' + elAttrNames.typeCustom.itemClass : elAttrNames.typeCustom.itemClass,
 						'text': $(this).text()
 					})
 						.data(elAttrNames.typeCustom.dataSelected, $(this).prop('selected'))
 						.appendTo( $list );
 				});
 
-				var $fauxOptions = $fauxSelect.find('.' + elAttrNames.typeCustom.item),
+				var $fauxOptions = $fauxSelect.find('.' + elAttrNames.typeCustom.itemClass),
 					$fauxSelectedOption = $fauxOptions.filter(function(){
 						return $(this).data(elAttrNames.typeCustom.dataSelected);
 					});
@@ -331,45 +331,47 @@ jQuery.fn.extend({
 
 				// Adding select placeholder text
 				var $placeholder = $('<div />', {
-					'class': elAttrNames.placeholder,
+					'class': elAttrNames.placeholderClass,
 					'text': options.placeholder ? options.placeholder : $fauxSelectedOption.text()
 				}).insertBefore( $list );
 
-				NosUIApp.form.isDisabled($el, $fauxSelect, elAttrNames.disabled);
+				NosUIApp.form.isDisabled($el, $fauxSelect, elAttrNames.disabledClass);
 
-				// Events
-				$fauxSelect.on('click', function(e) {
-					// Return if select is disabled
-					if(NosUIApp.form.isDisabled($el, $fauxSelect) === true) {
-						return;
-					};
+				// Faux select Events
+				$fauxSelect.on({
+					click: function(e) {
+						// Return if select is disabled
+						if(NosUIApp.form.isDisabled($el, $fauxSelect) === true) {
+							return;
+						};
 
-					toggleDropdown($fauxSelect);
+						toggleDropdown($fauxSelect);
+					}
 				});
 
-				// Click functionality for fauxOptions
-				$fauxOptions.on('click', function(e) {
+				// Click functionality for fauxOption elements
+				$fauxOptions.on({
+					click: function(e) {
+						// When clicking on an item, don't trigger
+						// the click on the $fauxSelect itself
+						e.stopPropagation();
 
-					// When clicking on an item, don't trigger
-					// the click on the $fauxSelect itself
-					e.stopPropagation();
+						var $this = $(this),
+							index = $this.index(),
+							text = $this.text();
 
-					var $this = $(this),
-						index = $this.index(),
-						text = $this.text();
+						$this.addClass(elAttrNames.activeClass).siblings().removeClass(elAttrNames.activeClass);
+						$placeholder.text(text);
 
-					$this.addClass(elAttrNames.active).siblings().removeClass(elAttrNames.active);
-					$placeholder.text(text);
+						// Change selected item on the select menu
+						$elOptions.prop('selected', false).eq(index).prop('selected', true);
 
-					// Change selected item on the select menu
-					$elOptions.prop('selected', false).eq(index).prop('selected', true);
+						if(typeof options.onClick === 'function') {
+							options.onClick($el, $fauxSelect);
+						};
 
-					if(typeof options.onClick === 'function') {
-						options.onClick($el, $fauxSelect);
-					};
-
-					toggleDropdown($fauxSelect);
-
+						toggleDropdown($fauxSelect);
+					}
 				}); // .select li.click
 
 			};
@@ -397,12 +399,18 @@ jQuery.fn.extend({
 
 			NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass);
 
+			// Force fauxEl to match the checked state of the 
+			// input on init
+			if($el.prop('checked')){
+				$fauxCheckbox.addClass(elAttrNames.checkedClass);
+			};
+
 			$fauxCheckbox.on({
 				click: function(){ 
 					var $this = $(this);
 
-					// Apply disabled styled if disabled
-					// returns false if disabled.
+					// This applies disabled styled if disabled
+					// returns false.
 					// If disabled stop running the function
 					if(NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass)){
 						return;
@@ -449,7 +457,18 @@ jQuery.fn.extend({
 					'class': elAttrNames.className
 				}).data(elAttrNames.dataName, elName).insertBefore( $el.hide() );
 
-			NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass);
+			// This applies disabled styled if disabled
+			// returns false.
+			// If disabled stop running the function
+			if(NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass)){
+				return;
+			};
+
+			// Force fauxEl to match the checked state of the 
+			// input on init
+			if($el.prop('checked')){
+				$fauxCheckbox.addClass(elAttrNames.checkedClass);
+			};
 
 			$fauxCheckbox.on({
 				click: function(){ 
