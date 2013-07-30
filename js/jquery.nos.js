@@ -335,29 +335,6 @@ jQuery.fn.extend({
 		}); // each
 
 	}, // nosFormSelect
-	nosAnalytics: function( ua, trackPageviewVal, eventTracker ){
-
-		var _gaq = _gaq || [];
-		_gaq.push(['_setAccount', ua]);
-		_gaq.push(['_trackPageview', trackPageviewVal]);
-
-		(function() {
-			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-		})();
-		
-		if (eventTracker == true ){
-
-			function gatrackevent(cat,action,label,value){try{pageTracker._trackEvent(cat,action,label,value);}catch(err){}}
-
-			if (typeof(eventTracker) == 'object' && eventTracker.selectVal == true){
-				function gatrackselectvalue(cat,action,selectname,value){try{var index=document.getElementById(selectname).selectedIndex;var text=document.getElementById(selectname).options[index].text;var finaltext=text;gatrackevent(cat,action,finaltext,value);}catch(err){}}
-			}
-
-		} // if trackCode
-
-	}, // nosAnalytics()
 	nosFormInputCheckbox: function(clickEvent){
 
 		return this.each(function(){
