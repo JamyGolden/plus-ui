@@ -304,6 +304,10 @@ jQuery.fn.extend({
 				$fauxCheckbox.removeClass('nosformcheckbox-disabled');
 			}
 
+			if($el.prop('checked')){
+				$fauxCheckbox.addClass('nosformcheckbox-checked');
+			}
+
 			$fauxCheckbox.click( function(){ 
 				var $this = $(this);
 
@@ -339,6 +343,10 @@ jQuery.fn.extend({
 				$fauxCheckbox.addClass('nosformradio-disabled');
 			} else {
 				$fauxCheckbox.removeClass('nosformradio-disabled');
+			}
+
+			if($el.prop('checked')){
+				$fauxCheckbox.addClass('nosformradio-checked');
 			}
 
 			$fauxCheckbox.click( function(){ 
