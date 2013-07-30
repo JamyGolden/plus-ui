@@ -110,8 +110,8 @@ jQuery.fn.extend({
 
 			var $el = $(this);
 
-			if(typeof options.text === 'string') {
-				val = options.text;
+			if(typeof options.placeholder === 'string') {
+				val = options.placeholder;
 			} else {
 				val =  $el.attr('placeholder');
 			}
@@ -122,7 +122,6 @@ jQuery.fn.extend({
 			if(typeof val !== 'string') {
 				return;
 			}
-
 
 			function focusInput(){
 				// Focus Callback
@@ -379,12 +378,12 @@ jQuery.fn.extend({
 		}); // each
 
 	}, // nosFormSelect
-	nosFormInputCheckbox: function(options){
+	nosFormInputCheckbox: function(options, disableMethod){
 
 		options = NosUIApp.defineOptions(options);
 
 		var elAttrNames = {
-			'className'    : 'nosui-formcheckbox',
+			'fauxElClass'  : 'nosui-formcheckbox',
 			'inputClass'   : 'nosui-forminput-text',
 			'disabledClass': 'nosui-formcheckbox--disabled',
 			'checkedClass' : 'nosui-formcheckbox--checked'
@@ -392,10 +391,22 @@ jQuery.fn.extend({
 
 		return this.each(function(){
 
-			var $el = $(this),
-				$fauxCheckbox = $('<div />', {
-					'class': elAttrNames.className + ' ' + elAttrNames.inputClass
+			var $el = $(this);
+
+			if(disableMethod === true){
+				// Changing the data on the element to 
+				// reflect that it has been disabled
+				$el.prev('.' + elAttrNames.fauxElClass).off() // Turn off fauxEl events
+					.remove(); // Remove fauxEl
+				$el.show(); // Show the element
+
+				return;
+			};
+
+			var $fauxCheckbox = $('<div />', {
+					'class': elAttrNames.fauxElClass + ' ' + elAttrNames.inputClass
 				}).insertBefore( $el.hide() );
+
 
 			NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass);
 
@@ -434,12 +445,12 @@ jQuery.fn.extend({
 		}); // this.each()
 
 	}, // nosFormCheckbox()
-	nosFormInputRadio: function(options){
+	nosFormInputRadio: function(options, disableMethod){
 
 		options = NosUIApp.defineOptions(options);
 
 		var elAttrNames = {
-			'className'    : 'nosui-formradio',
+			'fauxElClass'  : 'nosui-formradio',
 			'inputClass'   : 'nosui-forminput-text',
 			'disabledClass': 'nosui-formradio--disabled',
 			'checkedClass' : 'nosui-formradio--checked',
@@ -448,13 +459,24 @@ jQuery.fn.extend({
 
 		return this.each(function(){
 
-			var $el = $(this),
-				elName = $el.attr('name'),
+			var $el = $(this);
+
+			if(disableMethod === true){
+				// Changing the data on the element to 
+				// reflect that it has been disabled
+				$el.prev('.' + elAttrNames.fauxElClass).off() // Turn off fauxEl events
+					.remove(); // Remove fauxEl
+				$el.show(); // Show the element
+
+				return;
+			};
+
+			var elName = $el.attr('name'),
 				$elSiblings = $('input[type="radio"]').filter(function(){
 					return $(this).attr('name') == elName;
 				}).not($el),
 				$fauxCheckbox = $('<div />', {
-					'class': elAttrNames.className
+					'class': elAttrNames.fauxElClass
 				}).data(elAttrNames.dataName, elName).insertBefore( $el.hide() );
 
 			// This applies disabled styled if disabled
@@ -481,7 +503,7 @@ jQuery.fn.extend({
 					
 					var $this = $(this),
 						fauxDataName = $fauxCheckbox.data(elAttrNames.dataName),
-						$fauxSiblings = $('.' + elAttrNames.className).filter(function(){
+						$fauxSiblings = $('.' + elAttrNames.fauxElClass).filter(function(){
 							return $(this).data(elAttrNames.dataName) == fauxDataName ? true : false;
 						}).not($this);
 
@@ -502,22 +524,35 @@ jQuery.fn.extend({
 
 		options = NosUIApp.defineOptions(options);
 
+		var elAttrNames = {
+			'elClass'         : 'nosui-formfile__element',
+			'fauxElClass'     : 'nosui-formfile',
+			'disabledClass'   : 'nosui-formfile--disabled',
+			'placeholderClass': 'nosui-formfile__placeholder'
+		};
+
 		return this.each(function(){
 
-			var $el = $(this),
-				$fauxInputFile = $('<div />', {
-					'class': 'nosui-formfile'
+			var $el = $(this);
+			$el.addClass(elAttrNames.elClass);
+
+			var $fauxInputFile = $('<div />', {
+					'class': elAttrNames.fauxElClass
 				}),
 				$placeholder = $('<span />', {
-					'class': 'nosui-formfile__placeholder',
+					'class': elAttrNames.placeholderClass,
 					'text': options.placeholder ? options.placeholder : ''
 
 				});
 
+			NosUIApp.form.isDisabled($el, $fauxInputFile, elAttrNames.disabledClass);
+
 			$el.wrap( $fauxInputFile ).before( $placeholder );
 
-			$el.on('change', function(){
-				$placeholder.text( $el.val() );
+			$el.on({
+				change: function(){
+					$placeholder.text( $el.val() );
+				}
 			});
 
 
@@ -539,8 +574,8 @@ jQuery.fn.extend({
 					'class' : elAttrNames.container
 				}),
 				$tooltip = $('<div />', {
-					'class' : elAttrNames.className,
-					text    : tooltipText ? tooltipText : $el.data(elAttrNames.dataName)
+					'class': elAttrNames.className,
+					'text' : tooltipText ? tooltipText : $el.data(elAttrNames.dataName)
 				});
 
 			$el.wrap($container).after($tooltip);
