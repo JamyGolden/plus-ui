@@ -151,7 +151,10 @@ jQuery.fn.extend({
 
 			// Turn off functions
 			// Incase this is called twice
-			$el.off('focus.placeholder').off('blur.placeholder');
+			$el.off({
+				'focus.placeholder': focusInput,
+				'blur.placeholder': blurInput
+			});
 
 			// Disable this method
 			// Return here before the elements have the functionality 
@@ -161,7 +164,10 @@ jQuery.fn.extend({
 			};
 
 			// Turn on functions
-			$el.on('focus.placeholder', focusInput).on('blur.placeholder', blurInput);
+			$el.on({
+				'focus.placeholder': focusInput,
+				'blur.placeholder': blurInput
+			});
 		});
 
 	}, // nosPlaceholder()
@@ -170,23 +176,23 @@ jQuery.fn.extend({
 
 		var elAttrNames = {
 			typeDefault: {
-				'name': 'nosui-formselect--default',
-				'dataName': 'nosui-formselect-type-default'
+				'name'        : 'nosui-formselect--default',
+				'dataName'    : 'nosui-formselect-type-default'
 			},
 			typeCustom: {
-				'name': 'nosui-formselect--custom',
-				'dataName': 'nosui-formselect-type-custom',
+				'name'        : 'nosui-formselect--custom',
+				'dataName'    : 'nosui-formselect-type-custom',
 				'dataSelected': 'nosui-formselect-selected',
-				'list': 'nosui-formselect__list',
-				'item': 'nosui-formselect__item',
-				'activeItem': 'nosui-formselect__item--active'
+				'list'        : 'nosui-formselect__list',
+				'item'        : 'nosui-formselect__item',
+				'activeItem'  : 'nosui-formselect__item--active'
 			},
-			'el': 'nosui-formselect__element',
-			'className': 'nosui-formselect',
-			'active': 'nosui-formselect--active',
-			'disabled': 'nosui-formselect--disabled',
-			'placeholder': 'nosui-formselect__placeholder',
-			'dropdownButton': 'nosui-formselect__dropdown-button'
+			'el'              : 'nosui-formselect__element',
+			'className'       : 'nosui-formselect',
+			'active'          : 'nosui-formselect--active',
+			'disabled'        : 'nosui-formselect--disabled',
+			'placeholder'     : 'nosui-formselect__placeholder',
+			'dropdownButton'  : 'nosui-formselect__dropdown-button'
 		};
 
 		return this.each(function(){
@@ -376,97 +382,122 @@ jQuery.fn.extend({
 		options = NosUIApp.defineOptions(options);
 
 		var elAttrNames = {
-			'className': 'nosui-formcheckbox',
-			'inputClass': 'nosui-forminput-text',
+			'className'    : 'nosui-formcheckbox',
+			'inputClass'   : 'nosui-forminput-text',
 			'disabledClass': 'nosui-formcheckbox--disabled',
-			'checkedClass': 'nosui-formcheckbox--checked'
+			'checkedClass' : 'nosui-formcheckbox--checked'
 		};
 
 		return this.each(function(){
 
 			var $el = $(this),
 				$fauxCheckbox = $('<div />', {
-				'class': elAttrNames.className + ' ' + elAttrNames.inputClass
-			}).insertBefore( $el.hide() );
+					'class': elAttrNames.className + ' ' + elAttrNames.inputClass
+				}).insertBefore( $el.hide() );
 
 			NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass);
 
-			$fauxCheckbox.click( function(){ 
-				var $this = $(this);
+			$fauxCheckbox.on({
+				click: function(){ 
+					var $this = $(this);
 
-				NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass);
+					// Apply disabled styled if disabled
+					// returns false if disabled.
+					// If disabled stop running the function
+					if(NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass)){
+						return;
+					};
 
-				$this.toggleClass(elAttrNames.checkedClass);
+					$this.toggleClass(elAttrNames.checkedClass);
 
-				// Toggle Attribute
-				if($el.prop('checked')){
-					$el.prop('checked', false);
-				} else {
-					$el.prop('checked', true);
-				};
+					// Toggle Attribute
+					if($el.prop('checked')){
+						$el.prop('checked', false);
+					} else {
+						$el.prop('checked', true);
+					};
 
-				if(typeof options.onClick === 'function') {
-					options.onClick($el);
-				};
+					if(typeof options.onClick === 'function') {
+						options.onClick($el);
+					};
+				}
 			});
 			
 		}); // this.each()
 
 	}, // nosFormCheckbox()
-	nosFormInputRadio: function(clickEvent){
+	nosFormInputRadio: function(options){
+
+		options = NosUIApp.defineOptions(options);
+
+		var elAttrNames = {
+			'className'    : 'nosui-formradio',
+			'inputClass'   : 'nosui-forminput-text',
+			'disabledClass': 'nosui-formradio--disabled',
+			'checkedClass' : 'nosui-formradio--checked',
+			'dataName'     : 'nosui-formradio-name'
+		};
 
 		return this.each(function(){
 
 			var $el = $(this),
+				elName = $el.attr('name'),
+				$elSiblings = $('input[type="radio"]').filter(function(){
+					return $(this).attr('name') == elName;
+				}).not($el),
 				$fauxCheckbox = $('<div />', {
-				'class': 'nosformradio nosforminput'
-			}).insertBefore( $el.hide() );
+					'class': elAttrNames.className
+				}).data(elAttrNames.dataName, elName).insertBefore( $el.hide() );
 
-			if(typeof $el.attr('disabled') !== 'undefined'){
-				$fauxCheckbox.addClass('nosformradio-disabled');
-			} else {
-				$fauxCheckbox.removeClass('nosformradio-disabled');
-			}
+			NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass);
 
-			$fauxCheckbox.click( function(){ 
-				var $this = $(this);
+			$fauxCheckbox.on({
+				click: function(){ 
+					// Apply disabled styled if disabled
+					// returns false if disabled.
+					// If disabled stop running the function
+					if(NosUIApp.form.isDisabled($el, $fauxCheckbox, elAttrNames.disabledClass)){
+						return;
+					};
+					
+					var $this = $(this),
+						fauxDataName = $fauxCheckbox.data(elAttrNames.dataName),
+						$fauxSiblings = $('.' + elAttrNames.className).filter(function(){
+							return $(this).data(elAttrNames.dataName) == fauxDataName ? true : false;
+						}).not($this);
 
-				if(typeof $el.attr('disabled') !== 'undefined'){
-					$fauxCheckbox.addClass('nosformradio-disabled');
-					return;
-				} else {
-					$fauxCheckbox.removeClass('nosformradio-disabled');
+					$this.addClass(elAttrNames.checkedClass);
+					$fauxSiblings.removeClass(elAttrNames.checkedClass);
+					$el.prop('checked', true);
+					$elSiblings.prop('checked', false);
+
+					if(typeof options.onClick === 'function') {
+						options.onClick($el);
+					};
 				}
-
-				$this.addClass('nosformradio-checked').siblings('.nosformradio').removeClass('nosformradio-checked');
-				$el.prop('checked', 'checked').siblings('input[name="' + $el.attr('name') + '"]').removeAttr('checked');
-
-				if(typeof clickEvent === 'function') {
-					clickEvent($el);
-				};
-
 			});
-		
 		});
 
 	}, // nosFormRadio()
-	nosFormInputFile: function( placeholderText ){
+	nosFormInputFile: function( options, disableMethod ){
+
+		options = NosUIApp.defineOptions(options);
 
 		return this.each(function(){
 
 			var $el = $(this),
 				$fauxInputFile = $('<div />', {
-					'class': 'nosformfile nosforminput'
+					'class': 'nosui-formfile'
 				}),
 				$placeholder = $('<span />', {
-					'class': 'nosformfile-placeholder',
-					text: placeholderText
+					'class': 'nosui-formfile__placeholder',
+					'text': options.placeholder ? options.placeholder : ''
 
 				});
 
 			$el.wrap( $fauxInputFile ).before( $placeholder );
 
-			$el.change(function(){
+			$el.on('change', function(){
 				$placeholder.text( $el.val() );
 			});
 
@@ -479,18 +510,18 @@ jQuery.fn.extend({
 		var elAttrNames = {
 			'className': 'nosui-tooltip',
 			'container': 'nosui-tooltip-container',
-			'dataName': 'nostooltip'
+			'dataName': 'nosui-tooltip'
 		};
 
 		return this.each(function(){
 
 			var $el = $(this),
 				$container = $('<div />', {
-					'class'	: elAttrNames.container
+					'class' : elAttrNames.container
 				}),
 				$tooltip = $('<div />', {
-					'class'	: elAttrNames.className,
-					text 	: tooltipText ? tooltipText : $el.data(elAttrNames.dataName)
+					'class' : elAttrNames.className,
+					text    : tooltipText ? tooltipText : $el.data(elAttrNames.dataName)
 				});
 
 			$el.wrap($container).after($tooltip);

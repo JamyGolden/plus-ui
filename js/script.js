@@ -10,17 +10,20 @@ $(document).ready(function() {
 		//console.log(base.data().test);
 	});
 
-	if ( !Modernizr.input.placeholder ) {
-		$('#placeholder').nosFormInputPlaceholder();
-	};
+	// Use something like modernizr to check 
+	// if placeholder is supported natively
+	// before running this
+	$('#placeholder').nosFormInputPlaceholder();
 
-	$('#inputfile').nosFormInputFile('Random Placeholder Text');
+	$('#inputfile').nosFormInputFile({
+		placeholder: 'Random Placeholder Text'
+	});
 
 	$('#select').nosFormSelect({
 		placeholder: 'Placeholder Text', 
 		onClick: function($el, $fauxSelect){
 			$el.prop('disabled', true);
-			$fauxSelect.addClass('nosformselect-disabled');
+			$fauxSelect.addClass('nosui-formselect--disabled');
 		}
 	});
 
@@ -48,6 +51,6 @@ $(document).ready(function() {
 		$('div').next('input, select').toggle();
 	});
 
-	$('#tooltip, #testlol').nosTooltip();
+	$('#tooltip').nosTooltip();
 
 }); // document.ready()

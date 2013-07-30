@@ -37,12 +37,12 @@ h2 { border-bottom: 2px solid #f1f1f1; margin: 40px 0 20px; }
 
 	/* NosFormRadio */
 	.nosui-formradio { background: red; height: 10px; margin-bottom: 5px; width: 10px; }
-	.nosui-formradio-checked { background: green; }
-	.nosui-formradio-disabled { background: #999; }
+	.nosui-formradio--checked { background: green; }
+	.nosui-formradio--disabled { background: #999; }
 
 	/* NosFormFile */
 	.nosui-formfile { background: salmon; width: 200px; position: relative; }
-		.nosui-formfile-placeholder { position: absolute; left: 0; top: 0; }
+		.nosui-formfile__placeholder { position: absolute; left: 0; top: 0; }
 		.nosui-formfile input { cursor: default !important; opacity: 0; filter: alpha(opacity=0); }
 
 	/* NosTooltip */
