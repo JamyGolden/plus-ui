@@ -16,9 +16,18 @@ $(document).ready(function() {
 
 	$('#inputfile').nosFormInputFile('Random Placeholder Text');
 
-	$('#select').nosFormSelect('Placeholder Text');
+	$('#select').nosFormSelect('Placeholder Text', false, function($el, $fauxSelect){
+		$el.prop('disabled', true)
+		$fauxSelect.addClass('nosformselect-disabled')
+	});
 
-	$('#select-alt').nosFormSelect('Placeholder Text', true);
+	$('#select-alt').nosFormSelect({
+		placeholder: 'Placeholder Text',
+		defaultDropdown: true, 
+		onClick: function($el, $fauxSelect){
+			// console.log($el, $fauxSelect, $el.val())
+		}
+	});
 
 	$('#checkbox-form').find('input[type="checkbox"]').nosFormInputCheckbox(function(){
 		alert('clicked');
