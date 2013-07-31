@@ -28,81 +28,6 @@ window.NosUIApp = {
 
 jQuery.fn.extend({
 
-	nosTabs: function( dynamicNav, callback ) {
-
-		return this.each( function() {
-
-			// Define variables
-			var $el = $(this),
-				$contentChildren = $el.find('.nostabs-content').children();
-
-			$contentChildren.hide().eq( 0 ).show();
-
-			// Dynamically create the tabs
-			if ( dynamicNav == true ) {
-
-				var $nosTabsNav = $('<ul />', {
-					'class': 'nostabs-nav'
-				}).prependTo( $el );
-
-				$contentChildren.each ( function (i) {
-
-					$('<li />', {
-						'class'	: i == 0 ? 'is-active' : '', // First tab is active
-						'text'	: $(this).attr('data-nostabs-title')
-					}).appendTo( $nosTabsNav );
-					
-				});
-			} // End Dynamic Nav
-
-			var $nosTabsNav = $el.find('.nostabs-nav'),
-				$nosTabsNavItems = $nosTabsNav.find('li');
-
-			$nosTabsNavItems.click(function() {
-
-				var $this = $(this),
-					index = $this.index();
-
-				$this.addClass('is-active').siblings().removeClass('is-active');
-				$contentChildren.eq( index ).show().siblings().hide();
-
-			});
-
-			if ( typeof( callback ) == 'function' ) callback( $el );
-			
-		}); // this.each()
-
-	}, // nosTabs()
-	nosAccordion: function( callback ) {
-
-		return this.each(function(){
-
-			var $el = $(this),
-				$nosChildren = $el.children();
-
-				$el.data().test = 'test nosAccordion';
-
-			for ( var i = 0; i < $nosChildren.length; i++ ) {
-				$nosChildren.eq();
-			}
-
-			var $nosTitle = $el.find('.plusaccordion-heading'),
-				$nosContent = $el.children().not('.plusaccordion-heading');
-
-			$nosContent.hide();
-			$nosTitle.click(function() {
-
-				var $this = $(this);
-
-				$this.next().slideToggle();
-
-			});
-
-			if ( typeof( callback ) == 'function' ) callback( $el );
-			
-		}); this.each()
-
-	}, // nosAccordion()
 	nosFormInputPlaceholder: function( options, disableMethod ) {
 		options = NosUIApp.defineOptions(options);
 
@@ -175,23 +100,23 @@ jQuery.fn.extend({
 
 		var elAttrNames = {
 			typeDefault: {
-				'defaultClass': 'nosui-formselect--default',
-				'dataName'    : 'nosui-formselect-type-default'
+				'defaultClass': 'nosui-form-select--default',
+				'dataName'    : 'nosui-form-select-type-default'
 			},
 			typeCustom: {
-				'defaultClass'   : 'nosui-formselect--custom',
-				'dataName'       : 'nosui-formselect-type-custom',
-				'dataSelected'   : 'nosui-formselect-selected',
-				'listClass'      : 'nosui-formselect__list',
-				'itemClass'      : 'nosui-formselect__item',
-				'activeItemClass': 'nosui-formselect__item--active'
+				'defaultClass'   : 'nosui-form-select--custom',
+				'dataName'       : 'nosui-form-select-type-custom',
+				'dataSelected'   : 'nosui-form-select-selected',
+				'listClass'      : 'nosui-form-select__list',
+				'itemClass'      : 'nosui-form-select__item',
+				'activeItemClass': 'nosui-form-select__item--active'
 			},
-			'elClass'            : 'nosui-formselect__element',
-			'fauxElClass'        : 'nosui-formselect',
-			'activeClass'        : 'nosui-formselect--active',
-			'disabledClass'      : 'nosui-formselect--disabled',
-			'dropdownButtonClass': 'nosui-formselect__dropdown-button',
-			'placeholderClass'   : 'nosui-formselect__placeholder'
+			'elClass'            : 'nosui-form-select__element',
+			'fauxElClass'        : 'nosui-form-select',
+			'activeClass'        : 'nosui-form-select--active',
+			'disabledClass'      : 'nosui-form-select--disabled',
+			'dropdownButtonClass': 'nosui-form-select__dropdown-button',
+			'placeholderClass'   : 'nosui-form-select__placeholder'
 		};
 
 		return this.each(function(){
@@ -379,14 +304,13 @@ jQuery.fn.extend({
 
 	}, // nosFormSelect
 	nosFormInputCheckbox: function(options, disableMethod){
-
 		options = NosUIApp.defineOptions(options);
 
 		var elAttrNames = {
-			'fauxElClass'  : 'nosui-formcheckbox',
-			'inputClass'   : 'nosui-forminput-text',
-			'disabledClass': 'nosui-formcheckbox--disabled',
-			'checkedClass' : 'nosui-formcheckbox--checked'
+			'fauxElClass'  : 'nosui-form-checkbox',
+			'inputClass'   : 'nosui-form-input-text',
+			'disabledClass': 'nosui-form-checkbox--disabled',
+			'checkedClass' : 'nosui-form-checkbox--checked'
 		};
 
 		return this.each(function(){
@@ -446,15 +370,14 @@ jQuery.fn.extend({
 
 	}, // nosFormCheckbox()
 	nosFormInputRadio: function(options, disableMethod){
-
 		options = NosUIApp.defineOptions(options);
 
 		var elAttrNames = {
-			'fauxElClass'  : 'nosui-formradio',
-			'inputClass'   : 'nosui-forminput-text',
-			'disabledClass': 'nosui-formradio--disabled',
-			'checkedClass' : 'nosui-formradio--checked',
-			'dataName'     : 'nosui-formradio-name'
+			'fauxElClass'  : 'nosui-form-radio',
+			'inputClass'   : 'nosui-form-input-text',
+			'disabledClass': 'nosui-form-radio--disabled',
+			'checkedClass' : 'nosui-form-radio--checked',
+			'dataName'     : 'nosui-form-radio-name'
 		};
 
 		return this.each(function(){
@@ -521,14 +444,13 @@ jQuery.fn.extend({
 
 	}, // nosFormRadio()
 	nosFormInputFile: function( options, disableMethod ){
-
 		options = NosUIApp.defineOptions(options);
 
 		var elAttrNames = {
-			'elClass'         : 'nosui-formfile__element',
-			'fauxElClass'     : 'nosui-formfile',
-			'disabledClass'   : 'nosui-formfile--disabled',
-			'placeholderClass': 'nosui-formfile__placeholder'
+			'elClass'         : 'nosui-form-file__element',
+			'fauxElClass'     : 'nosui-form-file',
+			'disabledClass'   : 'nosui-form-file--disabled',
+			'placeholderClass': 'nosui-form-file__placeholder'
 		};
 
 		return this.each(function(){
@@ -559,11 +481,12 @@ jQuery.fn.extend({
 		}); // return this.each
 
 	}, // nosFormRadio()
-	nosTooltip: function( tooltipText ){
+	nosTooltip: function( options ){
+		options = NosUIApp.defineOptions(options);
 
 		var elAttrNames = {
-			'className': 'nosui-tooltip',
-			'container': 'nosui-tooltip-container',
+			'popup': 'nosui-tooltip__popup',
+			'container': 'nosui-tooltip',
 			'dataName': 'nosui-tooltip'
 		};
 
@@ -574,8 +497,8 @@ jQuery.fn.extend({
 					'class' : elAttrNames.container
 				}),
 				$tooltip = $('<div />', {
-					'class': elAttrNames.className,
-					'text' : tooltipText ? tooltipText : $el.data(elAttrNames.dataName)
+					'class': elAttrNames.popup,
+					'text' : options.text ? options.text : $el.data(elAttrNames.dataName)
 				});
 
 			$el.wrap($container).after($tooltip);
