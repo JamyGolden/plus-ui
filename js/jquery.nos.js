@@ -484,7 +484,6 @@ $.fn.extend({
 				$placeholder = $('<span />', {
 					'class': options.elAttrNames.placeholderClass,
 					'text': options.placeholder ? options.placeholder : ''
-
 				});
 
 			NosUIApp.form.isDisabled($el, $fauxInputFile, options.elAttrNames.disabledClass);

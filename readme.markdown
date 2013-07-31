@@ -1,10 +1,9 @@
 # nosFramework
 
 ## nosPlaceholder
-	This adds HTML5 placeholder support for input elements
-	$( el ).nosPlaceholder({
-		placeholder: 'Placeholder text here'
-	});
+This is an HTML5 placeholder polyfill for input elements.
+
+	$( el ).nosPlaceholder();
 or
 	$( el ).nosPlaceholder(); // el must have HTML5 placeholder attribute - this will be used as the val
 
