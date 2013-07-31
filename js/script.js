@@ -1,29 +1,17 @@
 $(document).ready(function() {
-
-	$('.nostabs').nosTabs(function(base) {
-		//console.log(base.data().test);
-	});
-
-	$('.nostabs2').nosTabs(true);
-
-	$('.plusaccordion').nosAccordion(function(base) {
-		//console.log(base.data().test);
-	});
-
 	// Use something like modernizr to check 
 	// if placeholder is supported natively
 	// before running this
 	$('#placeholder').nosFormInputPlaceholder();
 
 	$('#inputfile').nosFormInputFile({
-		placeholder: 'Random Placeholder Text'
+		placeholder: 'Placeholder Text'
 	});
 
 	$('#select').nosFormSelect({
 		placeholder: 'Placeholder Text', 
-		onClick: function($el, $fauxSelect){
-			$el.prop('disabled', true);
-			$fauxSelect.addClass('nosui-formselect--disabled');
+		onFocus: function($el, $fauxSelect){
+			// click events here
 		}
 	});
 
@@ -35,15 +23,9 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#checkbox-form').find('input[type="checkbox"]').nosFormInputCheckbox(function(){
-		alert('clicked');
-	});
+	$('input[type="checkbox"]').nosFormInputCheckbox();
 
-	$('#checkbox-form2').find('input[type="checkbox"]').nosFormInputCheckbox();
-
-	$('#radio-form').find('input[type="radio"]').nosFormInputRadio(function(){
-		alert('clicked');
-	});
+	$('input[type="radio"]').nosFormInputRadio();
 
 	$('#toggle-form-elements').click(function(e){
 		e.preventDefault();
@@ -51,6 +33,9 @@ $(document).ready(function() {
 		$('div').next('input, select').toggle();
 	});
 
-	$('#tooltip').nosTooltip();
-
+	$('#tooltip').nosTooltip({
+		elAttrNames: {
+			popup: 'lol'
+		}
+	});
 }); // document.ready()
