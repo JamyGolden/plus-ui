@@ -223,10 +223,18 @@ jQuery.fn.extend({
 					}).appendTo( $fauxSelect.find('ul') );
 				});
 
+				var $fauxSelectedOption = $list.children().filter(function(){
+						return $(this).index() == $el.children(':selected').index();
+					});
+
+				if(!$fauxSelectedOption.length){
+					$fauxSelectedOption = $fauxSelect.find('li').eq(0)
+				}
+
 				// Adding select placeholder text
 				var $placeholder = $('<span />', {
 					'class': 'nosformselect-selected',
-					text: placeholder ? placeholder : $fauxSelect.find('li').eq(0).text()
+					text: placeholder ? placeholder : $fauxSelectedOption.text()
 				}).insertBefore( $list );
 
 				isDisabled($el, $fauxSelect);
