@@ -6,10 +6,22 @@
 (function( $, undefined ) {
 
 window.NosUIApp = {
-	defineOptions: function(options){
-		if(typeof options !== 'object'){
+	defineOptions: function(defaults, options){
+		// both don't exist
+		if(typeof options !== 'object' && typeof defaults !== 'object'){
 			return {};
-		} else {
+
+		// both exist
+		} else if(typeof options === 'object' && typeof defaults === 'object'){
+			$.extend(true, defaults, options);
+			return defaults;
+
+		// if options doesn't exist
+		} else if(typeof options !== 'object'){
+			return defaults;
+
+		// If defaults doesn't exist - should cover everything
+		} else if(typeof defaults !== 'object'){ 
 			return options;
 		}
 	},
@@ -26,7 +38,7 @@ window.NosUIApp = {
 	}
 };
 
-jQuery.fn.extend({
+$.fn.extend({
 
 	nosFormInputPlaceholder: function( options, disableMethod ) {
 		options = NosUIApp.defineOptions(options);
@@ -444,30 +456,32 @@ jQuery.fn.extend({
 
 	}, // nosFormRadio()
 	nosFormInputFile: function( options, disableMethod ){
-		options = NosUIApp.defineOptions(options);
 
-		var elAttrNames = {
-			'elClass'         : 'nosui-form-file__element',
-			'fauxElClass'     : 'nosui-form-file',
-			'disabledClass'   : 'nosui-form-file--disabled',
-			'placeholderClass': 'nosui-form-file__placeholder'
+		var defaults = {
+			elAttrNames: {
+				'elClass'         : 'nosui-form-file__element',
+				'fauxElClass'     : 'nosui-form-file',
+				'disabledClass'   : 'nosui-form-file--disabled',
+				'placeholderClass': 'nosui-form-file__placeholder'
+			}
 		};
+		options = NosUIApp.defineOptions(defaults, options);
 
 		return this.each(function(){
 
 			var $el = $(this);
-			$el.addClass(elAttrNames.elClass);
+			$el.addClass(options.elAttrNames.elClass);
 
 			var $fauxInputFile = $('<div />', {
-					'class': elAttrNames.fauxElClass
+					'class': options.elAttrNames.fauxElClass
 				}),
 				$placeholder = $('<span />', {
-					'class': elAttrNames.placeholderClass,
+					'class': options.elAttrNames.placeholderClass,
 					'text': options.placeholder ? options.placeholder : ''
 
 				});
 
-			NosUIApp.form.isDisabled($el, $fauxInputFile, elAttrNames.disabledClass);
+			NosUIApp.form.isDisabled($el, $fauxInputFile, options.elAttrNames.disabledClass);
 
 			$el.wrap( $fauxInputFile ).before( $placeholder );
 
@@ -482,23 +496,24 @@ jQuery.fn.extend({
 
 	}, // nosFormRadio()
 	nosTooltip: function( options ){
-		options = NosUIApp.defineOptions(options);
 
-		var elAttrNames = {
-			'popup': 'nosui-tooltip__popup',
-			'container': 'nosui-tooltip',
-			'dataName': 'nosui-tooltip'
+		var defaults = {
+			elAttrNames: {
+				popup: 'nosui-tooltip__popup',
+				'container': 'nosui-tooltip',
+				'dataName': 'nosui-tooltip'
+			}
 		};
+		options = NosUIApp.defineOptions(defaults, options);
 
 		return this.each(function(){
-
 			var $el = $(this),
 				$container = $('<div />', {
-					'class' : elAttrNames.container
+					'class' : options.elAttrNames.container
 				}),
 				$tooltip = $('<div />', {
-					'class': elAttrNames.popup,
-					'text' : options.text ? options.text : $el.data(elAttrNames.dataName)
+					'class': options.elAttrNames.popup,
+					'text' : options.text ? options.text : $el.data(options.elAttrNames.dataName)
 				});
 
 			$el.wrap($container).after($tooltip);
