@@ -8,50 +8,6 @@
 </head>
 <body>
 
-<h2>#1 NosTabs - Default</h2>
-<p>These function as tabs. Click on article 1, 2 or 3 to change the content.</p>
-<div class="nostabs">
-	<nav class="nostabs-nav">
-		<ul>
-			<li>Article 1</li>
-			<li>Article 2</li>
-			<li>Article 3</li>
-		</ul>
-	</nav> <!-- .plustabs-nav -->
-	<div class="nostabs-content">
-		<div>Article 1's content</div>
-		<div>This content belongs to article 2</div>
-		<div>Lorem ipsum article 3</div>
-	</div> <!-- .plustabs-content -->
-</div> <!-- .plustabs -->
-
-<h2>#2 NosTabs - Dynamic Nav</h2>
-<div class="nostabs2">
-	<div class="nostabs-content">
-		<div data-nostabs-title="Article 1">Article 1's content</div>
-		<div data-nostabs-title="Article 2">This content belongs to article 2</div>
-		<div data-nostabs-title="Article 3">Lorem ipsum article 3</div>
-	</div> <!-- .plustabs-content -->
-</div> <!-- .plustabs -->
-<h2>#3 NosAccordion</h2>
-<div class="plusaccordion">
-	<h3 class="plusaccordion-heading">First accordion</h3>
-	<div>
-		Content goes here
-	</div>
-	<h3 class="plusaccordion-heading">Second accordion</h3>
-	<div>
-		Content goes here
-	</div>
-	<h3 class="plusaccordion-heading">Third accordion</h3>
-	<div>
-		Content goes here
-	</div>
-</div>
-<br />
-<br />
-<br />
-<br />
 <h1>Nos Form Elements - <a id="toggle-form-elements" href="#">Toggle form elements</a></h1>
 <p><strong>Note</strong>: If you do toggle the form elements, the original elements will reflect the actions applied to the faux elements, but not the other way around since the original elements would be hidden in production. This is just for illustration purposes</p>
 <h2>#4.1 NosFormPlaceholder</h2>
@@ -63,53 +19,41 @@
 
 <h2>#5 NosFormSelect</h2>
 <select id="select">
-    <option value="south africa">South Africa</option>
-    <option value="america" selected>America</option>
-    <option value="england">England</option>
+	<option value="south africa">South Africa</option>
+	<option value="america">America</option>
+	<option value="england">England</option>
 </select>
 <br />
 <h2>#6 NosFormSelectDefault</h2>
 <select id="select-alt">
-    <option value="south africa">South Africa</option>
-    <option value="america">America</option>
-    <option value="england">England</option>
+	<option value="south africa">South Africa</option>
+	<option value="america">America</option>
+	<option value="england">England</option>
 </select>
 
-<h2>#7 NosFormSelect - No javascript</h2>
-<h3>There are things to take into consideration when using this option - This option is just an idea at this point</h3>
-<form id="select-no-js">
-    <select>
-        <option>Freestate</option>
-        <option>Western Cape</option>
-        <option>Limpopo</option>
-        <option>Gauteng</option>
-    </select>
-    <span class="button"></span>
-</form>
-
-<h2 id="testlol" data-nostooltip="NOSTOOLTIP YES">#8 NosFormCheckbox</h2>
+<h2>#8 NosFormCheckbox</h2>
 <form id="checkbox-form">
 	<input name="checkbox1" type="checkbox" />
-	<input name="checkbox1" type="checkbox" />
+	<input name="checkbox1" type="checkbox" checked />
 	<input name="checkbox1" type="checkbox" />
 </form>
 
 <h2 id="checkbox-2">#8.1 NosFormCheckbox - disabled</h2>
 <form id="checkbox-form2">
-	<input name="checkbox2" type="checkbox" disabled />
+	<input name="checkbox2" type="checkbox" checked disabled />
 	<input name="checkbox2" type="checkbox" disabled />
 	<input name="checkbox2" type="checkbox" disabled />
 </form>
 
 <h2>#9 nosFormRadio</h2>
 <form id="radio-form">
-	<input name="radio1" type="radio" />
-	<input name="radio1" type="radio" />
-	<input name="radio1" type="radio" />
+	<div><input name="radio1" type="radio" /></div>
+	<div><input name="radio1" type="radio" /></div>
+	<div><input name="radio1" type="radio" /></div>
 </form>
 
 <h2>#10 nosTooltip</h2>
-<a id="tooltip" href="#" data-nostooltip="Example">test</a>
+<a id="tooltip" href="#" data-nosui-tooltip="Example">test</a>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script src="js/jquery.nos.js"></script>
 <script src="js/script.js"></script>
