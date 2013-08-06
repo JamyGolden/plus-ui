@@ -420,17 +420,17 @@ $.fn.extend({
 					'class': options.elAttrNames.fauxElClass
 				}).data(options.elAttrNames.dataName, elName).insertBefore( $el.hide() );
 
+			// Force fauxEl to match the checked state of the 
+			// input on init
+			if($el.prop('checked')){
+				$fauxCheckbox.addClass(options.elAttrNames.checkedClass);
+			};
+
 			// This applies disabled styled if disabled
 			// returns false.
 			// If disabled stop running the function
 			if(NosUIApp.form.isDisabled($el, $fauxCheckbox, options.elAttrNames.disabledClass)){
 				return;
-			};
-
-			// Force fauxEl to match the checked state of the 
-			// input on init
-			if($el.prop('checked')){
-				$fauxCheckbox.addClass(options.elAttrNames.checkedClass);
 			};
 
 			$fauxCheckbox.on({
