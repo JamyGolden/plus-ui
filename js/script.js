@@ -33,5 +33,5 @@ $(document).ready(function() {
 		$('div').next('input, select').toggle();
 	});
 
-	$('#tooltip').nosTooltip();
+	$('.tooltip').nosTooltip();
 }); // document.ready()
