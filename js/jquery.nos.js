@@ -41,6 +41,10 @@ window.NosUIApp = {
 $.fn.extend({
 
 	nosFormInputPlaceholder: function( options, disableMethod ) {
+
+		var defaults = {
+			placeholder: null
+		};
 		options = NosUIApp.defineOptions(options);
 
 		return this.each(function(){
@@ -129,7 +133,11 @@ $.fn.extend({
 				'disabledClass'      : 'nosui-form-select--disabled',
 				'dropdownButtonClass': 'nosui-form-select__dropdown-button',
 				'placeholderClass'   : 'nosui-form-select__placeholder'
-			}
+			},
+			placeholer: null,
+			onClick: null,
+			onChange: null,
+			onBlur: null
 		};
 		options = NosUIApp.defineOptions(defaults, options);
 
@@ -325,7 +333,8 @@ $.fn.extend({
 				'inputClass'   : 'nosui-form-input-text',
 				'disabledClass': 'nosui-form-checkbox--disabled',
 				'checkedClass' : 'nosui-form-checkbox--checked'
-			}
+			},
+			onClick: null
 		};
 		options = NosUIApp.defineOptions(defaults, options);
 
@@ -377,7 +386,7 @@ $.fn.extend({
 					};
 
 					if(typeof options.onClick === 'function') {
-						options.onClick($el);
+						options.onClick($el, $fauxCheckbox);
 					};
 				}
 			});
@@ -394,8 +403,9 @@ $.fn.extend({
 				'disabledClass': 'nosui-form-radio--disabled',
 				'checkedClass' : 'nosui-form-radio--checked',
 				'dataName'     : 'nosui-form-radio-name'
-			}
-		}
+			},
+			onClick: null,
+		};
 		options = NosUIApp.defineOptions(defaults, options);
 
 		return this.each(function(){
@@ -454,7 +464,7 @@ $.fn.extend({
 					$elSiblings.prop('checked', false);
 
 					if(typeof options.onClick === 'function') {
-						options.onClick($el);
+						options.onClick($el, $fauxCheckbox);
 					};
 				}
 			});
@@ -469,7 +479,9 @@ $.fn.extend({
 				'fauxElClass'     : 'nosui-form-file',
 				'disabledClass'   : 'nosui-form-file--disabled',
 				'placeholderClass': 'nosui-form-file__placeholder'
-			}
+			},
+			placeholder: null,
+			onChange: null
 		};
 		options = NosUIApp.defineOptions(defaults, options);
 
@@ -493,6 +505,10 @@ $.fn.extend({
 			$el.on({
 				change: function(){
 					$placeholder.text( $el.val() );
+
+					if(typeof options.onChange === 'function') {
+						options.onChange($el, $fauxInputFile);
+					};
 				}
 			});
 
