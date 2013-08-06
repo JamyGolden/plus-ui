@@ -8,19 +8,10 @@ $(document).ready(function() {
 		placeholder: 'Placeholder Text'
 	});
 
-	$('#select').nosFormSelect({
-		placeholder: 'Placeholder Text', 
-		onFocus: function($el, $fauxSelect){
-			// click events here
-		}
-	});
+	$('#select').nosFormSelect();
 
 	$('#select-alt').nosFormSelect({
-		placeholder: 'Placeholder Text',
-		defaultDropdown: true, 
-		onClick: function($el, $fauxSelect){
-			// console.log($el, $fauxSelect, $el.val())
-		}
+		defaultDropdown: true
 	});
 
 	$('input[type="checkbox"]').nosFormInputCheckbox();
