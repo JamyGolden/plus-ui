@@ -2,9 +2,9 @@ $(document).ready(function() {
 	// Use something like modernizr to check 
 	// if placeholder is supported natively
 	// before running this
-	$('#placeholder').nosFormInputPlaceholder();
+	$('#placeholder').nosInputPlaceholder();
 
-	$('#inputfile').nosFormInputFile({
+	$('#inputfile').nosInputFile({
 		placeholder: 'Placeholder Text'
 	});
 
@@ -14,9 +14,9 @@ $(document).ready(function() {
 		defaultDropdown: true
 	});
 
-	$('input[type="checkbox"]').nosFormInputCheckbox();
+	$('input[type="checkbox"]').nosInputCheckbox();
 
-	$('input[type="radio"]').nosFormInputRadio();
+	$('input[type="radio"]').nosInputRadio();
 
 	$('#toggle-form-elements').click(function(e){
 		e.preventDefault();

@@ -5,18 +5,18 @@ NOS UI is a library designed to help developers implement designs elements and f
 The form functionality
 
 # Table of Contents
-* [nosPlaceholder](#nosPlaceholder)
+* [nosmInputPlaceholder](#nosInputPlaceholder)
 * [nosFormSelect](#nosFormSelect)
-* [nosFormInputCheckbox](#nosFormInputCheckbox)
-* [nosFormInputRadio](#nosFormInputRadio)
-* [nosFormInputFile](#nosFormInputFile)
+* [nosmInputCheckbox](#nosInputCheckbox)
+* [nosmInputRadio](#nosInputRadio)
+* [nosInputFile](#nosInputFile)
 * [nosTooltip](#nosTooltip)
 
-## <a id="nosPlaceholder"></a> nosPlaceholder
+## <a id="nosInputPlaceholder"></a> nosInputPlaceholder
 This is an HTML5 placeholder polyfill for input elements.
 
 ### Defualt options:
-	$( el ).nosPlaceholder({
+	$( el ).nosInputPlaceholder({
 		placeholder: null
 	});
 
@@ -26,7 +26,7 @@ If the `placeholder` property is null or left out the placeholder value will def
 	<input type="text" placeholder="Name">
 
 #### JS
-	$(input[placeholder]).nosPlaceholder();
+	$(input[placeholder]).nosInputPlaceholder();
 
 ### Note
 Remember to do some feature detection for `placeholder` support with something like [Modernizr](https://github.com/Modernizr/Modernizr).
@@ -65,9 +65,9 @@ asdasd sa dsa dsa
 ### Typical usage
 	$('select').nosFormSelect();
 
-## <a id="nosFormInputCheckbox"></a> nosFormInputCheckbox
+## <a id="nosInputCheckbox"></a> nosInputCheckbox
 ### Defualt options:
-	$(el).nosFormInputCheckbox({
+	$(el).nosInputCheckbox({
 		elAttrNames: {
 			'fauxElClass'  : 'nosui-form-checkbox',
 			'inputClass'   : 'nosui-form-input-text',
@@ -78,11 +78,11 @@ asdasd sa dsa dsa
 	})
 
 ### Typical usage
-	$('input[type="checkbox"]').nosFormInputCheckbox();
+	$('input[type="checkbox"]').nosInputCheckbox();
 
-## <a id="nosFormInputRadio"></a> nosFormInputRadio
+## <a id="nosInputRadio"></a> nosInputRadio
 ### Defualt options:
-	$(el).nosFormInputRadio({
+	$(el).nosInputRadio({
 		elAttrNames: {
 			'fauxElClass'  : 'nosui-form-radio',
 			'inputClass'   : 'nosui-form-input-text',
@@ -94,11 +94,11 @@ asdasd sa dsa dsa
 	})
 
 ### Typical usage
-	$('input[type="radio"]').nosFormInputRadio();
+	$('input[type="radio"]').nosInputRadio();
 
-## <a id="nosFormInputFile"></a> nosFormInputFile
+## <a id="nosInputFile"></a> nosInputFile
 ### Defualt options:
-	$(el).nosFormInputFile({
+	$(el).nosInputFile({
 		elAttrNames: {
 			'elClass'         : 'nosui-form-file__element',
 			'fauxElClass'     : 'nosui-form-file',
@@ -110,7 +110,7 @@ asdasd sa dsa dsa
 	})
 
 ### Typical usage
-	$('input[type="file"]').nosFormInputFile();
+	$('input[type="file"]').nosInputFile();
 
 ## <a id="nosTooltip"></a> nosTooltip
 	$(el).nosTooltip({

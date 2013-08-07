@@ -40,7 +40,7 @@ window.NosUIApp = {
 
 $.fn.extend({
 
-	nosFormInputPlaceholder: function( options, disableMethod ) {
+	nosInputPlaceholder: function( options, disableMethod ) {
 
 		var defaults = {
 			placeholder: null
@@ -325,7 +325,7 @@ $.fn.extend({
 		}); // each
 
 	}, // nosFormSelect
-	nosFormInputCheckbox: function(options, disableMethod){
+	nosInputCheckbox: function(options, disableMethod){
 
 		var defaults = {
 			elAttrNames: {
@@ -394,7 +394,7 @@ $.fn.extend({
 		}); // this.each()
 
 	}, // nosFormCheckbox()
-	nosFormInputRadio: function(options, disableMethod){
+	nosInputRadio: function(options, disableMethod){
 
 		var defaults = {
 			elAttrNames: {
@@ -471,7 +471,7 @@ $.fn.extend({
 		});
 
 	}, // nosFormRadio()
-	nosFormInputFile: function( options, disableMethod ){
+	nosInputFile: function( options, disableMethod ){
 
 		var defaults = {
 			elAttrNames: {
