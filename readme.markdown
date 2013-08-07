@@ -1,19 +1,40 @@
-# nosFramework
+NOS (Native OS) UI is designed to make a minimial impact on the development environment. Changes to the custom form element states are mirrored on the actual form elements themselves, therefore no backend functionality needs to change to accomodate this. If javascript is disabled, the form should function as normal without the custom styling.
 
-## nosPlaceholder
+NOS UI is a library designed to help developers implement designs elements and functionality easily.
+
+The form functionality
+
+# Table of Contents
+* [nosPlaceholder](#nosPlaceholder)
+* [nosFormSelect](#nosFormSelect)
+* [nosFormInputCheckbox](#nosFormInputCheckbox)
+* [nosFormInputRadio](#nosFormInputRadio)
+* [nosFormInputFile](#nosFormInputFile)
+* [nosTooltip](#nosTooltip)
+
+## <a id="nosPlaceholder"></a> nosPlaceholder
 This is an HTML5 placeholder polyfill for input elements.
 
-	$( el ).nosPlaceholder();
-or
-	$( el ).nosPlaceholder(); // el must have HTML5 placeholder attribute - this will be used as the val
+### Defualt options:
+	$( el ).nosPlaceholder({
+		placeholder: null
+	});
 
-### HTML required:
-	<input type="text" />
-Or
-	<input type="text" placeholder="Placeholder Text" />
+If the `placeholder` property is null or left out the placeholder value will default to the HTML `placeholder` attribute value
+### Typical usage
+#### HTML
+	<input type="text" placeholder="Name">
 
-## nosFormSelect
-###defualt options:
+#### JS
+	$(input[placeholder]).nosPlaceholder();
+
+### Note
+Remember to do some feature detection for `placeholder` support with something like [Modernizr](https://github.com/Modernizr/Modernizr).
+
+## <a id="nosFormSelect"></a> nosFormSelect
+asdasd sa dsa dsa
+
+### Defualt options:
 	$(el).nosFormSelect({
 		elAttrNames: {
 			typeDefault: {
@@ -41,9 +62,12 @@ Or
 		onBlur: function($el, $fauxEl){}
 	})
 
-## nosFormInputCheckbox
-###defualt options:
-	$(el).nosFormInputSelect({
+### Typical usage
+	$('select').nosFormSelect();
+
+## <a id="nosFormInputCheckbox"></a> nosFormInputCheckbox
+### Defualt options:
+	$(el).nosFormInputCheckbox({
 		elAttrNames: {
 			'fauxElClass'  : 'nosui-form-checkbox',
 			'inputClass'   : 'nosui-form-input-text',
@@ -53,9 +77,12 @@ Or
 		onClick: function($el, $fauxEl){}
 	})
 
-## nosFormInputRadio
-###defualt options:
-	$(el).nosFormInputSelect({
+### Typical usage
+	$('input[type="checkbox"]').nosFormInputCheckbox();
+
+## <a id="nosFormInputRadio"></a> nosFormInputRadio
+### Defualt options:
+	$(el).nosFormInputRadio({
 		elAttrNames: {
 			'fauxElClass'  : 'nosui-form-radio',
 			'inputClass'   : 'nosui-form-input-text',
@@ -66,9 +93,12 @@ Or
 		onClick: function($el, $fauxEl){}
 	})
 
-#nosFormInputFile
-###defualt options:
-	$(el).nosFormInputSelect({
+### Typical usage
+	$('input[type="radio"]').nosFormInputRadio();
+
+## <a id="nosFormInputFile"></a> nosFormInputFile
+### Defualt options:
+	$(el).nosFormInputFile({
 		elAttrNames: {
 			'elClass'         : 'nosui-form-file__element',
 			'fauxElClass'     : 'nosui-form-file',
@@ -79,7 +109,10 @@ Or
 		onChange: function($el, $fauxEl){}
 	})
 
-#nosTooltip
+### Typical usage
+	$('input[type="file"]').nosFormInputFile();
+
+## <a id="nosTooltip"></a> nosTooltip
 	$(el).nosTooltip({
 		elAttrNames: {
 			popup: 'nosui-tooltip__popup',
@@ -88,10 +121,10 @@ Or
 		}
 	})
 
-### Extra Info
-The second example should be used with Modernizr to make sure browsers that support the placeholder attribute don't use that as well as nosPlaceholder() function
+### Typical usage
+	$('[data-nosui-tooltip]').nosTooltip();
 
-Changelog version 0.5:
+# Changelog version 0.5:
 Changed all elements to divs. The plugin shouldn't dictate the element
 Updated to jQuery 1.9
 added disable method functionality
