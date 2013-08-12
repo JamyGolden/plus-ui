@@ -1,0 +1,29 @@
+// ==========================================================================
+// Form Input Radio
+// ==========================================================================
+
+.nosui-form-radio { 
+	background: red; 
+	@include border-radius(5px);
+	@include inline-block(); 
+	height: 10px; 
+	width: 10px;
+}
+
+// Various states
+// ==========================================================================
+
+// Checked
+.nosui-form-radio--checked { 
+	background: green; 
+}
+
+// Disabled
+.nosui-form-radio--disabled { 
+	background: #999; 
+}
+
+// Checked and disabled
+.nosui-form-radio--checked.nosui-form-radio--disabled { 
+	background: #333; 
+}

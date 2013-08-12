@@ -1,0 +1,23 @@
+// ==========================================================================
+// Form Input File
+// ==========================================================================
+
+.nosui-form-file { 
+	background: green; 
+	width: 200px; 
+	position: relative; 
+}
+
+.nosui-form-file--disabled { 
+	background: #999; 
+}
+
+	.nosui-form-file__placeholder { 
+		position: absolute; 
+		left: 0; 
+		top: 0; 
+	}
+
+	.nosui-form-file__element { 
+		@include opacity(0); 
+	}
