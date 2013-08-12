@@ -5,14 +5,14 @@ NOS UI is a library designed to help developers implement designs elements and f
 The form functionality
 
 # Table of Contents
-* [nosmInputPlaceholder](#nosInputPlaceholder)
-* [nosFormSelect](#nosFormSelect)
-* [nosmInputCheckbox](#nosInputCheckbox)
-* [nosmInputRadio](#nosInputRadio)
-* [nosInputFile](#nosInputFile)
-* [nosTooltip](#nosTooltip)
+* [nosInputPlaceholder](#-nosInputPlaceholder)
+* [nosFormSelect](#-nosFormSelect)
+* [nosInputCheckbox](#-nosInputCheckbox)
+* [nosInputRadio](#-nosInputRadio)
+* [nosInputFile](#-nosInputFile)
+* [nosTooltip](#-nosTooltip)
 
-## <a id="nosInputPlaceholder"></a> nosInputPlaceholder
+## nosInputPlaceholder
 This is an HTML5 placeholder polyfill for input elements.
 
 ### Defualt options:
@@ -31,7 +31,7 @@ If the `placeholder` property is null or left out the placeholder value will def
 ### Note
 Remember to do some feature detection for `placeholder` support with something like [Modernizr](https://github.com/Modernizr/Modernizr).
 
-## <a id="nosFormSelect"></a> nosFormSelect
+## nosFormSelect
 asdasd sa dsa dsa
 
 ### Defualt options:
@@ -65,7 +65,7 @@ asdasd sa dsa dsa
 ### Typical usage
 	$('select').nosFormSelect();
 
-## <a id="nosInputCheckbox"></a> nosInputCheckbox
+## nosInputCheckbox
 ### Defualt options:
 	$(el).nosInputCheckbox({
 		elAttrNames: {
@@ -80,7 +80,7 @@ asdasd sa dsa dsa
 ### Typical usage
 	$('input[type="checkbox"]').nosInputCheckbox();
 
-## <a id="nosInputRadio"></a> nosInputRadio
+## nosInputRadio
 ### Defualt options:
 	$(el).nosInputRadio({
 		elAttrNames: {
@@ -96,7 +96,7 @@ asdasd sa dsa dsa
 ### Typical usage
 	$('input[type="radio"]').nosInputRadio();
 
-## <a id="nosInputFile"></a> nosInputFile
+## nosInputFile
 ### Defualt options:
 	$(el).nosInputFile({
 		elAttrNames: {
@@ -112,7 +112,7 @@ asdasd sa dsa dsa
 ### Typical usage
 	$('input[type="file"]').nosInputFile();
 
-## <a id="nosTooltip"></a> nosTooltip
+## nosTooltip
 	$(el).nosTooltip({
 		elAttrNames: {
 			popup: 'nosui-tooltip__popup',
