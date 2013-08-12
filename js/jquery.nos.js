@@ -134,7 +134,7 @@ $.fn.extend({
 				'dropdownButtonClass': 'nosui-form-select__dropdown-button',
 				'placeholderClass'   : 'nosui-form-select__placeholder'
 			},
-			placeholer: null,
+			placeholder: null,
 			onClick: null,
 			onChange: null,
 			onBlur: null
@@ -287,7 +287,7 @@ $.fn.extend({
 				$fauxSelect.on({
 					click: function(e) {
 						// Return if select is disabled
-						if(NosUIApp.form.isDisabled($el, $fauxSelect) === true) {
+						if(NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass) === true) {
 							return;
 						};
 
@@ -306,7 +306,7 @@ $.fn.extend({
 							index = $this.index(),
 							text = $this.text();
 
-						$this.addClass(options.elAttrNames.activeClass).siblings().removeClass(options.elAttrNames.activeClass);
+						$this.addClass(options.elAttrNames.typeCustom.activeItemClass).siblings().removeClass(options.elAttrNames.typeCustom.activeItemClass);
 						$placeholder.text(text);
 
 						// Change selected item on the select menu
