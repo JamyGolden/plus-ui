@@ -5,12 +5,12 @@ NOS UI is a library designed to help developers implement designs elements and f
 The form functionality
 
 # Table of Contents
-* [nosInputPlaceholder](#nosInputPlaceholder)
-* [nosFormSelect](#nosFormSelect)
-* [nosInputCheckbox](#nosInputCheckbox)
-* [nosInputRadio](#nosInputRadio)
-* [nosInputFile](#nosInputFile)
-* [nosTooltip](#nosTooltip)
+* [nosInputPlaceholder](#nosinputplaceholder)
+* [nosFormSelect](#nosformselect)
+* [nosInputCheckbox](#nosinputcheckbox)
+* [nosInputRadio](#nosinputradio)
+* [nosInputFile](#nosinputfile)
+* [nosTooltip](#nostooltip)
 
 ## nosInputPlaceholder
 This is an HTML5 placeholder polyfill for input elements.
