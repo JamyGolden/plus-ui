@@ -5,17 +5,17 @@ NOS UI is a library designed to help developers implement designs elements and f
 The form functionality
 
 # Table of Contents
-* [nosInputPlaceholder](#-nosInputPlaceholder)
-* [nosFormSelect](#-nosFormSelect)
-* [nosInputCheckbox](#-nosInputCheckbox)
-* [nosInputRadio](#-nosInputRadio)
-* [nosInputFile](#-nosInputFile)
-* [nosTooltip](#-nosTooltip)
+* [nosInputPlaceholder](#nosInputPlaceholder)
+* [nosFormSelect](#nosFormSelect)
+* [nosInputCheckbox](#nosInputCheckbox)
+* [nosInputRadio](#nosInputRadio)
+* [nosInputFile](#nosInputFile)
+* [nosTooltip](#nosTooltip)
 
 ## nosInputPlaceholder
 This is an HTML5 placeholder polyfill for input elements.
 
-### Defualt options:
+### Default options:
 	$( el ).nosInputPlaceholder({
 		placeholder: null
 	});
@@ -34,7 +34,7 @@ Remember to do some feature detection for `placeholder` support with something l
 ## nosFormSelect
 asdasd sa dsa dsa
 
-### Defualt options:
+### Default options:
 	$(el).nosFormSelect({
 		elAttrNames: {
 			typeDefault: {
@@ -56,7 +56,7 @@ asdasd sa dsa dsa
 			'dropdownButtonClass': 'nosui-form-select__dropdown-button',
 			'placeholderClass'   : 'nosui-form-select__placeholder'
 		},
-		placeholer: function($el, $fauxEl){},
+		placeholder: function($el, $fauxEl){},
 		onClick: function($el, $fauxEl){},
 		onChange: function($el, $fauxEl){},
 		onBlur: function($el, $fauxEl){}
@@ -66,7 +66,7 @@ asdasd sa dsa dsa
 	$('select').nosFormSelect();
 
 ## nosInputCheckbox
-### Defualt options:
+### Default options:
 	$(el).nosInputCheckbox({
 		elAttrNames: {
 			'fauxElClass'  : 'nosui-form-checkbox',
@@ -81,7 +81,7 @@ asdasd sa dsa dsa
 	$('input[type="checkbox"]').nosInputCheckbox();
 
 ## nosInputRadio
-### Defualt options:
+### Default options:
 	$(el).nosInputRadio({
 		elAttrNames: {
 			'fauxElClass'  : 'nosui-form-radio',
@@ -97,7 +97,7 @@ asdasd sa dsa dsa
 	$('input[type="radio"]').nosInputRadio();
 
 ## nosInputFile
-### Defualt options:
+### Default options:
 	$(el).nosInputFile({
 		elAttrNames: {
 			'elClass'         : 'nosui-form-file__element',
