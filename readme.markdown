@@ -47,8 +47,8 @@ These are the default options and the typical usage applies these by default. An
 		// In the callback functions, the $el parameter is the jQuery object of the 
 		// original select element and $fauxEl is the jQuery object of the custom version
 		onClick: function($el, $fauxEl){}, // Click event callback
-		onChange: function($el, $fauxEl){}, // Change event callback
-		onBlur: function($el, $fauxEl){} // Blur event callback
+		onChange: function($el, $fauxEl){}, // Change event callback. DefaultDropdown only.
+		onBlur: function($el, $fauxEl){} // Blur event callback. DefaultDropdown only.
 	})
 
 All class names can be editted if required.
