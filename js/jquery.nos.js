@@ -27,6 +27,14 @@ window.NosUIApp = {
 	},
 	form: {
 		isDisabled: function($el, $fauxEl, className) {
+			if(typeof $el == 'undefined'){
+				throw new Error('missing $el parameter');
+			} else if (typeof $fauxEl == 'undefined') {
+				throw new Error('missing $fauxEl parameter');
+			} else if (typeof className == 'undefined'){
+				throw new Error('missing className parameter');
+			};
+
 			if($el.prop('disabled')){
 				$fauxEl.addClass(className);
 				return true;
