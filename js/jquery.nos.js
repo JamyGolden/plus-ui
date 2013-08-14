@@ -346,6 +346,10 @@ $.fn.extend({
 						// Change selected item on the select menu
 						$elOptions.prop('selected', false).eq(index).prop('selected', true);
 
+						// Force the default element change event to fire
+						// This is for consistency with the defaultDropdown option
+						$el.change(); 
+
 						if(typeof options.onChange === 'function') {
 							options.onChange($el, $fauxSelect);
 						};
