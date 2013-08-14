@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.5
+* jQuery NOs 0.6
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -14,10 +14,22 @@ window.NosUIApp = {
 		// both exist
 		} else if(typeof options === 'object' && typeof defaults === 'object'){
 			$.extend(true, defaults, options);
+
+			if(typeof defaults.elAttrNames === 'object' && typeof defaults.nameSpace === 'string'){
+				// Apply namespace to class names
+				NosUIApp.applyCssNameSpace(defaults.elAttrNames, defaults.nameSpace);
+			}
+
 			return defaults;
 
 		// if options doesn't exist
 		} else if(typeof options !== 'object'){
+
+			if(typeof defaults.elAttrNames === 'object' && typeof defaults.nameSpace === 'string'){
+				// Apply namespace to class names
+				NosUIApp.applyCssNameSpace(defaults.elAttrNames, defaults.nameSpace);
+			}
+
 			return defaults;
 
 		// If defaults doesn't exist - should cover everything
@@ -43,6 +55,17 @@ window.NosUIApp = {
 				return false;
 			}
 		}
+	},
+	applyCssNameSpace: function(elAttrNames, nameSpace){
+		$.each(elAttrNames, function(k, v){
+			if(typeof v === 'object') {
+				$.each(v, function(k2, v2){
+					elAttrNames[k][k2] = nameSpace + v2;
+				})
+			} else {
+				elAttrNames[k] = nameSpace + v;
+			}
+		});
 	}
 };
 
@@ -53,7 +76,7 @@ $.fn.extend({
 		var defaults = {
 			placeholder: null
 		};
-		options = NosUIApp.defineOptions(options);
+		options = NosUIApp.defineOptions(defaults, options);
 
 		return this.each(function(){
 
@@ -63,14 +86,14 @@ $.fn.extend({
 				val = options.placeholder;
 			} else {
 				val =  $el.attr('placeholder');
-			}
+			};
 
 			// The value hasn't been defined 
 			// and cannot be guessed either.
 			// Everything should stop here
 			if(typeof val !== 'string') {
 				return;
-			}
+			};
 
 			function focusInput(){
 				// Focus Callback
@@ -81,7 +104,7 @@ $.fn.extend({
 				if($el.val() == val){
 					$el.val('')
 				}
-			}
+			};
 
 			function blurInput(){
 				// Blur Callback
@@ -92,7 +115,7 @@ $.fn.extend({
 				if($el.val() == ''){
 					$el.val(val)
 				}
-			}
+			};
 
 			// Set value
 			$el.val(val);
@@ -122,26 +145,27 @@ $.fn.extend({
 	nosFormSelect: function( options, disableMethod ){
 
 		var defaults = {
-			elAttrNames: {
+			elAttrNames: { // Attr names without a namespace
 				typeDefault: {
-					'defaultClass': 'nosui-form-select--default',
-					'dataName'    : 'nosui-form-select-type-default'
+					'defaultClass': '--default',
+					'dataName'    : '-type-default'
 				},
 				typeCustom: {
-					'defaultClass'   : 'nosui-form-select--custom',
-					'dataName'       : 'nosui-form-select-type-custom',
-					'dataSelected'   : 'nosui-form-select-selected',
-					'listClass'      : 'nosui-form-select__list',
-					'itemClass'      : 'nosui-form-select__item',
-					'activeItemClass': 'nosui-form-select__item--active'
+					'defaultClass'   : '--custom',
+					'dataName'       : '-type-custom',
+					'dataSelected'   : '-selected',
+					'listClass'      : '__list',
+					'itemClass'      : '__item',
+					'activeItemClass': '__item--active'
 				},
-				'elClass'            : 'nosui-form-select__element',
-				'fauxElClass'        : 'nosui-form-select',
-				'activeClass'        : 'nosui-form-select--active',
-				'disabledClass'      : 'nosui-form-select--disabled',
-				'dropdownButtonClass': 'nosui-form-select__dropdown-button',
-				'placeholderClass'   : 'nosui-form-select__placeholder'
+				'elClass'            : '__element',
+				'fauxElClass'        : '',
+				'activeClass'        : '--active',
+				'disabledClass'      : '--disabled',
+				'dropdownButtonClass': '__dropdown-button',
+				'placeholderClass'   : '__placeholder'
 			},
+			nameSpace: 'nosui-form-select',
 			placeholder: null,
 			onClick: null,
 			onChange: null,
@@ -213,7 +237,7 @@ $.fn.extend({
 							options.onClick($el, $fauxSelect);
 						};
 					},
-					change: function() {
+					change: function(e) {
 
 						var text = $el.find(':selected').text();
 						$placeholder.text(text);
@@ -224,7 +248,7 @@ $.fn.extend({
 						};
 
 					},
-					blur: function() {
+					blur: function(e) {
 						$fauxSelect.removeClass( options.elAttrNames.active );
 
 						// Event Callback
@@ -299,7 +323,11 @@ $.fn.extend({
 							return;
 						};
 
-						toggleDropdown($fauxSelect);
+						if(typeof options.onClick === 'function') {
+							options.onClick($el, $fauxSelect);
+						};
+
+						toggleDropdown($fauxSelect); // Toggle list
 					}
 				});
 
@@ -320,11 +348,11 @@ $.fn.extend({
 						// Change selected item on the select menu
 						$elOptions.prop('selected', false).eq(index).prop('selected', true);
 
-						if(typeof options.onClick === 'function') {
-							options.onClick($el, $fauxSelect);
+						if(typeof options.onChange === 'function') {
+							options.onChange($el, $fauxSelect);
 						};
 
-						toggleDropdown($fauxSelect);
+						toggleDropdown($fauxSelect); // Toggle list
 					}
 				}); // .select li.click
 
@@ -337,11 +365,11 @@ $.fn.extend({
 
 		var defaults = {
 			elAttrNames: {
-				'fauxElClass'  : 'nosui-form-checkbox',
-				'inputClass'   : 'nosui-form-input-text',
-				'disabledClass': 'nosui-form-checkbox--disabled',
-				'checkedClass' : 'nosui-form-checkbox--checked'
+				'fauxElClass'  : '',
+				'disabledClass': '--disabled',
+				'checkedClass' : '--checked'
 			},
+			nameSpace: 'nosui-form-checkbox',
 			onClick: null
 		};
 		options = NosUIApp.defineOptions(defaults, options);
@@ -406,12 +434,13 @@ $.fn.extend({
 
 		var defaults = {
 			elAttrNames: {
-				'fauxElClass'  : 'nosui-form-radio',
-				'inputClass'   : 'nosui-form-input-text',
-				'disabledClass': 'nosui-form-radio--disabled',
-				'checkedClass' : 'nosui-form-radio--checked',
-				'dataName'     : 'nosui-form-radio-name'
+				'fauxElClass'  : '',
+				'inputClass'   : '-text',
+				'disabledClass': '--disabled',
+				'checkedClass' : '--checked',
+				'dataName'     : '-name'
 			},
+			nameSpace: 'nosui-form-checkbox',
 			onClick: null
 		};
 		options = NosUIApp.defineOptions(defaults, options);
@@ -483,11 +512,12 @@ $.fn.extend({
 
 		var defaults = {
 			elAttrNames: {
-				'elClass'         : 'nosui-form-file__element',
-				'fauxElClass'     : 'nosui-form-file',
-				'disabledClass'   : 'nosui-form-file--disabled',
-				'placeholderClass': 'nosui-form-file__placeholder'
+				'elClass'         : '__element',
+				'fauxElClass'     : '',
+				'disabledClass'   : '--disabled',
+				'placeholderClass': '__placeholder'
 			},
+			nameSpace: 'nosui-form-file',
 			placeholder: null,
 			onChange: null
 		};
@@ -520,7 +550,6 @@ $.fn.extend({
 				}
 			});
 
-
 		}); // return this.each
 
 	}, // nosFormRadio()
@@ -528,9 +557,9 @@ $.fn.extend({
 
 		var defaults = {
 			elAttrNames: {
-				popup: 'nosui-tooltip__popup',
+				'popup'    : 'nosui-tooltip__popup',
 				'container': 'nosui-tooltip',
-				'dataName': 'nosui-tooltip'
+				'dataName' : 'nosui-tooltip'
 			}
 		};
 		options = NosUIApp.defineOptions(defaults, options);
