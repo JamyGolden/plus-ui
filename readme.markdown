@@ -52,7 +52,7 @@ These are the default options and the typical usage applies these by default. An
 		onBlur: function($el, $fauxEl){} // Blur event callback. DefaultDropdown only.
 	})
 
-The `nameSpace` property is used to prepend the HTML attribute names - This allows to easily use multiple of the same form elements on a page without CSS conflicts and specificity wars.
+The `nameSpace` property is used to prepend the HTML attribute names - This allows to easily use multiple form elements on a page without CSS conflicts and specificity wars.
 
 All class names can be editted if required.
 
