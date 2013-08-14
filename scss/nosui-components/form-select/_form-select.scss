@@ -55,27 +55,4 @@
 		background: #999; 
 	}
 
-// Default specific classes
-// ==========================================================================
-.nosui-form-select--default { 
-	background: green; 
-	position: relative; 
-}
-
-	.nosui-form-select--default .nosui-form-select__element { 
-		opacity: 0; 
-		filter: alpha(opacity=0); 
-		position: relative; 
-		z-index: 1; 
-	}
-	.nosui-form-select--default .nosui-form-select__placeholder { 
-		position: absolute; 
-		left: 0; 
-		top: 0; 
-	}
-
-	// Active state
-	.nosui-form-select--active.nosui-form-select--default { 
-		background: orange; 
-		z-index: 50; 
-	}
+@import "form-select-alt";

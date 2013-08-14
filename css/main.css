@@ -1,4 +1,4 @@
-/* normalize.css v1.1.2 | MIT License | git.io/normalize */
+/*! normalize.css v1.1.2 | MIT License | git.io/normalize */
 /* ==========================================================================
    HTML5 display definitions
    ========================================================================== */
@@ -606,29 +606,33 @@ table {
   background: #999;
 }
 
-/* line 60, ../scss/nosui-components/form-select/_form-select.scss */
-.nosui-form-select--default {
+/* line 7, ../scss/nosui-components/form-select/_form-select-alt.scss */
+.nosui-form-select-alt {
   background: green;
+  height: 20px;
+  cursor: default;
+  width: 200px;
   position: relative;
 }
 
-/* line 65, ../scss/nosui-components/form-select/_form-select.scss */
-.nosui-form-select--default .nosui-form-select__element {
+/* line 15, ../scss/nosui-components/form-select/_form-select-alt.scss */
+.nosui-form-select-alt-element {
   opacity: 0;
   filter: alpha(opacity=0);
+  width: 100%;
   position: relative;
   z-index: 1;
 }
 
-/* line 71, ../scss/nosui-components/form-select/_form-select.scss */
-.nosui-form-select--default .nosui-form-select__placeholder {
+/* line 23, ../scss/nosui-components/form-select/_form-select-alt.scss */
+.nosui-form-select-alt__placeholder {
   position: absolute;
   left: 0;
   top: 0;
 }
 
-/* line 78, ../scss/nosui-components/form-select/_form-select.scss */
-.nosui-form-select--active.nosui-form-select--default {
+/* line 30, ../scss/nosui-components/form-select/_form-select-alt.scss */
+.nosui-form-select-alt--active {
   background: orange;
   z-index: 50;
 }

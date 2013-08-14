@@ -156,7 +156,7 @@ $.fn.extend({
 					'itemClass'      : '__item',
 					'activeItemClass': '__item--active'
 				},
-				'elClass'            : '__element',
+				'elClass'            : '-element',
 				'fauxElClass'        : '',
 				'activeClass'        : '--active',
 				'disabledClass'      : '--disabled',

@@ -14,7 +14,8 @@ $(document).ready(function() {
 
 	// Form select with defaultDropdown
 	$('#select-alt').nosFormSelect({
-		defaultDropdown: true
+		defaultDropdown: true,
+		nameSpace: 'nosui-form-select-alt'
 	});
 
 	// Input Checkbox

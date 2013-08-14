@@ -1,0 +1,33 @@
+// ==========================================================================
+// Form Select - ALt
+//
+// Default specific classes
+// ==========================================================================
+
+.nosui-form-select-alt { 
+	background: green; 
+	height: 20px;
+	cursor: default; 
+	width: 200px; 
+	position: relative; 
+}
+
+	.nosui-form-select-alt-element { 
+		opacity: 0; 
+		filter: alpha(opacity=0); 
+		width: 100%;
+		position: relative; 
+		z-index: 1; 
+	}
+
+	.nosui-form-select-alt__placeholder { 
+		position: absolute; 
+		left: 0; 
+		top: 0; 
+	}
+
+	// Active state
+	.nosui-form-select-alt--active { 
+		background: orange; 
+		z-index: 50; 
+	}
