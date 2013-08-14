@@ -440,7 +440,7 @@ $.fn.extend({
 				'checkedClass' : '--checked',
 				'dataName'     : '-name'
 			},
-			nameSpace: 'nosui-form-checkbox',
+			nameSpace: 'nosui-form-radio',
 			onClick: null
 		};
 		options = NosUIApp.defineOptions(defaults, options);
