@@ -193,7 +193,7 @@ $.fn.extend({
 				$el.data(options.elAttrNames.typeCustom.dataName, false).show();
 
 				// Turn off fauxEl and fauxOptions events
-				$el.prev().off().find('li').off().end().remove();
+				$el.prev().off().find('.' + options.elAttrNames.typeCustom.itemClass).off().end().remove();
 				return;
 			};
 
