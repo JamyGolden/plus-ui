@@ -551,20 +551,21 @@ table {
 /* line 8, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select {
   background: green;
+  color: #f1f1f1;
   height: 20px;
   cursor: default;
   width: 200px;
   position: relative;
 }
 
-/* line 16, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 17, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select--selected {
   height: 20px;
 }
 
-/* line 20, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 21, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__list {
-  background: orange;
+  background: purple;
   clear: both;
   margin: 0;
   padding: 0;
@@ -574,17 +575,17 @@ table {
   top: 20px;
 }
 
-/* line 31, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 32, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__item:hover {
-  background: papayawhip;
+  background: green;
 }
 
-/* line 35, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 36, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__placeholder {
   float: left;
 }
 
-/* line 39, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 40, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__dropdown-button {
   background: red;
   float: right;
@@ -595,10 +596,9 @@ table {
   top: 0;
 }
 
-/* line 49, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 50, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select--active {
-  background: orange;
-  z-index: 50;
+  z-index: 1;
 }
 
 /* line 54, ../scss/nosui-components/form-select/_form-select.scss */
@@ -609,13 +609,14 @@ table {
 /* line 7, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt {
   background: green;
+  color: #f1f1f1;
   height: 20px;
   cursor: default;
   width: 200px;
   position: relative;
 }
 
-/* line 15, ../scss/nosui-components/form-select/_form-select-alt.scss */
+/* line 16, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt-element {
   opacity: 0;
   filter: alpha(opacity=0);
@@ -624,17 +625,16 @@ table {
   z-index: 1;
 }
 
-/* line 23, ../scss/nosui-components/form-select/_form-select-alt.scss */
+/* line 24, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt__placeholder {
   position: absolute;
   left: 0;
   top: 0;
 }
 
-/* line 30, ../scss/nosui-components/form-select/_form-select-alt.scss */
+/* line 31, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt--active {
-  background: orange;
-  z-index: 50;
+  z-index: 1;
 }
 
 /* line 5, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
@@ -668,23 +668,25 @@ table {
 /* line 5, ../scss/nosui-components/input-file/_input-file.scss */
 .nosui-form-file {
   background: green;
+  color: #f1f1f1;
   width: 200px;
   position: relative;
 }
 
-/* line 11, ../scss/nosui-components/input-file/_input-file.scss */
+/* line 12, ../scss/nosui-components/input-file/_input-file.scss */
 .nosui-form-file--disabled {
   background: #999;
 }
 
-/* line 15, ../scss/nosui-components/input-file/_input-file.scss */
+/* line 16, ../scss/nosui-components/input-file/_input-file.scss */
 .nosui-form-file__placeholder {
+  line-height: 25px;
   position: absolute;
   left: 0;
   top: 0;
 }
 
-/* line 21, ../scss/nosui-components/input-file/_input-file.scss */
+/* line 23, ../scss/nosui-components/input-file/_input-file.scss */
 .nosui-form-file__element {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;

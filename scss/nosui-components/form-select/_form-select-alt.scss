@@ -6,7 +6,8 @@
 
 .nosui-form-select-alt { 
 	background: green; 
-	height: 20px;
+	color: #f1f1f1; 
+	height: 20px; 
 	cursor: default; 
 	width: 200px; 
 	position: relative; 
@@ -28,6 +29,5 @@
 
 	// Active state
 	.nosui-form-select-alt--active { 
-		background: orange; 
-		z-index: 50; 
+		z-index: 1; 
 	}

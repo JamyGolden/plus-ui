@@ -7,7 +7,8 @@
 
 .nosui-form-select { 
 	background: green; 
-	height: 20px;
+	color: #f1f1f1; 
+	height: 20px; 
 	cursor: default; 
 	width: 200px; 
 	position: relative; 
@@ -18,7 +19,7 @@
 	}
 
 	.nosui-form-select__list { 
-		background: orange; 
+		background: purple; 
 		clear: both; 
 		margin: 0; 
 		padding: 0; 
@@ -29,7 +30,7 @@
 	}
 
 		.nosui-form-select__item:hover { 
-			background: papayawhip; 
+			background: green; 
 		}
 
 	.nosui-form-select__placeholder {
@@ -47,8 +48,7 @@
 	}
 
 	.nosui-form-select--active { 
-		background: orange; 
-		z-index: 50; 
+		z-index: 1; 
 	}
 
 	.nosui-form-select--disabled { 
