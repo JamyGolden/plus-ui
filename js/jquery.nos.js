@@ -58,13 +58,11 @@ window.NosUIApp = {
 	},
 	applyCssNameSpace: function(elAttrNames, nameSpace){
 		$.each(elAttrNames, function(k, v){
-			if(typeof v === 'object') {
-				$.each(v, function(k2, v2){
-					elAttrNames[k][k2] = nameSpace + v2;
-				})
+			if(typeof v === 'object'){
+				NosUIApp.applyCssNameSpace(elAttrNames[k], nameSpace);
 			} else {
 				elAttrNames[k] = nameSpace + v;
-			}
+			};
 		});
 	}
 };
