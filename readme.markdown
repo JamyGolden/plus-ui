@@ -13,7 +13,7 @@ The form functionality
 * [nosTooltip](#nostooltip)
 
 ## nosFormSelect
-This method converts a normal html &lt;select&gt; menu into a custom stylable menu. Events on the custom menu are reflected on the original &lt;select&gt; menu and therefore work seamlessly with forms. onClick, onChange and onBlur callbacks exist for developers to extend the default functionality.
+This method converts a normal html `<select>` menu into a custom stylable menu. Events on the custom menu are reflected on the original `<select>` menu and therefore work seamlessly with forms. onClick, onChange and onBlur callbacks exist for developers to extend the default functionality.
 
 ### Typical usage
 	$('select').nosFormSelect();
@@ -22,25 +22,26 @@ This method converts a normal html &lt;select&gt; menu into a custom stylable me
 These are the default options and the typical usage applies these by default. Any object, property or method that is changed here will overwrite the default version.
 
 	$(el).nosFormSelect({
+		nameSpace: 'nosui-form-select', // Sets the name space for the HTML attributes
 		elAttrNames: { // List of attribute names used on the custom element
 			typeCustom: { // Attr names for the custom dropdown menu
-				'defaultClass'   : 'nosui-form-select--custom',
-				'dataName'       : 'nosui-form-select-type-custom',
-				'dataSelected'   : 'nosui-form-select-selected',
-				'listClass'      : 'nosui-form-select__list',
-				'itemClass'      : 'nosui-form-select__item',
-				'activeItemClass': 'nosui-form-select__item--active'
+				'defaultClass'   : '--custom',
+				'dataName'       : '-type-custom',
+				'dataSelected'   : '-selected',
+				'listClass'      : '__list',
+				'itemClass'      : '__item',
+				'activeItemClass': '__item--active'
 			},
 			typeDefault: { // Attr names for the default select dropdown option
-				'defaultClass': 'nosui-form-select--default',
-				'dataName'    : 'nosui-form-select-type-default'
+				'defaultClass': '--default',
+				'dataName'    : '-type-default'
 			},
-			'elClass'            : 'nosui-form-select__element', // Default element class
-			'fauxElClass'        : 'nosui-form-select',
-			'activeClass'        : 'nosui-form-select--active',
-			'disabledClass'      : 'nosui-form-select--disabled',
-			'dropdownButtonClass': 'nosui-form-select__dropdown-button',
-			'placeholderClass'   : 'nosui-form-select__placeholder'
+			'elClass'            : '-element', // Default element class
+			'fauxElClass'        : '',
+			'activeClass'        : '--active',
+			'disabledClass'      : '--disabled',
+			'dropdownButtonClass': '__dropdown-button',
+			'placeholderClass'   : '__placeholder'
 		},
 		placeholder: function($el, $fauxEl){}, // Placeholder text if one doesn't already exist
 
@@ -50,6 +51,8 @@ These are the default options and the typical usage applies these by default. An
 		onChange: function($el, $fauxEl){}, // Change event callback. DefaultDropdown only.
 		onBlur: function($el, $fauxEl){} // Blur event callback. DefaultDropdown only.
 	})
+
+The `nameSpace` property is used to prepend the HTML attribute names - This allows to easily use multiple of the same form elements on a page without CSS conflicts and specificity wars.
 
 All class names can be editted if required.
 
@@ -61,11 +64,11 @@ All class names can be editted if required.
 These are the default options and the typical usage applies these by default. Any object, property or method that is changed here will overwrite the default version.
 
 	$(el).nosInputCheckbox({
+		nameSpace: 'nosui-form-checkbox', // Sets the name space for the HTML attributes
 		elAttrNames: {
-			'fauxElClass'  : 'nosui-form-checkbox',
-			'inputClass'   : 'nosui-form-input-text',
-			'disabledClass': 'nosui-form-checkbox--disabled',
-			'checkedClass' : 'nosui-form-checkbox--checked'
+			'fauxElClass'  : '',
+			'disabledClass': '--disabled',
+			'checkedClass' : '--checked'
 		},
 		onClick: function($el, $fauxEl){}
 	})
@@ -78,12 +81,12 @@ These are the default options and the typical usage applies these by default. An
 These are the default options and the typical usage applies these by default. Any object, property or method that is changed here will overwrite the default version.
 
 	$(el).nosInputRadio({
+		nameSpace: 'nosui-form-radio', // Sets the name space for the HTML attributes
 		elAttrNames: {
-			'fauxElClass'  : 'nosui-form-radio',
-			'inputClass'   : 'nosui-form-input-text',
-			'disabledClass': 'nosui-form-radio--disabled',
-			'checkedClass' : 'nosui-form-radio--checked',
-			'dataName'     : 'nosui-form-radio-name'
+			'fauxElClass'  : '',
+			'disabledClass': '--disabled',
+			'checkedClass' : '--checked',
+			'dataName'     : '-name'
 		},
 		onClick: function($el, $fauxEl){}
 	})
@@ -115,11 +118,12 @@ Remember to do some feature detection for `placeholder` support with something l
 
 ### Default options:
 	$(el).nosInputFile({
+		nameSpace: 'nosui-form-file', // Sets the name space for the HTML attributes
 		elAttrNames: {
-			'elClass'         : 'nosui-form-file__element',
-			'fauxElClass'     : 'nosui-form-file',
-			'disabledClass'   : 'nosui-form-file--disabled',
-			'placeholderClass': 'nosui-form-file__placeholder'
+			'elClass'         : '__element',
+			'fauxElClass'     : '',
+			'disabledClass'   : '--disabled',
+			'placeholderClass': '__placeholder'
 		},
 		placeholder: null,
 		onChange: function($el, $fauxEl){}
@@ -131,10 +135,11 @@ Remember to do some feature detection for `placeholder` support with something l
 
 ### Default options:
 	$(el).nosTooltip({
+		nameSpace: 'nosui-tooltip', // Sets the name space for the HTML attributes
 		elAttrNames: {
-			popup: 'nosui-tooltip__popup',
-			'container': 'nosui-tooltip',
-			'dataName': 'nosui-tooltip'
+			popup: '__popup',
+			'container': '',
+			'dataName': ''
 		}
 	})
 
