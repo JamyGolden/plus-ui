@@ -165,6 +165,7 @@ $.fn.extend({
 			},
 			nameSpace: 'nosui-form-select',
 			placeholder: null,
+			onInit: null,
 			onClick: null,
 			onChange: null,
 			onBlur: null
@@ -198,6 +199,7 @@ $.fn.extend({
 			if ( options.defaultDropdown == true ) {
 
 				// Adding element physical properties
+
 				$el.data(options.elAttrNames.typeDefault.dataName, true)
 					.addClass(options.elAttrNames.elClass)
 					.wrap(
@@ -208,8 +210,12 @@ $.fn.extend({
 					);
 
 				// Creating variables and dom elements
-				var $fauxSelect = $el.parent(),
-					$selectedOption = $elOptions.filter(function(){
+				var elName = $el.attr('name') ? $el.attr('name') : null;
+					$fauxSelect = $el.parent();
+
+				$fauxSelect.data('name', elName);
+
+				var $selectedOption = $elOptions.filter(function(){
 						return $(this).prop('selcted') === true;
 					}),
 					placeholderText = $selectedOption.length ? $selectedOption.text() : $elOptions.first().text(),
@@ -221,6 +227,11 @@ $.fn.extend({
 
 				// Applied for disabled styling if applied
 				NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass);
+
+				// Event Callback
+				if(typeof options.onInit === 'function') {
+					options.onInit($el, $fauxSelect);
+				};
 
 				// Events
 				$el.on({
@@ -265,10 +276,11 @@ $.fn.extend({
 					$fauxSelect.toggleClass(options.elAttrNames.activeClass).find('.' + options.elAttrNames.typeCustom.listClass).toggle();
 				};
 
-				var $fauxSelect = $('<div />', {
-					'class': options.elAttrNames.fauxElClass + ' ' + options.elAttrNames.typeCustom.defaultClass,
-					'id': $el.attr('id') ? options.elAttrNames.fauxElClass + '-' + $el.attr('id') : ''
-				});
+				var elName = $el.attr('name') ? $el.attr('name') : null,
+					$fauxSelect = $('<div />', {
+						'class': options.elAttrNames.fauxElClass + ' ' + options.elAttrNames.typeCustom.defaultClass,
+						'id': $el.attr('id') ? options.elAttrNames.fauxElClass + '-' + $el.attr('id') : ''
+					}).data('name', elName);
 
 				// Check if is disabled
 				// If so add the necessary classes
@@ -312,6 +324,11 @@ $.fn.extend({
 				}).insertBefore( $list );
 
 				NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass);
+
+				// Event Callback
+				if(typeof options.onInit === 'function') {
+					options.onInit($el, $fauxSelect);
+				};
 
 				// Faux select Events
 				$fauxSelect.on({
