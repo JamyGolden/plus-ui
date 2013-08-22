@@ -18,7 +18,7 @@ window.NosUIApp = {
 			if(typeof defaults.elAttrNames === 'object' && typeof defaults.nameSpace === 'string'){
 				// Apply namespace to class names
 				NosUIApp.applyCssNameSpace(defaults.elAttrNames, defaults.nameSpace);
-			}
+			};
 
 			return defaults;
 
@@ -28,14 +28,33 @@ window.NosUIApp = {
 			if(typeof defaults.elAttrNames === 'object' && typeof defaults.nameSpace === 'string'){
 				// Apply namespace to class names
 				NosUIApp.applyCssNameSpace(defaults.elAttrNames, defaults.nameSpace);
-			}
+			};
 
 			return defaults;
 
 		// If defaults doesn't exist - should cover everything
 		} else if(typeof defaults !== 'object'){ 
 			return options;
+		};
+	},
+	matchElType: function($elType, $el){
+		var el = $el.get(0);
+
+		if(!$elType.filter($el).length){ // $el is NOT of the correct element type
+			var elSelector = NosUIApp.getFullElSelector($el);
+
+			throw new Error('Incorrect element type targetted with the NOS-UI script. Element: ' + elSelector);
 		}
+	},
+	getFullElSelector: function($el){
+		var el = $el.get(0),
+			elAttrId = el.id,
+			elIdSelector = elAttrId !== '' ? '#' + elAttrId : '',
+			elAttrClass = el.getAttribute('class'),
+			elClassSelector = elAttrClass ? '.' + elAttrClass.trim().split(' ').join('.') : '',
+			elSelector = elIdSelector + elClassSelector;
+
+		return elSelector;
 	},
 	form: {
 		isDisabled: function($el, $fauxEl, className) {
@@ -80,6 +99,8 @@ $.fn.extend({
 
 			var $el = $(this);
 
+			NosUIApp.matchElType($('input'), $el);
+
 			if(typeof options.placeholder === 'string') {
 				val = options.placeholder;
 			} else {
@@ -101,7 +122,7 @@ $.fn.extend({
 
 				if($el.val() == val){
 					$el.val('')
-				}
+				};
 			};
 
 			function blurInput(){
@@ -112,7 +133,7 @@ $.fn.extend({
 
 				if($el.val() == ''){
 					$el.val(val)
-				}
+				};
 			};
 
 			// Set value
@@ -173,8 +194,11 @@ $.fn.extend({
 
 		return this.each(function(){
 
-			var $el = $(this),
-				$elOptions = $el.find('option'),
+			var $el = $(this);
+
+			NosUIApp.matchElType($('select'), $el);
+
+			var $elOptions = $el.find('option'),
 				$selectedOption = $elOptions.filter(function(){
 					return $(this).prop('selcted') === true;
 				});
@@ -396,6 +420,8 @@ $.fn.extend({
 
 			var $el = $(this);
 
+			NosUIApp.matchElType($('input[type="checkbox"]'), $el);
+
 			if(disableMethod === true){
 				// Changing the data on the element to 
 				// reflect that it has been disabled
@@ -466,6 +492,8 @@ $.fn.extend({
 		return this.each(function(){
 
 			var $el = $(this);
+
+			NosUIApp.matchElType($('input[type="radio"]'), $el);
 
 			if(disableMethod === true){
 				// Changing the data on the element to 
@@ -544,6 +572,9 @@ $.fn.extend({
 		return this.each(function(){
 
 			var $el = $(this);
+
+			NosUIApp.matchElType($('input[type="file"]'), $el);
+
 			$el.addClass(options.elAttrNames.elClass);
 
 			var $fauxInputFile = $('<div />', {
