@@ -164,7 +164,6 @@ $.fn.extend({
 				'placeholderClass'   : '__placeholder'
 			},
 			nameSpace: 'nosui-form-select',
-			placeholder: null,
 			onInit: null,
 			onClick: null,
 			onChange: null,
@@ -175,7 +174,10 @@ $.fn.extend({
 		return this.each(function(){
 
 			var $el = $(this),
-				$elOptions = $el.find('option');
+				$elOptions = $el.find('option'),
+				$selectedOption = $elOptions.filter(function(){
+					return $(this).prop('selcted') === true;
+				});
 
 			$el.addClass(options.elAttrNames.elClass);
 			// Remove custom styling
@@ -215,10 +217,7 @@ $.fn.extend({
 
 				$fauxSelect.data('name', elName);
 
-				var $selectedOption = $elOptions.filter(function(){
-						return $(this).prop('selcted') === true;
-					}),
-					placeholderText = $selectedOption.length ? $selectedOption.text() : $elOptions.first().text(),
+				var placeholderText = $selectedOption.length ? $selectedOption.text() : $elOptions.first().text(),
 					// Adding select placeholder text
 					$placeholder = $('<div />', {
 						'class': options.elAttrNames.placeholderClass,
@@ -320,7 +319,7 @@ $.fn.extend({
 				// Adding select placeholder text
 				var $placeholder = $('<div />', {
 					'class': options.elAttrNames.placeholderClass,
-					'text': options.placeholder ? options.placeholder : $fauxSelectedOption.text()
+					'text': $fauxSelectedOption.text()
 				}).insertBefore( $list );
 
 				NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass);
