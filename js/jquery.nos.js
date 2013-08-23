@@ -412,6 +412,7 @@ $.fn.extend({
 				'checkedClass' : '--checked'
 			},
 			nameSpace: 'nosui-form-checkbox',
+			onInit: null,
 			onClick: null
 		};
 		options = NosUIApp.defineOptions(defaults, options);
@@ -443,6 +444,11 @@ $.fn.extend({
 			// input on init
 			if($el.prop('checked')){
 				$fauxCheckbox.addClass(options.elAttrNames.checkedClass);
+			};
+
+			// Event Callback
+			if(typeof options.onInit === 'function') {
+				options.onInit($el, $fauxCheckbox);
 			};
 
 			$fauxCheckbox.on({
@@ -485,6 +491,7 @@ $.fn.extend({
 				'dataName'     : '-name'
 			},
 			nameSpace: 'nosui-form-radio',
+			onInit: null,
 			onClick: null
 		};
 		options = NosUIApp.defineOptions(defaults, options);
@@ -526,6 +533,11 @@ $.fn.extend({
 				return;
 			};
 
+			// Event Callback
+			if(typeof options.onInit === 'function') {
+				options.onInit($el, $fauxCheckbox);
+			};
+
 			$fauxCheckbox.on({
 				click: function(){ 
 					// Apply disabled styled if disabled
@@ -564,7 +576,8 @@ $.fn.extend({
 				'placeholderClass': '__placeholder'
 			},
 			nameSpace: 'nosui-form-file',
-			placeholder: null,
+			placeholder: 'No file chosen',
+			onInit: null,
 			onChange: null
 		};
 		options = NosUIApp.defineOptions(defaults, options);
@@ -582,12 +595,17 @@ $.fn.extend({
 				}),
 				$placeholder = $('<span />', {
 					'class': options.elAttrNames.placeholderClass,
-					'text': options.placeholder ? options.placeholder : ''
+					'text': options.placeholder
 				});
 
 			NosUIApp.form.isDisabled($el, $fauxInputFile, options.elAttrNames.disabledClass);
 
 			$el.wrap( $fauxInputFile ).before( $placeholder );
+
+			// Event Callback
+			if(typeof options.onInit === 'function') {
+				options.onInit($el, $fauxCheckbox);
+			};
 
 			$el.on({
 				change: function(){
@@ -609,7 +627,8 @@ $.fn.extend({
 				'popup'    : 'nosui-tooltip__popup',
 				'container': 'nosui-tooltip',
 				'dataName' : 'nosui-tooltip'
-			}
+			},
+			text: null
 		};
 		options = NosUIApp.defineOptions(defaults, options);
 
