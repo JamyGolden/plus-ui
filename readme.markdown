@@ -2,7 +2,8 @@ NOS (Native OS) UI is designed to make a minimial impact on the development envi
 
 NOS UI is a library designed to help developers implement designs elements and functionality easily.
 
-The form functionality
+*Important things to note*:
+* These methods should be applied to the HTML form elements themselves, not generic elements such as divs.
 
 # Table of Contents
 * [nosFormSelect](#nosformselect)
@@ -13,7 +14,9 @@ The form functionality
 * [nosTooltip](#nostooltip)
 
 ## nosFormSelect
-This method converts a normal html `<select>` menu into a custom stylable menu. Events on the custom menu are reflected on the original `<select>` menu and therefore work seamlessly with forms. onClick, onChange and onBlur callbacks exist for developers to extend the default functionality.
+This method converts a normal html `<select>` menu into a custom stylable menu. Events on the custom menu are reflected on the original `<select>` menu and therefore work seamlessly on top of any form. 
+
+`onClick`, `onChange` and `onBlur` callbacks exist for developers to extend the default functionality.
 
 ### Typical usage
 	$('select').nosFormSelect();
@@ -24,7 +27,7 @@ These are the default options and the typical usage applies these by default. An
 	$(el).nosFormSelect({
 		nameSpace: 'nosui-form-select', // Sets the name space for the HTML attributes
 		elAttrNames: { // List of attribute names used on the custom element
-			typeCustom: { // Attr names for the custom dropdown menu
+			typeCustom: { // Attr names for the select dropdown options. (enabled by default)
 				'defaultClass'   : '--custom',
 				'dataName'       : '-type-custom',
 				'dataSelected'   : '-selected',
@@ -32,24 +35,26 @@ These are the default options and the typical usage applies these by default. An
 				'itemClass'      : '__item',
 				'activeItemClass': '__item--active'
 			},
-			typeDefault: { // Attr names for the default select dropdown option
+			typeDefault: { // Attr names for the custom dropdown menu
 				'defaultClass': '--default',
 				'dataName'    : '-type-default'
 			},
-			'elClass'            : '-element', // Default element class
+			'elClass'            : '-element',
 			'fauxElClass'        : '',
 			'activeClass'        : '--active',
 			'disabledClass'      : '--disabled',
 			'dropdownButtonClass': '__dropdown-button',
 			'placeholderClass'   : '__placeholder'
 		},
-		placeholder: function($el, $fauxEl){}, // Placeholder text if one doesn't already exist
+		isOpen: false,
+		hideOnFocusLoss: true,
 
 		// In the callback functions, the $el parameter is the jQuery object of the 
 		// original select element and $fauxEl is the jQuery object of the custom version
-		onClick: function($el, $fauxEl){}, // Click event callback
-		onChange: function($el, $fauxEl){}, // Change event callback. DefaultDropdown only.
-		onBlur: function($el, $fauxEl){} // Blur event callback. DefaultDropdown only.
+		onInit: null, // Callback that fires after method has initialized
+		onClick: null, // Click event callback
+		onChange: null, // Change event callback. DefaultDropdown only
+		onBlur: null // Blur event callback. DefaultDropdown only
 	})
 
 The `nameSpace` property is used to prepend the HTML attribute names - This allows to easily use multiple form elements on a page without CSS conflicts and specificity wars.
