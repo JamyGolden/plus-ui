@@ -5,9 +5,7 @@ $(document).ready(function() {
 	$('#placeholder').nosInputPlaceholder();
 
 	// Input file
-	$('#inputfile').nosInputFile({
-		placeholder: 'Placeholder Text'
-	});
+	$('#inputfile').nosInputFile();
 
 	// Form Select
 	$('#select').nosFormSelect();
@@ -32,7 +30,7 @@ $(document).ready(function() {
 	// form element selects it's hidden counterpart.
 	$('#toggle-form-elements').click(function(e){
 		e.preventDefault();
-		
+
 		$('div').next('input, select').toggle();
 	});
 }); // document.ready()
