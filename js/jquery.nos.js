@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.6
+* jQuery NOs 0.7
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -85,6 +85,8 @@ window.NosUIApp = {
 		});
 	}
 };
+
+
 
 $.fn.extend({
 
@@ -185,6 +187,8 @@ $.fn.extend({
 				'placeholderClass'   : '__placeholder'
 			},
 			nameSpace: 'nosui-form-select',
+			isOpen: false,
+			hideOnFocusLoss: true,
 			onInit: null,
 			onClick: null,
 			onChange: null,
@@ -296,10 +300,30 @@ $.fn.extend({
 				$el.data(options.elAttrNames.typeCustom.dataName, true);
 
 				function toggleDropdown($fauxSelect) {
-					$fauxSelect.toggleClass(options.elAttrNames.activeClass).find('.' + options.elAttrNames.typeCustom.listClass).toggle();
+					$fauxSelect.toggleClass(options.elAttrNames.activeClass);
+					$fauxSelectList.toggle();
+
+					// Toggle isOpen property
+					if($fauxSelectList.is(':hidden')){
+						options.isOpen = false;
+					} else {
+						options.isOpen = true;
+					};
+
+					// Hide $fauxSelectList if anything is clicked.
+					if(options.hideOnFocusLoss){
+						if(options.isOpen){
+							$('body').on('click.nosui', function(){
+								toggleDropdown($fauxSelect);
+							});
+						} else {
+							$('body').off('click.nosui');
+						};
+					};
 				};
 
-				var elName = $el.attr('name') ? $el.attr('name') : null,
+				// Set vars
+				var elName      = $el.attr('name') ? $el.attr('name') : null,
 					$fauxSelect = $('<div />', {
 						'class': options.elAttrNames.fauxElClass + ' ' + options.elAttrNames.typeCustom.defaultClass,
 						'id': $el.attr('id') ? options.elAttrNames.fauxElClass + '-' + $el.attr('id') : ''
@@ -312,7 +336,7 @@ $.fn.extend({
 				$el.hide().before( $fauxSelect );
 
 				// Creating List
-				var $list = $('<div />', {
+				var $fauxSelectList = $('<div />', {
 						'class': options.elAttrNames.typeCustom.listClass
 					}).appendTo( $fauxSelect ).hide(),
 
@@ -327,7 +351,7 @@ $.fn.extend({
 						'text': $(this).text()
 					})
 						.data(options.elAttrNames.typeCustom.dataSelected, $(this).prop('selected'))
-						.appendTo( $list );
+						.appendTo( $fauxSelectList );
 				});
 
 				var $fauxOptions = $fauxSelect.find('.' + options.elAttrNames.typeCustom.itemClass),
@@ -344,7 +368,7 @@ $.fn.extend({
 				var $placeholder = $('<div />', {
 					'class': options.elAttrNames.placeholderClass,
 					'text': $fauxSelectedOption.text()
-				}).insertBefore( $list );
+				}).insertBefore( $fauxSelectList );
 
 				NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass);
 
@@ -356,6 +380,12 @@ $.fn.extend({
 				// Faux select Events
 				$fauxSelect.on({
 					click: function(e) {
+						// If hideOnFocusLoss is enabled, don't allow clicks
+						// to bubble up and trigger body click
+						if(options.hideOnFocusLoss){
+							e.stopPropagation();
+						};
+
 						// Return if select is disabled
 						if(NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass) === true) {
 							return;
