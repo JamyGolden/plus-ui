@@ -6,6 +6,7 @@
 	background: green; 
 	color: #f1f1f1;
 	width: 200px; 
+	@include user-select(none);
 	position: relative; 
 }
 

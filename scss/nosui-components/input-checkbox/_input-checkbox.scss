@@ -6,6 +6,7 @@
 	background: red; 
 	@include inline-block(); 
 	height: 10px; 
+	@include user-select(none);
 	width: 10px;
 }
 
@@ -25,4 +26,8 @@
 // Checked and disabled
 .nosui-form-checkbox--checked.nosui-form-checkbox--disabled { 
 	background: #333; 
+}
+
+.nosui-form-checkbox--mousedown {
+	background: purple;
 }

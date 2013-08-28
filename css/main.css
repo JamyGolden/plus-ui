@@ -554,16 +554,19 @@ table {
   color: #f1f1f1;
   height: 20px;
   cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
   width: 200px;
   position: relative;
 }
 
-/* line 17, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 18, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select--selected {
   height: 20px;
 }
 
-/* line 21, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 22, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__list {
   background: purple;
   clear: both;
@@ -575,17 +578,17 @@ table {
   top: 20px;
 }
 
-/* line 32, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 33, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__item:hover {
   background: green;
 }
 
-/* line 36, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 37, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__placeholder {
   float: left;
 }
 
-/* line 40, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 41, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__dropdown-button {
   background: red;
   float: right;
@@ -596,12 +599,12 @@ table {
   top: 0;
 }
 
-/* line 50, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 51, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select--active {
   z-index: 1;
 }
 
-/* line 54, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 55, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select--disabled {
   background: #999;
 }
@@ -647,22 +650,30 @@ table {
   zoom: 1;
   *display: inline;
   height: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
   width: 10px;
 }
 
-/* line 16, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
+/* line 17, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
 .nosui-form-checkbox--checked {
   background: green;
 }
 
-/* line 21, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
+/* line 22, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
 .nosui-form-checkbox--disabled {
   background: #999;
 }
 
-/* line 26, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
+/* line 27, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
 .nosui-form-checkbox--checked.nosui-form-checkbox--disabled {
   background: #333;
+}
+
+/* line 31, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
+.nosui-form-checkbox--mousedown {
+  background: purple;
 }
 
 /* line 5, ../scss/nosui-components/input-file/_input-file.scss */
@@ -670,15 +681,18 @@ table {
   background: green;
   color: #f1f1f1;
   width: 200px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
   position: relative;
 }
 
-/* line 12, ../scss/nosui-components/input-file/_input-file.scss */
+/* line 13, ../scss/nosui-components/input-file/_input-file.scss */
 .nosui-form-file--disabled {
   background: #999;
 }
 
-/* line 16, ../scss/nosui-components/input-file/_input-file.scss */
+/* line 17, ../scss/nosui-components/input-file/_input-file.scss */
 .nosui-form-file__placeholder {
   line-height: 25px;
   position: absolute;
@@ -686,7 +700,7 @@ table {
   top: 0;
 }
 
-/* line 23, ../scss/nosui-components/input-file/_input-file.scss */
+/* line 24, ../scss/nosui-components/input-file/_input-file.scss */
 .nosui-form-file__element {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
@@ -707,22 +721,30 @@ table {
   zoom: 1;
   *display: inline;
   height: 10px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
   width: 10px;
 }
 
-/* line 17, ../scss/nosui-components/input-radio/_input-radio.scss */
+/* line 18, ../scss/nosui-components/input-radio/_input-radio.scss */
 .nosui-form-radio--checked {
   background: green;
 }
 
-/* line 22, ../scss/nosui-components/input-radio/_input-radio.scss */
+/* line 23, ../scss/nosui-components/input-radio/_input-radio.scss */
 .nosui-form-radio--disabled {
   background: #999;
 }
 
-/* line 27, ../scss/nosui-components/input-radio/_input-radio.scss */
+/* line 28, ../scss/nosui-components/input-radio/_input-radio.scss */
 .nosui-form-radio--checked.nosui-form-radio--disabled {
   background: #333;
+}
+
+/* line 32, ../scss/nosui-components/input-radio/_input-radio.scss */
+.nosui-form-radio--mousedown {
+  background: purple;
 }
 
 /* line 5, ../scss/nosui-components/tooltip/_tooltip.scss */

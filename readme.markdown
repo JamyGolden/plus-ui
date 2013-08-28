@@ -71,12 +71,19 @@ These are the default options and the typical usage applies these by default. An
 	$(el).nosInputCheckbox({
 		nameSpace: 'nosui-form-checkbox', // Sets the name space for the HTML attributes
 		elAttrNames: {
-			'fauxElClass'  : '',
-			'disabledClass': '--disabled',
-			'checkedClass' : '--checked'
+			'fauxElClass'   : '',
+			'disabledClass' : '--disabled',
+			'checkedClass'  : '--checked',
+			'mousedownClass': '--mousedown'
 		},
 		onClick: function($el, $fauxEl){}
 	})
+
+A custom checkbox checked-element gets a jQuery `data` value of 'nosui-checked'. You can retrieve those elements with the following:
+
+	$(elements).filter(function(){
+		return $(this).data('nosui-checked') === 'checked';
+	});
 
 ## nosInputRadio
 ### Typical usage
@@ -88,13 +95,19 @@ These are the default options and the typical usage applies these by default. An
 	$(el).nosInputRadio({
 		nameSpace: 'nosui-form-radio', // Sets the name space for the HTML attributes
 		elAttrNames: {
-			'fauxElClass'  : '',
-			'disabledClass': '--disabled',
-			'checkedClass' : '--checked',
-			'dataName'     : '-name'
+			'fauxElClass'   : '',
+			'disabledClass' : '--disabled',
+			'checkedClass'  : '--checked',
+			'mousedownClass': '--mousedown'
 		},
 		onClick: function($el, $fauxEl){}
 	})
+
+A custom checkbox checked-element gets a jQuery `data` value of 'nosui-checked'. You can retrieve those elements with the following:
+
+	$(elements).filter(function(){
+		return $(this).data('nosui-checked') === 'checked';
+	});
 
 ## nosInputPlaceholder
 This is an HTML5 placeholder polyfill for input elements.
