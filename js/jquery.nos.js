@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.7
+* jQuery NOs 0.8
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -543,6 +543,14 @@ $.fn.extend({
 
 					$fauxCheckbox.addClass(options.elAttrNames.mousedownClass);
 
+					// Prevent bug where checkbox can be left selected
+					$('body').on('mouseup.nosui', function(e){
+						$fauxCheckbox.removeClass(options.elAttrNames.mousedownClass);
+
+						// Remove event
+						$('body').off('mouseup.nosui');
+					});
+
 					// Event Callback
 					if(typeof options.onMousedown === 'function') {
 						options.onMousedown($el, $fauxCheckbox, options);
@@ -550,6 +558,9 @@ $.fn.extend({
 				},
 				'mouseup.nosui': function(e) {
 					$fauxCheckbox.removeClass(options.elAttrNames.mousedownClass);
+
+					// Remove event
+					$('body').off('mouseup.nosui');
 				}
 			});
 			
@@ -674,6 +685,14 @@ $.fn.extend({
 
 					$fauxRadio.addClass(options.elAttrNames.mousedownClass);
 
+					// Prevent bug where checkbox can be left selected
+					$('body').on('mouseup.nosui', function(e){
+						$fauxRadio.removeClass(options.elAttrNames.mousedownClass);
+
+						// Remove event
+						$('body').off('mouseup.nosui');
+					});
+
 					// Event Callback
 					if(typeof options.onMousedown === 'function') {
 						options.onMousedown($el, $fauxRadio, options);
@@ -681,6 +700,9 @@ $.fn.extend({
 				},
 				'mouseup.nosui': function(e) {
 					$fauxRadio.removeClass(options.elAttrNames.mousedownClass);
+
+					// Remove event
+					$('body').off('mouseup.nosui');
 				}
 			});
 		});
