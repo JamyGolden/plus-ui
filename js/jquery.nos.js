@@ -173,12 +173,14 @@ $.fn.extend({
 					'dataName'    : '-type-default'
 				},
 				typeCustom: {
-					'defaultClass'   : '--custom',
-					'dataName'       : '-type-custom',
-					'dataSelected'   : '-selected',
-					'listClass'      : '__list',
-					'itemClass'      : '__item',
-					'activeItemClass': '__item--active'
+					'defaultClass'    : '--custom',
+					'dataName'        : '-type-custom',
+					'dataSelected'    : '-selected',
+					'listClass'       : '__list',
+					'itemClass'       : '__item',
+					'activeItemClass' : '__item--active',
+					'firstItemClass'  : '__item--first',
+					'lastItemClass'   : '__item--last'
 				},
 				'elClass'            : '-element',
 				'fauxElClass'        : '',
@@ -336,7 +338,7 @@ $.fn.extend({
 							$('body').off('click.nosui');
 						};
 					};
-				};
+				};`
 
 				// Set vars
 				var elName      = $el.attr('name') ? $el.attr('name') : null,
@@ -374,6 +376,10 @@ $.fn.extend({
 					$fauxSelectedOption = $fauxOptions.filter(function(){
 						return $(this).data(NosUIApp.namespace + '-selected');
 					});
+
+				// Add first/last classes to faux options
+				$fauxOptions.first().addClass(options.elAttrNames.typeCustom.firstItemClass);
+				$fauxOptions.last().addClass(options.elAttrNames.typeCustom.lastItemClass);
 
 				// If nothing is selected, select the first in the list
 				if(!$fauxSelectedOption.length){
