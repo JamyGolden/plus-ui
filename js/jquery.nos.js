@@ -338,7 +338,7 @@ $.fn.extend({
 							$('body').off('click.nosui');
 						};
 					};
-				};`
+				};
 
 				// Set vars
 				var elName      = $el.attr('name') ? $el.attr('name') : null,
