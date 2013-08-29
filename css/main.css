@@ -645,6 +645,11 @@ table {
   z-index: 1;
 }
 
+/* line 35, ../scss/nosui-components/form-select/_form-select-alt.scss */
+.nosui-form-select-alt--disabled {
+  background: #999;
+}
+
 /* line 5, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
 .nosui-form-checkbox {
   background: red;
