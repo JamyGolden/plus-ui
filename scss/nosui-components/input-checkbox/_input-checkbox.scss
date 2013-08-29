@@ -3,31 +3,48 @@
 // ==========================================================================
 
 .nosui-form-checkbox { 
-	background: red; 
+	@include form-sprite(checkbox);
+	height: form-sprite-height(checkbox);
+	width: form-sprite-width(checkbox);
+
 	@include inline-block(); 
-	height: 10px; 
 	@include user-select(none);
-	width: 10px;
 }
 
 // Various states
 // ==========================================================================
 
-// Checked
-.nosui-form-checkbox--checked { 
-	background: green; 
+// Hovered
+.nosui-form-checkbox:hover {
+	@include form-sprite(checkbox-hovered);
+
+	// Hovered + Pressed / Mousedown
+	&.nosui-form-checkbox--mousedown {
+		@include form-sprite(checkbox-pressed);
+
+		// Hovered + pressed + checked
+		&.nosui-form-checkbox--checked {
+			@include form-sprite(checkbox-checked-pressed);
+		}
+	}
 }
 
 // Disabled
 .nosui-form-checkbox--disabled { 
-	background: #999; 
+	@include opacity(0.5);
 }
 
-// Checked and disabled
-.nosui-form-checkbox--checked.nosui-form-checkbox--disabled { 
-	background: #333; 
-}
+// Checked
+.nosui-form-checkbox--checked { 
+	@include form-sprite(checkbox-checked);
 
-.nosui-form-checkbox--mousedown {
-	background: purple;
+	// Checked and pressed
+	&.nosui-form-checkbox--mousedown {
+		@include form-sprite(checkbox-checked-pressed);
+	}
+
+	// Checked and hover
+	&.nosui-form-checkbox:hover {
+		@include form-sprite(checkbox-checked-hovered);
+	}
 }

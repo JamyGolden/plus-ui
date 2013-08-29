@@ -1,0 +1,33 @@
+// ==========================================================================
+// Form Input Checkbox
+// ==========================================================================
+
+.nosui-form-checkbox { 
+	background: red; 
+	@include inline-block(); 
+	height: 10px; 
+	@include user-select(none);
+	width: 10px;
+}
+
+// Various states
+// ==========================================================================
+
+// Checked
+.nosui-form-checkbox--checked { 
+	background: green; 
+}
+
+// Disabled
+.nosui-form-checkbox--disabled { 
+	background: #999; 
+}
+
+// Checked and disabled
+.nosui-form-checkbox--checked.nosui-form-checkbox--disabled { 
+	background: #333; 
+}
+
+.nosui-form-checkbox--mousedown {
+	background: purple;
+}

@@ -5,59 +5,102 @@
 // and the version with the custom dropdown menu
 // ==========================================================================
 
+$height: 25px;
+
 .nosui-form-select { 
-	background: green; 
-	color: #f1f1f1; 
-	height: 20px; 
+	background-image: url(../img/form-repeat/select.png);
+	@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
+	background-repeat: repeat;
+	border: 1px solid #ababab;
+	@include border-radius(3px);
+	color: #444; 
+	height: $height; 
+	line-height: $height; 
 	cursor: default; 
 	@include user-select(none);
 	width: 200px; 
 	position: relative; 
 }
 
-	.nosui-form-select--selected { 
-		height: 20px; 
-	}
-
 	.nosui-form-select__list { 
-		background: purple; 
+		@include background-image(linear-gradient(bottom, #dfdfdf, #f9f9f9));
+		border: 1px solid #ababab;
 		clear: both; 
 		margin: 0; 
-		padding: 0; 
+		padding: 0;  
 		width: 100%; 
 		position: absolute; 
-		left: 0; 
-		top: 20px; 
+		left: -1px; // for parent border
+		right: -1px; // for parent border
+		top: $height; 
 	}
 
-		.nosui-form-select__item:hover { 
-			background: green; 
+		.nosui-form-select__item {
+			border-top: 1px solid #dbdbdb;
+			padding: 0 10px;
+
+			&:hover {
+				background: #f9f9f9;
+				background: rgba(255,255,255,0.4);
+			}
+		}
+		
+		.nosui-form-select__item--first {
+			border-top: none;
 		}
 
-	.nosui-form-select__placeholder {
+	.nosui-form-select__placeholder { 
 		float: left;
+		margin-left: 10px;
 	}
 
 	.nosui-form-select__dropdown-button { 
-		background: red; 
-		float: right; 
-		height: 20px; 
-		width: 20px; 
+		@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
+		border-left: 1px solid #dbdbdb;
+		height: $height; 
+		width: $height; 
 		position: absolute; 
-		right: 0; 
+		right: 0;  
 		top: 0; 
+
+		// Button arrow
+		&:after {
+			content: '';
+			border: 6px solid #666;
+			border-color: #666 transparent transparent transparent;
+			height: 0;
+			margin: -3px 0 0 -6px;
+			width: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+		}
 	}
 
-	.nosui-form-select--active { 
-		z-index: 1; 
-	}
+// Various states
+// ==========================================================================
 
-	.nosui-form-select--mousedown { 
-		background: #000;
-	}
+.nosui-form-select:hover {
+	background-image: url(../img/form-repeat/select-hovered.png);
+	@include background-image(linear-gradient(bottom, #dfdfdf, #f1f1f1));
 
-	.nosui-form-select--disabled { 
-		background: #999; 
+	&.nosui-form-select--mousedown {
+		background-image: url(../img/form-repeat/select-pressed.png);
+		@include background-image(linear-gradient(bottom, #d9d9d9, #efefef));
 	}
+}
+
+.nosui-form-select--disabled { 
+	@include opacity(0.5);
+}
+
+.nosui-form-select--active { 
+	@include border-bottom-left-radius(0);
+	@include border-bottom-right-radius(0);
+
+	// z-index is useful when there are various selects being used on the page
+	z-index: 1; 
+}
+
 
 @import "form-select-alt";

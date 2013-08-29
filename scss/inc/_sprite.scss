@@ -1,0 +1,21 @@
+// ==========================================================================
+// Sass sprites
+// ==========================================================================
+
+// Sass sprites
+//
+// Sass creates a class name, named after the image added to the sprite.
+// This class has the width, height and background position added 
+// automatically
+// ==========================================================================
+
+$form-spacing: 2px; // adding sprite spacing for zoom in/out bug
+@import "form/*.png";
+@include all-form-sprites(true);
+
+// General sprite styling
+// This/these classes need to be added to the html element manually
+// ==========================================================================
+.icon {
+	display: inline-block;
+}

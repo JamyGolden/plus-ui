@@ -14,8 +14,7 @@
 }
 
 	.nosui-form-select-alt-element { 
-		opacity: 0; 
-		filter: alpha(opacity=0); 
+		@include opacity(0); 
 		width: 100%;
 		position: relative; 
 		z-index: 1; 

@@ -548,11 +548,123 @@ table {
   border-spacing: 0;
 }
 
-/* line 8, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 130, form/*.png */
+.form-sprite, .form-checkbox-checked-hovered, .form-checkbox-checked-pressed, .form-checkbox-checked, .form-checkbox-hovered, .form-checkbox-pressed, .form-checkbox, .form-radio-checked-hovered, .form-radio-checked-pressed, .form-radio-checked, .form-radio-hovered, .form-radio-pressed, .form-radio, .nosui-form-checkbox, .nosui-form-checkbox:hover, .nosui-form-checkbox.nosui-form-checkbox--mousedown:hover, .nosui-form-checkbox.nosui-form-checkbox--mousedown.nosui-form-checkbox--checked:hover, .nosui-form-checkbox--checked, .nosui-form-checkbox--checked.nosui-form-checkbox--mousedown, .nosui-form-checkbox--checked.nosui-form-checkbox:hover, .nosui-form-radio, .nosui-form-radio:hover, .nosui-form-radio.nosui-form-radio--mousedown:hover, .nosui-form-radio.nosui-form-radio--mousedown.nosui-form-radio--checked:hover, .nosui-form-radio--checked, .nosui-form-radio--checked.nosui-form-radio--mousedown, .nosui-form-radio--checked.nosui-form-radio:hover {
+  background: url('../img/form-s469f92b959.png') no-repeat;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-checkbox-checked-hovered {
+  background-position: 0 -136px;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-checkbox-checked-pressed {
+  background-position: 0 -119px;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-checkbox-checked {
+  background-position: 0 -102px;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-checkbox-hovered {
+  background-position: 0 -170px;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-checkbox-pressed {
+  background-position: 0 -187px;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-checkbox {
+  background-position: 0 -153px;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-radio-checked-hovered {
+  background-position: 0 0;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-radio-checked-pressed {
+  background-position: 0 -17px;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-radio-checked {
+  background-position: 0 -34px;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-radio-hovered {
+  background-position: 0 -51px;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-radio-pressed {
+  background-position: 0 -68px;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 60, ../../../../../../Ruby193/lib/ruby/gems/1.9.1/gems/compass-0.12.2/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss */
+.form-radio {
+  background-position: 0 -85px;
+  height: 15px;
+  width: 15px;
+}
+
+/* line 19, ../scss/inc/_sprite.scss */
+.icon {
+  display: inline-block;
+}
+
+/* line 2, ../scss/inc/_base.scss */
+form {
+  padding: 0 20px;
+}
+
+/* line 10, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select {
-  background: green;
-  color: #f1f1f1;
-  height: 20px;
+  background-image: url(../img/form-repeat/select.png);
+  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #e5e5e5), color-stop(100%, #f9f9f9));
+  background-image: -webkit-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: -moz-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: -o-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-repeat: repeat;
+  border: 1px solid #ababab;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  color: #444;
+  height: 25px;
+  line-height: 25px;
   cursor: default;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -561,57 +673,107 @@ table {
   position: relative;
 }
 
-/* line 18, ../scss/nosui-components/form-select/_form-select.scss */
-.nosui-form-select--selected {
-  height: 20px;
-}
-
-/* line 22, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 25, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__list {
-  background: purple;
+  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #dfdfdf), color-stop(100%, #f9f9f9));
+  background-image: -webkit-linear-gradient(bottom, #dfdfdf, #f9f9f9);
+  background-image: -moz-linear-gradient(bottom, #dfdfdf, #f9f9f9);
+  background-image: -o-linear-gradient(bottom, #dfdfdf, #f9f9f9);
+  background-image: linear-gradient(bottom, #dfdfdf, #f9f9f9);
+  border: 1px solid #ababab;
   clear: both;
   margin: 0;
   padding: 0;
   width: 100%;
   position: absolute;
-  left: 0;
-  top: 20px;
+  left: -1px;
+  right: -1px;
+  top: 25px;
 }
 
-/* line 33, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 38, ../scss/nosui-components/form-select/_form-select.scss */
+.nosui-form-select__item {
+  border-top: 1px solid #dbdbdb;
+  padding: 0 10px;
+}
+/* line 42, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__item:hover {
-  background: green;
+  background: #f9f9f9;
+  background: rgba(255, 255, 255, 0.4);
 }
 
-/* line 37, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 48, ../scss/nosui-components/form-select/_form-select.scss */
+.nosui-form-select__item--first {
+  border-top: none;
+}
+
+/* line 52, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__placeholder {
   float: left;
+  margin-left: 10px;
 }
 
-/* line 41, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 57, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__dropdown-button {
-  background: red;
-  float: right;
-  height: 20px;
-  width: 20px;
+  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #e5e5e5), color-stop(100%, #f9f9f9));
+  background-image: -webkit-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: -moz-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: -o-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  border-left: 1px solid #dbdbdb;
+  height: 25px;
+  width: 25px;
   position: absolute;
   right: 0;
   top: 0;
 }
-
-/* line 51, ../scss/nosui-components/form-select/_form-select.scss */
-.nosui-form-select--active {
-  z-index: 1;
+/* line 67, ../scss/nosui-components/form-select/_form-select.scss */
+.nosui-form-select__dropdown-button:after {
+  content: '';
+  border: 6px solid #666;
+  border-color: #666 transparent transparent transparent;
+  height: 0;
+  margin: -3px 0 0 -6px;
+  width: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 
-/* line 55, ../scss/nosui-components/form-select/_form-select.scss */
-.nosui-form-select--mousedown {
-  background: #000;
+/* line 83, ../scss/nosui-components/form-select/_form-select.scss */
+.nosui-form-select:hover {
+  background-image: url(../img/form-repeat/select-hovered.png);
+  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #dfdfdf), color-stop(100%, #f1f1f1));
+  background-image: -webkit-linear-gradient(bottom, #dfdfdf, #f1f1f1);
+  background-image: -moz-linear-gradient(bottom, #dfdfdf, #f1f1f1);
+  background-image: -o-linear-gradient(bottom, #dfdfdf, #f1f1f1);
+  background-image: linear-gradient(bottom, #dfdfdf, #f1f1f1);
+}
+/* line 87, ../scss/nosui-components/form-select/_form-select.scss */
+.nosui-form-select:hover.nosui-form-select--mousedown {
+  background-image: url(../img/form-repeat/select-pressed.png);
+  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #d9d9d9), color-stop(100%, #efefef));
+  background-image: -webkit-linear-gradient(bottom, #d9d9d9, #efefef);
+  background-image: -moz-linear-gradient(bottom, #d9d9d9, #efefef);
+  background-image: -o-linear-gradient(bottom, #d9d9d9, #efefef);
+  background-image: linear-gradient(bottom, #d9d9d9, #efefef);
 }
 
-/* line 59, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 93, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select--disabled {
-  background: #999;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+}
+
+/* line 97, ../scss/nosui-components/form-select/_form-select.scss */
+.nosui-form-select--active {
+  -moz-border-radius-bottomleft: 0;
+  -webkit-border-bottom-left-radius: 0;
+  border-bottom-left-radius: 0;
+  -moz-border-radius-bottomright: 0;
+  -webkit-border-bottom-right-radius: 0;
+  border-bottom-right-radius: 0;
+  z-index: 1;
 }
 
 /* line 7, ../scss/nosui-components/form-select/_form-select-alt.scss */
@@ -626,64 +788,76 @@ table {
 
 /* line 16, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt-element {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
-  filter: alpha(opacity=0);
   width: 100%;
   position: relative;
   z-index: 1;
 }
 
-/* line 24, ../scss/nosui-components/form-select/_form-select-alt.scss */
+/* line 23, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt__placeholder {
   position: absolute;
   left: 0;
   top: 0;
 }
 
-/* line 31, ../scss/nosui-components/form-select/_form-select-alt.scss */
+/* line 30, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt--active {
   z-index: 1;
 }
 
-/* line 35, ../scss/nosui-components/form-select/_form-select-alt.scss */
+/* line 34, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt--disabled {
   background: #999;
 }
 
 /* line 5, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
 .nosui-form-checkbox {
-  background: red;
+  background-position: 0 -153px;
+  height: 15px;
+  width: 15px;
   display: -moz-inline-stack;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
   zoom: 1;
   *display: inline;
-  height: 10px;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  width: 10px;
 }
 
-/* line 17, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
-.nosui-form-checkbox--checked {
-  background: green;
+/* line 18, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
+.nosui-form-checkbox:hover {
+  background-position: 0 -170px;
 }
-
 /* line 22, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
+.nosui-form-checkbox:hover.nosui-form-checkbox--mousedown {
+  background-position: 0 -187px;
+}
+/* line 26, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
+.nosui-form-checkbox:hover.nosui-form-checkbox--mousedown.nosui-form-checkbox--checked {
+  background-position: 0 -119px;
+}
+
+/* line 33, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
 .nosui-form-checkbox--disabled {
-  background: #999;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
 }
 
-/* line 27, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
-.nosui-form-checkbox--checked.nosui-form-checkbox--disabled {
-  background: #333;
+/* line 38, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
+.nosui-form-checkbox--checked {
+  background-position: 0 -102px;
 }
-
-/* line 31, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
-.nosui-form-checkbox--mousedown {
-  background: purple;
+/* line 42, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
+.nosui-form-checkbox--checked.nosui-form-checkbox--mousedown {
+  background-position: 0 -119px;
+}
+/* line 47, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
+.nosui-form-checkbox--checked.nosui-form-checkbox:hover {
+  background-position: 0 -136px;
 }
 
 /* line 5, ../scss/nosui-components/input-file/_input-file.scss */
@@ -718,43 +892,50 @@ table {
 
 /* line 5, ../scss/nosui-components/input-radio/_input-radio.scss */
 .nosui-form-radio {
-  background: red;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
+  background-position: 0 -85px;
+  height: 15px;
+  width: 15px;
   display: -moz-inline-stack;
   display: inline-block;
   vertical-align: middle;
   *vertical-align: auto;
   zoom: 1;
   *display: inline;
-  height: 10px;
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  width: 10px;
 }
 
 /* line 18, ../scss/nosui-components/input-radio/_input-radio.scss */
-.nosui-form-radio--checked {
-  background: green;
+.nosui-form-radio:hover {
+  background-position: 0 -51px;
+}
+/* line 22, ../scss/nosui-components/input-radio/_input-radio.scss */
+.nosui-form-radio:hover.nosui-form-radio--mousedown {
+  background-position: 0 -68px;
+}
+/* line 26, ../scss/nosui-components/input-radio/_input-radio.scss */
+.nosui-form-radio:hover.nosui-form-radio--mousedown.nosui-form-radio--checked {
+  background-position: 0 -17px;
 }
 
-/* line 23, ../scss/nosui-components/input-radio/_input-radio.scss */
+/* line 33, ../scss/nosui-components/input-radio/_input-radio.scss */
 .nosui-form-radio--disabled {
-  background: #999;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
 }
 
-/* line 28, ../scss/nosui-components/input-radio/_input-radio.scss */
-.nosui-form-radio--checked.nosui-form-radio--disabled {
-  background: #333;
+/* line 38, ../scss/nosui-components/input-radio/_input-radio.scss */
+.nosui-form-radio--checked {
+  background-position: 0 -34px;
 }
-
-/* line 32, ../scss/nosui-components/input-radio/_input-radio.scss */
-.nosui-form-radio--mousedown {
-  background: purple;
+/* line 42, ../scss/nosui-components/input-radio/_input-radio.scss */
+.nosui-form-radio--checked.nosui-form-radio--mousedown {
+  background-position: 0 -17px;
+}
+/* line 47, ../scss/nosui-components/input-radio/_input-radio.scss */
+.nosui-form-radio--checked.nosui-form-radio:hover {
+  background-position: 0 0;
 }
 
 /* line 5, ../scss/nosui-components/tooltip/_tooltip.scss */
