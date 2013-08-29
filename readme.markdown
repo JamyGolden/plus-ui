@@ -32,8 +32,10 @@ These are the default options and the typical usage applies these by default. An
 				'dataName'       : '-type-custom',
 				'dataSelected'   : '-selected',
 				'listClass'      : '__list',
-				'itemClass'      : '__item',
-				'activeItemClass': '__item--active'
+				'itemClass'      : '__item', 
+				'activeItemClass' : '__item--active',
+				'firstItemClass'  : '__item--first',
+				'lastItemClass'   : '__item--last'
 			},
 			typeDefault: { // Attr names for the custom dropdown menu
 				'defaultClass': '--default',
