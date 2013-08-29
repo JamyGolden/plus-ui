@@ -605,6 +605,11 @@ table {
 }
 
 /* line 55, ../scss/nosui-components/form-select/_form-select.scss */
+.nosui-form-select--mousedown {
+  background: #000;
+}
+
+/* line 59, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select--disabled {
   background: #999;
 }

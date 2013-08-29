@@ -183,6 +183,7 @@ $.fn.extend({
 				'elClass'            : '-element',
 				'fauxElClass'        : '',
 				'activeClass'        : '--active',
+				'mousedownClass'     : '--mousedown',
 				'disabledClass'      : '--disabled',
 				'dropdownButtonClass': '__dropdown-button',
 				'placeholderClass'   : '__placeholder'
@@ -193,6 +194,7 @@ $.fn.extend({
 			onInit: null,
 			onClick: null,
 			onChange: null,
+			onMousedown: null, // Only used for defaultDropdown: false
 			onBlur: null // Only used for defaultDropdown: true
 		};
 		options = NosUIApp.defineOptions(defaults, options);
@@ -410,6 +412,35 @@ $.fn.extend({
 						};
 
 						toggleDropdown($fauxSelect); // Toggle list
+					},
+					'mousedown.nosui': function(e) {
+						// Apply disabled styled if disabled
+						// returns false if disabled.
+						// If disabled stop running the function
+						if(NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass)){
+							return;
+						};
+
+						$fauxSelect.addClass(options.elAttrNames.mousedownClass);
+
+						// Prevent bug where checkbox can be left selected
+						$('body').on('mouseup.nosui', function(e){
+							$fauxSelect.removeClass(options.elAttrNames.mousedownClass);
+
+							// Remove event
+							$('body').off('mouseup.nosui');
+						});
+
+						// Event Callback
+						if(typeof options.onMousedown === 'function') {
+							options.onMousedown($el, $fauxSelect, options);
+						};
+					},
+					'mouseup.nosui': function(e) {
+						$fauxSelect.removeClass(options.elAttrNames.mousedownClass);
+
+						// Remove event
+						$('body').off('mouseup.nosui');
 					}
 				});
 
