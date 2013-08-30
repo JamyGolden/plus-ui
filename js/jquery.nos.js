@@ -34,7 +34,7 @@ window.NosUIApp = {
 			return defaults;
 
 		// If defaults doesn't exist - should cover everything
-		} else if(typeof defaults !== 'object'){ 
+		} else if(typeof defaults !== 'object'){
 			return options;
 		};
 	},
@@ -78,9 +78,9 @@ window.NosUIApp = {
 	},
 	applyCssNamespace: function(elAttrNames, nameSpace){
 		$.each(elAttrNames, function(k, v){
-			if(typeof v === 'object'){
+			if(typeof v === 'object' && v !== null){
 				NosUIApp.applyCssNamespace(elAttrNames[k], nameSpace);
-			} else {
+			} else if(typeof v === 'string'){
 				elAttrNames[k] = nameSpace + v;
 			};
 		});
@@ -110,7 +110,7 @@ $.fn.extend({
 				val =  $el.attr('placeholder');
 			};
 
-			// The value hasn't been defined 
+			// The value hasn't been defined
 			// and cannot be guessed either.
 			// Everything should stop here
 			if(typeof val !== 'string') {
@@ -150,7 +150,7 @@ $.fn.extend({
 			});
 
 			// Disable this method
-			// Return here before the elements have the functionality 
+			// Return here before the elements have the functionality
 			// turned on
 			if(disableMethod === true){
 				return;
@@ -222,7 +222,7 @@ $.fn.extend({
 			// Remove custom styling
 			// Restore element back to original state
 			if(disableMethod === true && $el.data(options.elAttrNames.typeDefault.dataName)){
-				// Changing the data on the element to 
+				// Changing the data on the element to
 				// reflect that it has been disabled
 				$el.data(options.elAttrNames.typeDefault.dataName, false).off({
 					'click.nosui': null,
@@ -232,7 +232,7 @@ $.fn.extend({
 
 				return;
 			} else if(disableMethod === true && $el.data(options.elAttrNames.typeCustom.dataName)){
-				// Changing the data on the element to 
+				// Changing the data on the element to
 				// reflect that it has been disabled
 				$el.data(options.elAttrNames.typeCustom.dataName, false).show();
 
@@ -250,7 +250,6 @@ $.fn.extend({
 			if ( options.defaultDropdown == true ) {
 
 				// Adding element physical properties
-
 				$el.data(options.elAttrNames.typeDefault.dataName, true)
 					.addClass(options.elAttrNames.elClass)
 					.wrap(
@@ -287,7 +286,7 @@ $.fn.extend({
 
 				// Events
 				$el.on({
-					'click.nosui': function(e) {
+					'focus.nosui': function(e) {
 						// Applied for disabled styling if applied
 						NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass);
 						$fauxSelect.toggleClass( options.elAttrNames.activeClass );
@@ -307,7 +306,7 @@ $.fn.extend({
 						};
 					},
 					'blur.nosui': function(e) {
-						$fauxSelect.removeClass( options.elAttrNames.active );
+						$fauxSelect.removeClass( options.elAttrNames.activeClass );
 
 						// Event Callback
 						if(typeof options.onBlur === 'function') {
@@ -476,7 +475,7 @@ $.fn.extend({
 
 						// Force the default element change event to fire
 						// This is for consistency with the defaultDropdown option
-						$el.change(); 
+						$el.change();
 
 						if(typeof options.onChange === 'function') {
 							options.onChange($el, $fauxSelect, options);
@@ -520,7 +519,7 @@ $.fn.extend({
 			};
 
 			if(disableMethod === true){
-				// Changing the data on the element to 
+				// Changing the data on the element to
 				// reflect that it has been disabled
 				$el.prev('.' + options.elAttrNames.fauxElClass).off() // Turn off fauxEl events
 					.remove(); // Remove fauxEl
@@ -537,7 +536,7 @@ $.fn.extend({
 
 			NosUIApp.form.isDisabled($el, $fauxCheckbox, options.elAttrNames.disabledClass);
 
-			// Force fauxEl to match the checked state of the 
+			// Force fauxEl to match the checked state of the
 			// input on init
 			if($el.prop('checked')){
 				$fauxCheckbox.addClass(options.elAttrNames.checkedClass);
@@ -549,7 +548,7 @@ $.fn.extend({
 			};
 
 			$fauxCheckbox.on({
-				'click.nosui': function(e){ 
+				'click.nosui': function(e){
 					// This applies disabled styled if disabled
 					// returns false.
 					// If disabled stop running the function
@@ -604,7 +603,7 @@ $.fn.extend({
 					$('body').off('mouseup.nosui');
 				}
 			});
-			
+
 		}); // this.each()
 
 	}, // nosFormCheckbox()
@@ -616,8 +615,7 @@ $.fn.extend({
 				'inputClass'     : '-text',
 				'disabledClass'  : '--disabled',
 				'checkedClass'   : '--checked',
-				'mousedownClass' : '--mousedown',
-				'dataName'       : '-name'
+				'mousedownClass' : '--mousedown'
 			},
 			namespace: 'nosui-form-radio',
 			onInit: null,
@@ -639,7 +637,7 @@ $.fn.extend({
 			};
 
 			if(disableMethod === true){
-				// Changing the data on the element to 
+				// Changing the data on the element to
 				// reflect that it has been disabled
 				$el.prev('.' + options.elAttrNames.fauxElClass).off() // Turn off fauxEl events
 					.remove(); // Remove fauxEl
@@ -648,18 +646,18 @@ $.fn.extend({
 				return;
 			};
 
-			options.elName = $el.attr('name');
-			var $elSiblings = $el.closest('form').find('input[type="radio"]').filter(function(){
-					return $(this).attr('name') == options.elName;
+			var elName = $el.attr('name'),
+				$elSiblings = $el.closest('form').find('input[type="radio"]').filter(function(){
+					return $(this).attr('name') == elName;
 				}).not($el),
 				$fauxRadio = $('<div />', {
 					'class': options.elAttrNames.fauxElClass
 				})
-					.data(NosUIApp.namespace + '-name', options.elName)
+					.data(NosUIApp.namespace + '-name', elName)
 					.data(NosUIApp.namespace + '-checked', $el.prop('checked')) // Copy element checked property value
 					.insertBefore( $el.hide() );
 
-			// Force fauxEl to match the checked state of the 
+			// Force fauxEl to match the checked state of the
 			// input on init
 			if($fauxRadio.data(NosUIApp.namespace + '-checked')){
 				$fauxRadio.addClass(options.elAttrNames.checkedClass);
@@ -678,7 +676,7 @@ $.fn.extend({
 			};
 
 			$fauxRadio.on({
-				'click.nosui': function(e){ 
+				'click.nosui': function(e){
 					// Apply disabled styled if disabled
 					// returns false if disabled.
 					// If disabled stop running the function
@@ -692,12 +690,11 @@ $.fn.extend({
 							.closest('form')
 							.find('.' + options.elAttrNames.fauxElClass)
 							.filter(function(){
-								if($(this).data(NosUIApp.namespace + '-name') == options.elName){
+								if($(this).data(NosUIApp.namespace + '-name') == elName){
 									return true
 								} else {
 									return false;
 								};
-
 							})
 							.not($fauxRadio);
 
