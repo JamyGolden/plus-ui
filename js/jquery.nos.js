@@ -271,7 +271,11 @@ $.fn.extend({
 					$placeholder = $('<div />', {
 						'class': options.elAttrNames.placeholderClass,
 						'text': placeholderText
-					}).prependTo( $fauxSelect );
+					}).prependTo( $fauxSelect ),
+
+					$dropdownButton = $('<div />', {
+						'class': options.elAttrNames.dropdownButtonClass
+					}).insertAfter( $placeholder );
 
 				// Applied for disabled styling if applied
 				NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass);
