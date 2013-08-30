@@ -4,17 +4,27 @@
 // Default specific classes
 // ==========================================================================
 
+$height: 25px;
+
 .nosui-form-select-alt { 
-	background: green; 
-	color: #f1f1f1; 
-	height: 20px; 
+	background-image: url(../img/form-repeat/select.png);
+	@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
+	background-repeat: repeat;
+	border: 1px solid #ababab;
+	@include border-radius(3px);
+	color: #444; 
 	cursor: default; 
+	height: $height; 
+	line-height: $height; 
+	cursor: default; 
+	@include user-select(none);
 	width: 200px; 
 	position: relative; 
 }
 
 	.nosui-form-select-alt-element { 
 		@include opacity(0); 
+		height: $height;
 		width: 100%;
 		position: relative; 
 		z-index: 1; 
@@ -22,15 +32,39 @@
 
 	.nosui-form-select-alt__placeholder { 
 		position: absolute; 
-		left: 0; 
+		left: 10px; 
 		top: 0; 
 	}
 
 	// Active state
 	.nosui-form-select-alt--active { 
+		// z-index is useful when there are various selects being used on the page
 		z-index: 1; 
 	}
 
 	.nosui-form-select-alt--disabled { 
 		background: #999; 
+	}
+
+	.nosui-form-select-alt__dropdown-button { 
+		@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
+		border-left: 1px solid #dbdbdb;
+		height: $height; 
+		width: $height; 
+		position: absolute; 
+		right: 0;  
+		top: 0; 
+
+		// Button arrow
+		&:after {
+			content: '';
+			border: 6px solid #666;
+			border-color: #666 transparent transparent transparent;
+			height: 0;
+			margin: -3px 0 0 -6px;
+			width: 0;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+		}
 	}

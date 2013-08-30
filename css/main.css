@@ -776,40 +776,85 @@ form {
   z-index: 1;
 }
 
-/* line 7, ../scss/nosui-components/form-select/_form-select-alt.scss */
+/* line 9, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt {
-  background: green;
-  color: #f1f1f1;
-  height: 20px;
+  background-image: url(../img/form-repeat/select.png);
+  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #e5e5e5), color-stop(100%, #f9f9f9));
+  background-image: -webkit-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: -moz-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: -o-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-repeat: repeat;
+  border: 1px solid #ababab;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  color: #444;
   cursor: default;
+  height: 25px;
+  line-height: 25px;
+  cursor: default;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
   width: 200px;
   position: relative;
 }
 
-/* line 16, ../scss/nosui-components/form-select/_form-select-alt.scss */
+/* line 25, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt-element {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
+  height: 25px;
   width: 100%;
   position: relative;
   z-index: 1;
 }
 
-/* line 23, ../scss/nosui-components/form-select/_form-select-alt.scss */
+/* line 33, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt__placeholder {
   position: absolute;
-  left: 0;
+  left: 10px;
   top: 0;
 }
 
-/* line 30, ../scss/nosui-components/form-select/_form-select-alt.scss */
+/* line 40, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt--active {
   z-index: 1;
 }
 
-/* line 34, ../scss/nosui-components/form-select/_form-select-alt.scss */
+/* line 45, ../scss/nosui-components/form-select/_form-select-alt.scss */
 .nosui-form-select-alt--disabled {
   background: #999;
+}
+
+/* line 49, ../scss/nosui-components/form-select/_form-select-alt.scss */
+.nosui-form-select-alt__dropdown-button {
+  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #e5e5e5), color-stop(100%, #f9f9f9));
+  background-image: -webkit-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: -moz-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: -o-linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  background-image: linear-gradient(bottom, #e5e5e5, #f9f9f9);
+  border-left: 1px solid #dbdbdb;
+  height: 25px;
+  width: 25px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+/* line 59, ../scss/nosui-components/form-select/_form-select-alt.scss */
+.nosui-form-select-alt__dropdown-button:after {
+  content: '';
+  border: 6px solid #666;
+  border-color: #666 transparent transparent transparent;
+  height: 0;
+  margin: -3px 0 0 -6px;
+  width: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 
 /* line 5, ../scss/nosui-components/input-checkbox/_input-checkbox.scss */
@@ -981,4 +1026,56 @@ form {
   position: absolute;
   left: 7px;
   bottom: -14px;
+}
+
+/* line 10, ../scss/nosui-components/scrollbar/_scrollbar.scss */
+body {
+  scrollbar-arrow-color: #777;
+  scrollbar-base-color: #444;
+  scrollbar-face-color: #585858;
+  scrollbar-highlight-color: #444;
+  scrollbar-shadow-color: #585858;
+}
+
+/* line 21, ../scss/nosui-components/scrollbar/_scrollbar.scss */
+::-webkit-scrollbar {
+  height: 20px;
+  width: 20px;
+}
+
+/* line 27, ../scss/nosui-components/scrollbar/_scrollbar.scss */
+::-webkit-scrollbar-track {
+  background: #444;
+}
+
+/* line 32, ../scss/nosui-components/scrollbar/_scrollbar.scss */
+::-webkit-scrollbar-thumb {
+  background: #585858;
+}
+
+/* line 36, ../scss/nosui-components/scrollbar/_scrollbar.scss */
+::-webkit-scrollbar-thumb:vertical {
+  border-bottom: 1px solid #444;
+}
+
+/* line 40, ../scss/nosui-components/scrollbar/_scrollbar.scss */
+::-webkit-scrollbar-thumb:horizontal {
+  border-right: 1px solid #444;
+}
+
+/* line 45, ../scss/nosui-components/scrollbar/_scrollbar.scss */
+::-webkit-scrollbar-button {
+  background-color: #444;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* line 51, ../scss/nosui-components/scrollbar/_scrollbar.scss */
+::-webkit-scrollbar-button:vertical {
+  height: 20px;
+}
+
+/* line 72, ../scss/nosui-components/scrollbar/_scrollbar.scss */
+::-webkit-scrollbar-corner {
+  background-color: #666;
 }

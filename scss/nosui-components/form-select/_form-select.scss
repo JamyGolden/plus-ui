@@ -44,7 +44,7 @@ $height: 25px;
 				background: rgba(255,255,255,0.4);
 			}
 		}
-		
+
 		.nosui-form-select__item--first {
 			border-top: none;
 		}
@@ -101,6 +101,5 @@ $height: 25px;
 	// z-index is useful when there are various selects being used on the page
 	z-index: 1; 
 }
-
 
 @import "form-select-alt";

@@ -1,0 +1,74 @@
+// ==========================================================================
+// Scrollbar
+// ==========================================================================
+
+// ==========================================================================
+// http://css-tricks.com/custom-scrollbars-in-webkit/
+// Only add custom scrollbars to to items within .app
+// Don't apply for touch devices - Class applied by Modernizr
+// ==========================================================================
+body {
+
+	// For IE
+	scrollbar-arrow-color: #777;
+	scrollbar-base-color: #444;
+	//scrollbar-3dlight-color:;
+	//scrollbar-darkshadow-color:;
+	scrollbar-face-color: #585858;
+	scrollbar-highlight-color: #444;
+	scrollbar-shadow-color: #585858;
+}
+	::-webkit-scrollbar {
+		height: 20px;
+		width: 20px;
+	}
+
+	// Thumb track area
+	::-webkit-scrollbar-track {
+		background: #444;
+	}
+
+	// The draggable bar itself
+	::-webkit-scrollbar-thumb {
+		background: #585858;
+	}
+
+		::-webkit-scrollbar-thumb:vertical {
+			border-bottom: 1px solid #444;
+		}
+
+		::-webkit-scrollbar-thumb:horizontal {
+			border-right: 1px solid #444;
+		}
+
+	// Directional arrows
+	::-webkit-scrollbar-button {
+		background-color: #444;
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+
+		::-webkit-scrollbar-button:vertical {
+			height: 20px;
+		}
+
+			::-webkit-scrollbar-button:vertical:increment {
+				//background-image: url(../img/scrollbar/scrollbar-btn-down.png);
+			}
+
+			::-webkit-scrollbar-button:vertical:decrement {
+				//background-image: url(../img/scrollbar/scrollbar-btn-up.png);
+			}
+
+			::-webkit-scrollbar-button:horizontal:increment {
+				//background-image: url(../img/scrollbar/scrollbar-btn-right.png);
+			}
+
+			::-webkit-scrollbar-button:horizontal:decrement {
+				//background-image: url(../img/scrollbar/scrollbar-btn-left.png);
+			}
+
+	// The rectabgle corner where horizontal and vertical scrollbar meet
+	::-webkit-scrollbar-corner {
+		background-color: #666;;
+	}
