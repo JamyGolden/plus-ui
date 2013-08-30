@@ -5,51 +5,64 @@
 // ==========================================================================
 // http://css-tricks.com/custom-scrollbars-in-webkit/
 // Only add custom scrollbars to to items within .app
-// Don't apply for touch devices - Class applied by Modernizr
+// Don't apply for touch devices - Class applied by Modernizr - .no-touch
 // ==========================================================================
-body {
 
+.scrollbar-example {
+	margin: 20px;
+
+	height: 100px;
+	overflow: auto;
+	width: 400px;
+}
+
+body {
 	// For IE
-	scrollbar-arrow-color: #777;
-	scrollbar-base-color: #444;
+	scrollbar-arrow-color: #aaa;
+	scrollbar-base-color: #ddd;
 	//scrollbar-3dlight-color:;
 	//scrollbar-darkshadow-color:;
 	scrollbar-face-color: #585858;
-	scrollbar-highlight-color: #444;
+	scrollbar-highlight-color: #ddd;
 	scrollbar-shadow-color: #585858;
-}
+
 	::-webkit-scrollbar {
-		height: 20px;
-		width: 20px;
+		height: 5px;
+		width: 5px;
 	}
 
 	// Thumb track area
 	::-webkit-scrollbar-track {
-		background: #444;
+		background: #ddd;
 	}
 
 	// The draggable bar itself
 	::-webkit-scrollbar-thumb {
-		background: #585858;
+		background: #aaa;
+		@include transition(background 0.3s ease);
+
+		&:hover {
+			background: #666;
+		}
 	}
 
 		::-webkit-scrollbar-thumb:vertical {
-			border-bottom: 1px solid #444;
+
 		}
 
 		::-webkit-scrollbar-thumb:horizontal {
-			border-right: 1px solid #444;
+
 		}
 
 	// Directional arrows
 	::-webkit-scrollbar-button {
-		background-color: #444;
-		background-repeat: no-repeat;
-		background-position: center center;
+		// background-color: #444;
+		// background-repeat: no-repeat;
+		// background-position: center center;
 	}
 
 		::-webkit-scrollbar-button:vertical {
-			height: 20px;
+			// height: 5px;
 		}
 
 			::-webkit-scrollbar-button:vertical:increment {
@@ -70,5 +83,6 @@ body {
 
 	// The rectabgle corner where horizontal and vertical scrollbar meet
 	::-webkit-scrollbar-corner {
-		background-color: #666;;
+		// background-color: #666;
 	}
+}

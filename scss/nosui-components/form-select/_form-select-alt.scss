@@ -6,54 +6,48 @@
 
 $height: 25px;
 
-.nosui-form-select-alt { 
+.nosui-form-select-alt {
 	background-image: url(../img/form-repeat/select.png);
 	@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
 	background-repeat: repeat;
 	border: 1px solid #ababab;
 	@include border-radius(3px);
-	color: #444; 
-	cursor: default; 
-	height: $height; 
-	line-height: $height; 
-	cursor: default; 
+	color: #444;
+	cursor: default;
+	height: $height;
+	line-height: $height;
+	cursor: default;
 	@include user-select(none);
-	width: 200px; 
-	position: relative; 
+	width: 200px;
+	position: relative;
 }
 
-	.nosui-form-select-alt-element { 
-		@include opacity(0); 
+	.nosui-form-select-alt-element {
+		@include opacity(0);
 		height: $height;
 		width: 100%;
-		position: relative; 
-		z-index: 1; 
+		position: relative;
+		z-index: 1;
 	}
 
-	.nosui-form-select-alt__placeholder { 
-		position: absolute; 
-		left: 10px; 
-		top: 0; 
+	.nosui-form-select-alt__placeholder {
+		position: absolute;
+		left: 10px;
+		top: 0;
 	}
 
-	// Active state
-	.nosui-form-select-alt--active { 
-		// z-index is useful when there are various selects being used on the page
-		z-index: 1; 
+	.nosui-form-select-alt--disabled {
+		background: #999;
 	}
 
-	.nosui-form-select-alt--disabled { 
-		background: #999; 
-	}
-
-	.nosui-form-select-alt__dropdown-button { 
+	.nosui-form-select-alt__dropdown-button {
 		@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
 		border-left: 1px solid #dbdbdb;
-		height: $height; 
-		width: $height; 
-		position: absolute; 
-		right: 0;  
-		top: 0; 
+		height: $height;
+		width: $height;
+		position: absolute;
+		right: 0;
+		top: 0;
 
 		// Button arrow
 		&:after {
