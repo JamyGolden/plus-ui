@@ -753,10 +753,12 @@ $.fn.extend({
 				'elClass'         : '__element',
 				'fauxElClass'     : '',
 				'disabledClass'   : '--disabled',
-				'placeholderClass': '__placeholder'
+				'placeholderClass': '__placeholder',
+				'buttonClass': '__button'
 			},
 			namespace: 'nosui-form-file',
 			placeholder: 'No file chosen',
+			buttonText: 'Choose File',
 			onInit: null,
 			onChange: null
 		};
@@ -779,14 +781,18 @@ $.fn.extend({
 			var $fauxInputFile = $('<div />', {
 					'class': options.elAttrNames.fauxElClass
 				}),
-				$placeholder = $('<span />', {
+				$placeholder = $('<div />', {
 					'class': options.elAttrNames.placeholderClass,
 					'text': options.placeholder
+				}),
+				$button = $('<div />', {
+					'class': options.elAttrNames.buttonClass,
+					'text': options.buttonText
 				});
 
 			NosUIApp.form.isDisabled($el, $fauxInputFile, options.elAttrNames.disabledClass);
 
-			$el.wrap( $fauxInputFile ).before( $placeholder );
+			$el.wrap( $fauxInputFile ).before( $placeholder, $button );
 
 			// Event Callback
 			if(typeof options.onInit === 'function') {
