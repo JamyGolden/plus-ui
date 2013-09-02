@@ -46,5 +46,9 @@ $height: 25px;
 
 	.nosui-form-file__element { 
 		@include opacity(0); 
+
+		// Forces the browse button of the 
+		// input file to cover the faux area
+		float: right; 
 		font-size: 100px;
 	}

@@ -23,6 +23,7 @@ $height: 25px;
 }
 
 	.nosui-form-select__list { 
+		background-color: #dfdfdf;
 		@include background-image(linear-gradient(bottom, #dfdfdf, #f9f9f9));
 		border: 1px solid #ababab;
 		clear: both; 

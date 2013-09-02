@@ -675,6 +675,7 @@ form {
 
 /* line 25, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__list {
+  background-color: #dfdfdf;
   background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #dfdfdf), color-stop(100%, #f9f9f9));
   background-image: -webkit-linear-gradient(bottom, #dfdfdf, #f9f9f9);
   background-image: -moz-linear-gradient(bottom, #dfdfdf, #f9f9f9);
@@ -691,29 +692,29 @@ form {
   top: 25px;
 }
 
-/* line 38, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 39, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__item {
   border-top: 1px solid #dbdbdb;
   padding: 0 10px;
 }
-/* line 42, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 43, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__item:hover {
   background: #f9f9f9;
   background: rgba(255, 255, 255, 0.4);
 }
 
-/* line 48, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 49, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__item--first {
   border-top: none;
 }
 
-/* line 52, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 53, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__placeholder {
   float: left;
   margin-left: 10px;
 }
 
-/* line 57, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 58, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__dropdown-button {
   background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #e5e5e5), color-stop(100%, #f9f9f9));
   background-image: -webkit-linear-gradient(bottom, #e5e5e5, #f9f9f9);
@@ -727,7 +728,7 @@ form {
   right: 0;
   top: 0;
 }
-/* line 67, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 68, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select__dropdown-button:after {
   content: '';
   border: 6px solid #666;
@@ -740,7 +741,7 @@ form {
   left: 50%;
 }
 
-/* line 83, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 84, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select:hover {
   background-image: url(../img/form-repeat/select-hovered.png);
   background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #dfdfdf), color-stop(100%, #f1f1f1));
@@ -749,7 +750,7 @@ form {
   background-image: -o-linear-gradient(bottom, #dfdfdf, #f1f1f1);
   background-image: linear-gradient(bottom, #dfdfdf, #f1f1f1);
 }
-/* line 87, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 88, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select:hover.nosui-form-select--mousedown {
   background-image: url(../img/form-repeat/select-pressed.png);
   background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #d9d9d9), color-stop(100%, #efefef));
@@ -759,13 +760,13 @@ form {
   background-image: linear-gradient(bottom, #d9d9d9, #efefef);
 }
 
-/* line 93, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 94, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select--disabled {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
   opacity: 0.5;
 }
 
-/* line 97, ../scss/nosui-components/form-select/_form-select.scss */
+/* line 98, ../scss/nosui-components/form-select/_form-select.scss */
 .nosui-form-select--active {
   -moz-border-radius-bottomleft: 0;
   -webkit-border-bottom-left-radius: 0;
@@ -980,6 +981,7 @@ form {
 .nosui-form-file__element {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
   opacity: 0;
+  float: right;
   font-size: 100px;
 }
 
