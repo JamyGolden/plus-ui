@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.8
+* jQuery NOs 0.8.5
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
