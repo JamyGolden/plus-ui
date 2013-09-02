@@ -23,7 +23,7 @@ $height: 25px;
 }
 
 .nosui-form-file--disabled {
-	background: #999;
+	@include opacity(0.5);
 }
 
 	.nosui-form-file__placeholder { 
