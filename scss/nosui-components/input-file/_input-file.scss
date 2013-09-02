@@ -1,13 +1,25 @@
 // ==========================================================================
 // Form Input File
 // ==========================================================================
+$height: 25px;
 
 .nosui-form-file { 
-	background: green; 
-	color: #f1f1f1;
-	width: 200px; 
+	background-image: url(../img/form-repeat/select.png);
+	@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
+	background-repeat: repeat;
+	border: 1px solid #ababab;
+	@include border-radius(2px);
+	color: #444;
+	height: $height;
+	overflow: hidden;
+	width: 400px; 
 	@include user-select(none);
 	position: relative; 
+
+	&:hover {
+		background-image: url(../img/form-repeat/select-hovered.png);
+		@include background-image(linear-gradient(bottom, #dfdfdf, #f1f1f1));
+	}
 }
 
 .nosui-form-file--disabled { 
@@ -15,12 +27,24 @@
 }
 
 	.nosui-form-file__placeholder { 
-		line-height: 25px;
-		position: absolute; 
-		left: 0; 
-		top: 0; 
+		line-height: $height;
+		position: absolute;
+		left: 10px;
+		top: 0;
+	}
+
+	.nosui-form-file__button { 
+		border-left: 1px solid #dbdbdb;
+		cursor: default;
+		height: $height;
+		line-height: $height;
+		padding: 0 10px;
+		position: absolute;
+		right: 0;
+		top: 0;
 	}
 
 	.nosui-form-file__element { 
 		@include opacity(0); 
+		font-size: 100px;
 	}
