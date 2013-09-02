@@ -10,9 +10,9 @@
 		<h1>
 			NOS UI
 		</h1>
-		
+
 		<h2>
-			#1 nosInputPlaceholder
+			nosInputPlaceholder
 		</h2>
 		<input class="nosui-form-text" 
 		 id="placeholder" 
@@ -20,15 +20,28 @@
 		 placeholder="Placeholder">
 
 		<h2>
-			#2 NosInputFile
+			NosInputFile
 		</h2>
-		<input id="inputfile" 
+		<input id="inputfile"
 		 type="file">
 
 		<h2>
-			#3 nosFormSelect
+			nosFormSelect
 		</h2>
-		<select id="select">
+		<h3>Standard</h3>
+		<select class="select">
+			<option value="south africa">
+				South Africa
+			</option>
+			<option value="america">
+				America
+			</option>
+			<option value="england">
+				England
+			</option>
+		</select>
+		<h3>Disabled</h3>
+		<select class="select" disabled>
 			<option value="south africa">
 				South Africa
 			</option>
@@ -40,9 +53,7 @@
 			</option>
 		</select>
 
-		<h2>
-			#4 nosFormSelect - Default
-		</h2>
+		<h3>Default dropdown menu (Primarily for mobile)</h3>
 		<select id="select-alt">
 			<option value="south africa">
 				South Africa
@@ -56,60 +67,72 @@
 		</select>
 
 		<h2>
-			#5 nosInputCheckbox
+			nosInputCheckbox
 		</h2>
-		<input name="checkbox1" 
+		<h3>Standard</h3>
+		<input name="checkbox1"
 		 type="checkbox">
-		<input name="checkbox1" 
-		 type="checkbox" 
+		<input name="checkbox1"
+		 type="checkbox"
 		 checked>
-		<input name="checkbox1" 
+		<input name="checkbox1"
 		 type="checkbox">
 
-		<h2>
-			#8.1 nosInputCheckbox - disabled
-		</h2>
-		<input name="checkbox2" 
-		 type="checkbox" 
-		 checked 
+		<h3>Disabled</h3>
+		<input name="checkbox2"
+		 type="checkbox"
+		 checked
 		 disabled>
-		<input name="checkbox2" 
-		 type="checkbox" 
+		<input name="checkbox2"
+		 type="checkbox"
 		 disabled>
-		<input name="checkbox2" 
-		 type="checkbox" 
+		<input name="checkbox2"
+		 type="checkbox"
 		 disabled>
 
 		<h2>
-			#6 nosInputRadio
+			nosInputRadio
 		</h2>
+		<h3>Standard</h3>
 		<input name="radio1" type="radio">
 		<input name="radio1" type="radio">
 		<input name="radio1" type="radio">
+
+		<h3>Disabled</h3>
+		<input name="radio2"
+		 type="radio"
+		 checked
+		 disabled>
+		<input name="radio2"
+		 type="radio"
+		 disabled>
+		<input name="radio2"
+		 type="radio"
+		 disabled>
 
 <!-- 		<h2>
 			#7 nosTooltip
 		</h2>
-		<a class="tooltip" 
-		 href="#" 
+		<a class="tooltip"
+		 href="#"
 		 data-nosui-tooltip="Example">
 			test
 		</a>
 		<p>
 			Another example on <strong class="tooltip" data-nosui-tooltip="Very&nbsp;&lt;strong&gt;&nbsp;word">this word</strong>
 		</p> -->
+		<h2>Custom Scrollbar - No JS (Webkit/Partial IE support)</h2>
+		<div class="scrollbar-example">
+			<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+			<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+			<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+			<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+			<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+			<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+			<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+			<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+		</div>
 	</form>
-
-	<div class="scrollbar">
-		<p>Take a look at this custom scrollbar!</p>
-		<p>Take a look at this custom scrollbar!</p>
-		<p>Take a look at this custom scrollbar!</p>
-		<p>Take a look at this custom scrollbar!</p>
-		<p>Take a look at this custom scrollbar!</p>
-		<p>Take a look at this custom scrollbar!</p>
-		<p>Take a look at this custom scrollbar!</p>
-		<p>Take a look at this custom scrollbar!</p>
-	</div>
 
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<script src="js/jquery.nos.js"></script>
