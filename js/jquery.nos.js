@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.8.5
+* jQuery NOs 0.8.6
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -103,10 +103,10 @@ $.fn.extend({
 			NosUIApp.matchElType($('input'), $el);
 
 			if(typeof options.placeholder === 'string') {
-				val = options.placeholder;
-			} else {
-				val =  $el.attr('placeholder');
+				$el.attr('placeholder', options.placeholder);
 			};
+
+			var val =  $el.attr('placeholder');
 
 			// The value hasn't been defined 
 			// and cannot be guessed either.
