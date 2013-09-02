@@ -87,8 +87,6 @@ window.NosUIApp = {
 	}
 };
 
-
-
 $.fn.extend({
 
 	nosInputPlaceholder: function( options, disableMethod ) {
@@ -242,7 +240,7 @@ $.fn.extend({
 					'change.nosui': null
 				}).find('.' + options.elAttrNames.typeCustom.itemClass).off({
 					'click.nosui': null,
-					'change.nosui': null,
+					'change.nosui': null
 				}).end().remove();
 				return;
 			};
