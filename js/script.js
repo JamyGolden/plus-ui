@@ -2,16 +2,13 @@ $(document).ready(function() {
 	// Use something like modernizr to check
 	// if placeholder is supported natively
 	// before running this
-	$('#placeholder').nosInputPlaceholder();
-
-	// Input file
-	$('#inputfile').nosInputFile();
+	$('input[type="placeholder"]').nosInputPlaceholder();
 
 	// Form Select
-	$('.select').nosFormSelect();
+	$('.js-select').nosFormSelect();
 
 	// Form select with defaultDropdown
-	$('#select-alt').nosFormSelect({
+	$('.js-select-alt').nosFormSelect({
 		defaultDropdown: true,
 		namespace: 'nosui-form-select-alt'
 	});
@@ -22,12 +19,7 @@ $(document).ready(function() {
 	// Input Radio
 	$('input[type="radio"]').nosInputRadio();
 
-	// Toggle form elements for informational purposes
-	// With this you can see how selecting a custom
-	// form element selects it's hidden counterpart.
-	$('#toggle-form-elements').click(function(e){
-		e.preventDefault();
+	// Input file
+	$('input[type="file"]').nosInputFile();
 
-		$('div').next('input, select').toggle();
-	});
 }); // document.ready()

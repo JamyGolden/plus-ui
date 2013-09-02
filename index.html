@@ -20,16 +20,10 @@
 		 placeholder="Placeholder">
 
 		<h2>
-			NosInputFile
-		</h2>
-		<input id="inputfile"
-		 type="file">
-
-		<h2>
 			nosFormSelect
 		</h2>
 		<h3>Standard</h3>
-		<select class="select">
+		<select class="js-select">
 			<option value="south africa">
 				South Africa
 			</option>
@@ -41,7 +35,7 @@
 			</option>
 		</select>
 		<h3>Disabled</h3>
-		<select class="select" disabled>
+		<select class="js-select" disabled>
 			<option value="south africa">
 				South Africa
 			</option>
@@ -54,7 +48,7 @@
 		</select>
 
 		<h3>Default dropdown menu (Primarily for mobile)</h3>
-		<select id="select-alt">
+		<select class="js-select-alt">
 			<option value="south africa">
 				South Africa
 			</option>
@@ -108,6 +102,18 @@
 		 disabled>
 		<input name="radio2"
 		 type="radio"
+		 disabled>
+
+		<h2>
+			NosInputFile
+		</h2>
+		<h3>Standard</h3>
+		<input class="inputfile"
+		 type="file">
+
+		 <h3>Disabled</h3>
+		<input class="inputfile"
+		 type="file"
 		 disabled>
 
 <!-- 		<h2>
