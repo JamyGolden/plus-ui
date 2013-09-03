@@ -836,7 +836,139 @@ $.fn.extend({
 
 		}); // return this.each
 
-	} // nosTooltip()
+	}, // nosTooltip()
+	nosScrollbar: function( options ){
+
+		var defaults = {
+			elAttrNames: {
+				'fauxElClass'      : '',
+				'elClass'          : '__canvas',
+				'containerClass'   : '__container',
+				'scrollClass'      : '__scroll',
+				'scrollHandleClass': '__scroll-handle'
+			},
+			namespace: 'nosui-fscroll'
+		};
+		options = NosUIApp.defineOptions(defaults, options);
+
+		return this.each(function(){
+			function getYScrollPercentage($el){
+				var yPos = $el.get(0).scrollTop,
+					scrollHeight = $el.get(0).scrollHeight,
+					elHeight = $el.height(),
+					height = scrollHeight - elHeight,
+					percentage = yPos * 100 / height;
+
+					return percentage;
+			}
+
+			// Converts the scroll percentage to necessary 
+			// pixels to scroll
+			function getScrollPercToPx($el, perc) {
+				var height = $el.get(0).scrollHeight,
+					pos = height * (perc / 100);
+
+				return pos;
+			}
+
+			function setHandlePos($scroll, $scrollHandle, pos){
+				var $scroll = $scrollHandle.parent(),
+					height = $scroll.height(),
+					handleHeight = $scrollHandle.height(),
+					maxHandlePos = height - handleHeight;
+
+				pos = pos > maxHandlePos ? maxHandlePos : pos;
+
+				$scrollHandle.css('top', pos);
+			}
+
+			function getHandelPos($scroll, $scrollHandle){
+				$scrollHandle.position().top
+			}
+
+			function setElScrollPos($el, pos, offset){
+				//var pos = getScrollPercToPx($el, perc);
+				$el.get(0).scrollTop = pos - offset;
+			}
+
+			function setElScrollPerc($el, perc, offset) {
+				var scrollHeight = $el.get(0).scrollHeight,
+					height = $el.height(),
+					maxScrollPos = scrollHeight - height,
+					scrollPos = maxScrollPos * (perc / 100);
+
+				setElScrollPos($el, scrollPos, offset);
+			}
+
+			function copyScrollHandle($el, $scroll, $scrollHandle){
+				var elScrollPerc = getYScrollPercentage($el);
+					elScrollPos = getScrollPercToPx($el, elScrollPerc);
+
+				setHandlePos($scroll, $scrollHandle, elScrollPerc);
+			}
+
+			var $el = $(this).addClass(options.elAttrNames.elClass),
+				$fauxEl = $('<div />', {
+					'class': options.elAttrNames.fauxElClass
+				}),
+				$container = $('<div />', {
+					'class' : options.elAttrNames.containerClass
+				});
+
+			// jQuery's wrap clones the object
+			$el.wrap($fauxEl);
+			$fauxEl = $el.parent();
+			
+			$el.wrap($container);
+			$container = $el.parent();
+
+			var $scroll = $('<div />', {
+					'class' : options.elAttrNames.scrollClass
+				}),
+				$scrollHandle = $('<div />', {
+					'class' : options.elAttrNames.scrollHandleClass
+				});
+			
+
+			$scrollHandle.appendTo($scroll);
+			$el.before($scroll);
+
+			$container.on({
+				'scroll.nosui': function(e){
+					copyScrollHandle($container, $scroll, $scrollHandle);
+				}
+			});
+
+			$scrollHandle.on({
+				'mousedown.nosui': function(e){
+					e.stopPropagation();
+
+					var handleOffset = e.pageY - $scrollHandle.offset().top;
+					
+					$fauxEl.on('mousemove.nosui', function(e){
+
+						if(typeof scrollTimeout !== 'undefined'){
+							window.clearTimeout(scrollTimeout);
+						}
+
+						var scrollTimeout = window.setTimeout(function(){
+							// Get scroll handle percentage form top val
+							var yPos = e.pageY - $container.offset().top,
+								perc = (yPos * 100) / $scroll.height();
+
+							setElScrollPerc($container, perc, handleOffset);
+						}, 10);
+					});
+
+					$('body').on('mouseup.nosui', function(){
+						$fauxEl.off('mousemove.nosui');
+						$('body').off('mouseup.nosui');
+					});
+				}
+			});
+
+		});
+	}
 });
 
 })( jQuery );

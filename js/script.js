@@ -21,5 +21,6 @@ $(document).ready(function() {
 
 	// Input file
 	$('input[type="file"]').nosInputFile();
+	$('.scroll').nosScrollbar();
 
 }); // document.ready()

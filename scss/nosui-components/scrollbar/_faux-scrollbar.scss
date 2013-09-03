@@ -1,4 +1,4 @@
-// ==========================================================================
+	// ==========================================================================
 // Scrollbar
 // ==========================================================================
 
@@ -12,28 +12,46 @@
 	// }
 	width: 600px;
 	position: relative;
+
 }
 
-	.nosui-fscroll__scrollbar {
+	.nosui-fscroll__scroll {
 		background: red;
-		width: 10px;
+		cursor: default;
 		height: 100%;
+		width: 10px;
 		position: absolute;
 		right: 0;
 		top: 0;
 		bottom: 0;
-		pointer-events: none;
+		z-index: 1;
+
+		-webkit-user-select: none;
+		   -moz-user-select: none;
+		        user-select: none;
 	}
 
+		.nosui-fscroll__scroll-handle {
+			background: green;
+			cursor: default;
+			height: 20px;
+			width: 100%;
+
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+		}
+
 	.nosui-fscroll__container {
-		overflow: auto;
+		height: 100px;
 		margin-right: -17px;
 		padding-right: 17px;
+		overflow: auto;
 		width: 100%;
 	}
 
 		.nosui-fscroll__canvas {
-			height: 100px;
 			width: 600px;
 			overflow: visible;
 		}
