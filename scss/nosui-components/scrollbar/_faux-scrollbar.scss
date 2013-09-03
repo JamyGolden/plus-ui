@@ -1,0 +1,39 @@
+// ==========================================================================
+// Scrollbar
+// ==========================================================================
+
+
+.nosui-fscroll {
+	overflow: hidden;
+
+	// Disable webkit scrollbar
+	// ::-webkit-scrollbar {
+	// 	width: 0;
+	// }
+	width: 600px;
+	position: relative;
+}
+
+	.nosui-fscroll__scrollbar {
+		background: red;
+		width: 10px;
+		height: 100%;
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		pointer-events: none;
+	}
+
+	.nosui-fscroll__container {
+		overflow: auto;
+		margin-right: -17px;
+		padding-right: 17px;
+		width: 100%;
+	}
+
+		.nosui-fscroll__canvas {
+			height: 100px;
+			width: 600px;
+			overflow: visible;
+		}
