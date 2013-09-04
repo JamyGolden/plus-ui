@@ -2,7 +2,6 @@
 // Scrollbar
 // ==========================================================================
 
-
 .nosui-fscroll {
 	overflow: hidden;
 
@@ -25,10 +24,6 @@
 		top: 0;
 		bottom: 0;
 		z-index: 1;
-
-		-webkit-user-select: none;
-		   -moz-user-select: none;
-		        user-select: none;
 	}
 
 		.nosui-fscroll__scroll-handle {
@@ -55,3 +50,15 @@
 			width: 600px;
 			overflow: visible;
 		}
+
+// This class gets applied to the body when
+// an element is being dragged to stop
+// text from being highlighted
+.nosui-component-drag {
+	cursor: default !important;
+
+	-webkit-user-select: none;
+	   -moz-user-select: -moz-none;
+	    -ms-user-select: none;
+	        user-select: none;
+}

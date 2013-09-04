@@ -913,7 +913,8 @@ $.fn.extend({
 				}),
 				$container = $('<div />', {
 					'class' : options.elAttrNames.containerClass
-				});
+				}),
+				$body = $('body');
 
 			// jQuery's wrap clones the object
 			$el.wrap($fauxEl);
@@ -928,10 +929,9 @@ $.fn.extend({
 				$scrollHandle = $('<div />', {
 					'class' : options.elAttrNames.scrollHandleClass
 				});
-			
 
 			$scrollHandle.appendTo($scroll);
-			$el.before($scroll);
+			$el.after($scroll);
 
 			$container.on({
 				'scroll.nosui': function(e){
@@ -945,6 +945,7 @@ $.fn.extend({
 
 					var handleOffset = e.pageY - $scrollHandle.offset().top;
 					
+					$body.addClass('nosui-component-drag');
 					$fauxEl.on('mousemove.nosui', function(e){
 
 						if(typeof scrollTimeout !== 'undefined'){
@@ -962,7 +963,8 @@ $.fn.extend({
 
 					$('body').on('mouseup.nosui', function(){
 						$fauxEl.off('mousemove.nosui');
-						$('body').off('mouseup.nosui');
+						$body.off('mouseup.nosui');
+						$body.removeClass('nosui-component-drag');
 					});
 				}
 			});
