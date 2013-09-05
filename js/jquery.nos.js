@@ -44,7 +44,7 @@ window.NosUIApp = {
 		if(!$elType.filter($el).length){ // $el is NOT of the correct element type
 			var elSelector = NosUIApp.getFullElSelector($el);
 
-			throw new Error('Incorrect element type targetted with the NOS-UI script. Element: ' + elSelector);
+			throw new Error('Incorrect element type targetted with the NOS-UI script. Element: ' + elSelector + '. Or a jQuery object not yet attached to the DOM is being used.');
 		}
 	},
 	getFullElSelector: function($el){
@@ -630,7 +630,8 @@ $.fn.extend({
 			};
 
 			var elName = $el.attr('name'),
-				$elSiblings = $el.closest('form').find('input[type="radio"]').filter(function(){
+				$elContainerForm = $el.closest('form').length ? $el.closest('form') : $('body'),
+				$elSiblings = $elContainerForm.find('input[type="radio"]').filter(function(){
 					return $(this).attr('name') == elName;
 				}).not($el),
 				$fauxRadio = $('<div />', {
@@ -669,8 +670,8 @@ $.fn.extend({
 
 					// Faux siblings must be defined after all fauxSiblings hvae been created
 					// i.e. on click should be enough time
-					var $fauxSiblings = $fauxRadio
-							.closest('form')
+					var $fauxSiblings = 
+							$elContainerForm
 							.find('.' + options.elAttrNames.fauxElClass)
 							.filter(function(){
 								if($(this).data(NosUIApp.namespace + '-name') == elName){
