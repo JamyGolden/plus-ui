@@ -206,11 +206,6 @@ $.fn.extend({
 			// Match element or throw error
 			NosUIApp.matchElType($('select'), $el);
 
-			// Make sure this form element is being used within a form
-			if(!$el.closest('form').length > 0){
-				throw new Error('This element does not have an ancestor form element. Element: ' + NosUIApp.getFullElSelector($el));
-			};
-
 			var $elOptions = $el.find('option'),
 				$selectedOption = $elOptions.filter(function(){
 					return $(this).prop('selcted') === true;
@@ -511,11 +506,6 @@ $.fn.extend({
 			// Match element or throw error
 			NosUIApp.matchElType($('input[type="checkbox"]'), $el);
 
-			// Make sure this form element is being used within a form
-			if(!$el.closest('form').length > 0){
-				throw new Error('This element does not have an ancestor form element. Element: ' + NosUIApp.getFullElSelector($el));
-			};
-
 			if(disableMethod === true){
 				// Changing the data on the element to
 				// reflect that it has been disabled
@@ -628,11 +618,6 @@ $.fn.extend({
 
 			// Match element or throw error
 			NosUIApp.matchElType($('input[type="radio"]'), $el);
-
-			// Make sure this form element is being used within a form
-			if(!$el.closest('form').length > 0){
-				throw new Error('This element does not have an ancestor form element. Element: ' + NosUIApp.getFullElSelector($el));
-			};
 
 			if(disableMethod === true){
 				// Changing the data on the element to
@@ -768,11 +753,6 @@ $.fn.extend({
 
 			// Match element or throw error
 			NosUIApp.matchElType($('input[type="file"]'), $el);
-
-			// Make sure this form element is being used within a form
-			if(!$el.closest('form').length > 0){
-				throw new Error('This element does not have an ancestor form element. Element: ' + NosUIApp.getFullElSelector($el));
-			};
 
 			$el.addClass(options.elAttrNames.elClass);
 
