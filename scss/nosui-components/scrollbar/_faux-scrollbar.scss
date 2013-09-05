@@ -1,4 +1,4 @@
-	// ==========================================================================
+// ==========================================================================
 // Scrollbar
 // ==========================================================================
 
@@ -11,7 +11,6 @@
 	// }
 	width: 600px;
 	position: relative;
-
 }
 
 	.nosui-fscroll__scroll {
@@ -23,13 +22,13 @@
 		right: 0;
 		top: 0;
 		bottom: 0;
-		z-index: 1;
+		z-index: 1; 
 	}
 
 		.nosui-fscroll__scroll-handle {
 			background: green;
 			cursor: default;
-			height: 20px;
+			height: 20%;
 			width: 100%;
 
 			position: absolute;
@@ -39,10 +38,11 @@
 		}
 
 	.nosui-fscroll__container {
+		//@include box-sizing(border-box);
 		height: 100px;
-		margin-right: -17px;
-		padding-right: 17px;
 		overflow: auto;
+		overflow-x: hidden;
+		padding-right: 17px;
 		width: 100%;
 	}
 

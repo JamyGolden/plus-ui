@@ -882,22 +882,17 @@ $.fn.extend({
 				$scrollHandle.css('top', pos);
 			}
 
-			function getHandelPos($scroll, $scrollHandle){
-				$scrollHandle.position().top
+			function setElScrollPos($el, pos){
+				$el.get(0).scrollTop = pos;
 			}
 
-			function setElScrollPos($el, pos, offset){
-				//var pos = getScrollPercToPx($el, perc);
-				$el.get(0).scrollTop = pos - offset;
-			}
-
-			function setElScrollPerc($el, perc, offset) {
+			function setElScrollPerc($el, perc) {
 				var scrollHeight = $el.get(0).scrollHeight,
 					height = $el.height(),
 					maxScrollPos = scrollHeight - height,
-					scrollPos = maxScrollPos * (perc / 100);
+					scrollPos = maxScrollPos * (perc / 100)
 
-				setElScrollPos($el, scrollPos, offset);
+				setElScrollPos($el, scrollPos);
 			}
 
 			function copyScrollHandle($el, $scroll, $scrollHandle){
@@ -943,25 +938,26 @@ $.fn.extend({
 				'mousedown.nosui': function(e){
 					e.stopPropagation();
 
+					//var handleOffset = e.pageY - $scrollHandle.offset().top;
 					var handleOffset = e.pageY - $scrollHandle.offset().top;
-					
-					$body.addClass('nosui-component-drag');
-					$fauxEl.on('mousemove.nosui', function(e){
 
+					$body.addClass('nosui-component-drag');
+
+					$fauxEl.on('mousemove.nosui', function(e){
 						if(typeof scrollTimeout !== 'undefined'){
 							window.clearTimeout(scrollTimeout);
 						}
 
 						var scrollTimeout = window.setTimeout(function(){
 							// Get scroll handle percentage form top val
-							var yPos = e.pageY - $container.offset().top,
-								perc = (yPos * 100) / $scroll.height();
+							var yPos = e.pageY - $container.offset().top - handleOffset,
+								perc = (yPos * 100) / ($scroll.height() - $scrollHandle.height());
 
-							setElScrollPerc($container, perc, handleOffset);
+							setElScrollPerc($container, perc, 0);
 						}, 10);
 					});
 
-					$('body').on('mouseup.nosui', function(){
+					$body.on('mouseup.nosui', function(){
 						$fauxEl.off('mousemove.nosui');
 						$body.off('mouseup.nosui');
 						$body.removeClass('nosui-component-drag');
