@@ -84,6 +84,9 @@ window.NosUIApp = {
 				elAttrNames[k] = nameSpace + v;
 			};
 		});
+	},
+	elList: {
+		responsiveImages: []
 	}
 };
 
@@ -817,7 +820,39 @@ $.fn.extend({
 
 		}); // return this.each
 
-	} // nosTooltip()
+	}, // nosTooltip()
+	nosResponsiveImages: function( options, disableMethod ){
+		var defaults = {
+			elAttrNames: {
+				'elClass': ''
+			},
+			namespace: 'nosui-responsive-image'
+		};
+		options = NosUIApp.defineOptions(defaults, options);
+
+		
+		var $window = $(window),
+			windowWidth = $window.width();
+
+		NosUIApp.elList.responsiveImages = [];
+
+		return this.each(function(){
+			var $el = $(this),
+				breakpoints = [];
+
+			NosUIApp.matchElType($('img'), $el);
+
+			NosUIApp.elList.responsiveImages.push($el)
+
+			//$()
+
+			//if(disableMethod === true){
+			//});
+			$(window).off('resize.nosui').on('resize.nosui', function(){
+
+			});
+		});
+	}
 });
 
 })( jQuery );
