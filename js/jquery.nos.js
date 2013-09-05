@@ -44,7 +44,7 @@ window.NosUIApp = {
 		if(!$elType.filter($el).length){ // $el is NOT of the correct element type
 			var elSelector = NosUIApp.getFullElSelector($el);
 
-			throw new Error('Incorrect element type targetted with the NOS-UI script. Element: ' + elSelector);
+			throw new Error('Incorrect element type targetted with the NOS-UI script. Element: ' + elSelector + '. Or a jQuery object not yet attached to the DOM is being used.');
 		}
 	},
 	getFullElSelector: function($el){
@@ -205,11 +205,6 @@ $.fn.extend({
 
 			// Match element or throw error
 			NosUIApp.matchElType($('select'), $el);
-
-			// Make sure this form element is being used within a form
-			if(!$el.closest('form').length > 0){
-				throw new Error('This element does not have an ancestor form element. Element: ' + NosUIApp.getFullElSelector($el));
-			};
 
 			var $elOptions = $el.find('option'),
 				$selectedOption = $elOptions.filter(function(){
@@ -511,11 +506,6 @@ $.fn.extend({
 			// Match element or throw error
 			NosUIApp.matchElType($('input[type="checkbox"]'), $el);
 
-			// Make sure this form element is being used within a form
-			if(!$el.closest('form').length > 0){
-				throw new Error('This element does not have an ancestor form element. Element: ' + NosUIApp.getFullElSelector($el));
-			};
-
 			if(disableMethod === true){
 				// Changing the data on the element to
 				// reflect that it has been disabled
@@ -629,11 +619,6 @@ $.fn.extend({
 			// Match element or throw error
 			NosUIApp.matchElType($('input[type="radio"]'), $el);
 
-			// Make sure this form element is being used within a form
-			if(!$el.closest('form').length > 0){
-				throw new Error('This element does not have an ancestor form element. Element: ' + NosUIApp.getFullElSelector($el));
-			};
-
 			if(disableMethod === true){
 				// Changing the data on the element to
 				// reflect that it has been disabled
@@ -645,7 +630,8 @@ $.fn.extend({
 			};
 
 			var elName = $el.attr('name'),
-				$elSiblings = $el.closest('form').find('input[type="radio"]').filter(function(){
+				$elContainerForm = $el.closest('form').length ? $el.closest('form') : $('body'),
+				$elSiblings = $elContainerForm.find('input[type="radio"]').filter(function(){
 					return $(this).attr('name') == elName;
 				}).not($el),
 				$fauxRadio = $('<div />', {
@@ -684,8 +670,8 @@ $.fn.extend({
 
 					// Faux siblings must be defined after all fauxSiblings hvae been created
 					// i.e. on click should be enough time
-					var $fauxSiblings = $fauxRadio
-							.closest('form')
+					var $fauxSiblings = 
+							$elContainerForm
 							.find('.' + options.elAttrNames.fauxElClass)
 							.filter(function(){
 								if($(this).data(NosUIApp.namespace + '-name') == elName){
@@ -768,11 +754,6 @@ $.fn.extend({
 
 			// Match element or throw error
 			NosUIApp.matchElType($('input[type="file"]'), $el);
-
-			// Make sure this form element is being used within a form
-			if(!$el.closest('form').length > 0){
-				throw new Error('This element does not have an ancestor form element. Element: ' + NosUIApp.getFullElSelector($el));
-			};
 
 			$el.addClass(options.elAttrNames.elClass);
 
