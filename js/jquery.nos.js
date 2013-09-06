@@ -837,7 +837,6 @@ $.fn.extend({
 				attrList = $el.get(0).attributes,
 				attrMap = {};
 
-			$el.data('src-320', $el.attr('src'));
 
 			for (a = 0; a < attrList.length; a++) {
 				var attrKey = attrList[a].name.toLowerCase(),
@@ -845,11 +844,21 @@ $.fn.extend({
 
 				if(attrKey.indexOf('data-') !== -1){
 					attrKey = attrKey.substring(5);
+				} else {
+					// Don't add attribute to the list
+					continue;
 				}
 
 				$el.data(attrKey);
 				attrMap[attrKey] = attrVal;
 			}
+
+			// If attributes on element exist
+			if(!jQuery.isEmptyObject(attrMap)){
+				$el.data('src-320', $el.attr('src'))
+			};
+
+			return !jQuery.isEmptyObject(attrMap);
 		};
 
 		function setImage(){
@@ -915,10 +924,16 @@ $.fn.extend({
 				return;
 			};
 
+			// Set the jQuery data attr
+			var elAttributesExist = setDataAttr($el);
+
+			if(elAttributesExist === false){
+				return;
+			}
+
 			$el.addClass(options.elAttrNames.elClass);
 
-			// Set the jQuery data attr
-			setDataAttr($el);
+
 			NosUIApp.matchElType($('img'), $el);
 
 			// Push $el to the nosui responsive element array
