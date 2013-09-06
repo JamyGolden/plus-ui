@@ -831,10 +831,31 @@ $.fn.extend({
 			namespace: 'nosui-responsive-image'
 		};
 		options = NosUIApp.defineOptions(defaults, options);
-
 		
+		// Sets the data jQuery attributes of the obj
+		function setDataAttr($el){
+			var responsiveStateList = [],
+				attrList = $el.get(0).attributes,
+				attrMap = {};
+
+			$el.data('src-320', $el.attr('src'));
+
+			for (a = 0; a < attrList.length; a++) {
+				var attrKey = attrList[a].name.toLowerCase(),
+					attrVal = attrList[a].value;
+
+				if(attrKey.indexOf('data-') !== -1){
+					attrKey = attrKey.substring(5);
+				}
+
+				$el.data(attrKey);
+				attrMap[attrKey] = attrVal;
+			}
+		};
+
 		var $window = $(window),
-			windowWidth = $window.width();
+			windowWidth = $window.width(),
+			scrollTimeout;
 
 		NosUIApp.elList.responsiveImages = [];
 
@@ -842,6 +863,7 @@ $.fn.extend({
 			var $el = $(this),
 				breakpoints = [];
 
+			setDataAttr($el);
 			NosUIApp.matchElType($('img'), $el);
 
 			NosUIApp.elList.responsiveImages.push($el)
@@ -855,14 +877,53 @@ $.fn.extend({
 					window.clearTimeout(scrollTimeout);
 				}
 
-				var scrollTimeout = window.setTimeout(function(){
+				scrollTimeout = window.setTimeout(function(){
 
 					var windowWidth = $window.width();
 
-					$.each(NosUIApp.elList.responsiveImages, function(i, $el){
-						
+					$.each(NosUIApp.elList.responsiveImages, function(i, $respEl){
+
+						var dataAttr = $respEl.data(),
+							activeResponsiveWidth = null;
+
+						// For each data-src-num attribute
+						$.each(dataAttr, function(k, v){
+							var keyWidth = parseFloat(k.substring(3));
+							console.log(keyWidth, windowWidth)
+
+							// Check to see `activeResponsiveWidth` is a num
+							if(typeof activeResponsiveWidth === 'number'){
+
+								// If larger than the current `keyWidth` and smaller than
+								// the current `windowWidth`
+								if(keyWidth > activeResponsiveWidth && keyWidth < windowWidth){
+									activeResponsiveWidth = keyWidth;
+								}
+							} else{
+								activeResponsiveWidth = keyWidth;
+							}
+						});
+
+						var newSrc = $el.data('src-' + activeResponsiveWidth);
+
+						console.log($el.get(0))
+						$el.attr('src', newSrc);
 					})
-				}, 500);
+
+					// $.each(NosUIApp.elList.responsiveImages, function(i, $el){
+					// 	var responsiveStateList = [],
+					// 		attrList = $el.get(0).attributes,
+					// 		attrMap = {};
+
+					// 	for (a = 0; a < attrList.length; a++) {
+					// 		var attrKey = attrList[a].name.toLowerCase()
+					// 		attrMap[attrList[a].name.toLowerCase()] = attrList[a].value;
+					// 	}
+
+					// 	console.log(attrList)
+
+					// });
+				}, 1500);
 			});
 		});
 	}
