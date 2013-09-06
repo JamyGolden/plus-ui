@@ -193,7 +193,6 @@ $.fn.extend({
 			},
 			namespace: 'nosui-form-select',
 			isOpen: false,
-			hideOnFocusLoss: true,
 			onInit: null,
 			onClick: null,
 			onChange: null,
@@ -221,9 +220,9 @@ $.fn.extend({
 				// Changing the data on the element to
 				// reflect that it has been disabled
 				$el.data(options.elAttrNames.typeDefault.dataName, false).off({
-					'click.nosui': null,
-					'change.nosui': null,
-					'blur.nosui': null
+					'click.nosui-form-select': null,
+					'change.nosui-form-select': null,
+					'blur.nosui-form-select': null
 				}).unwrap();
 
 				return;
@@ -234,11 +233,11 @@ $.fn.extend({
 
 				// Turn off fauxEl and fauxOptions events
 				$el.prev().off({
-					'click.nosui': null,
-					'change.nosui': null
+					'click.nosui-form-select': null,
+					'change.nosui-form-select': null
 				}).find('.' + options.elAttrNames.typeCustom.itemClass).off({
-					'click.nosui': null,
-					'change.nosui': null
+					'click.nosui-form-select': null,
+					'change.nosui-form-select': null
 				}).end().remove();
 				return;
 			};
@@ -282,7 +281,7 @@ $.fn.extend({
 
 				// Events
 				$el.on({
-					'focus.nosui': function(e) {
+					'focus.nosui-frorm-select': function(e) {
 						// Applied for disabled styling if applied
 						NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass);
 						$fauxSelect.toggleClass( options.elAttrNames.activeClass );
@@ -292,7 +291,7 @@ $.fn.extend({
 							options.onClick($el, $fauxSelect, options);
 						};
 					},
-					'change.nosui': function(e) {
+					'change.nosui-frorm-select': function(e) {
 						var text = $el.find(':selected').text();
 						$placeholder.text(text);
 
@@ -301,7 +300,7 @@ $.fn.extend({
 							options.onChange($el, $fauxSelect, options);
 						};
 					},
-					'blur.nosui': function(e) {
+					'blur.nosui-frorm-select': function(e) {
 						$fauxSelect.removeClass( options.elAttrNames.activeClass );
 
 						// Event Callback
@@ -317,26 +316,39 @@ $.fn.extend({
 				$el.data(options.elAttrNames.typeCustom.dataName, true);
 
 				function toggleDropdown($fauxSelect) {
-					$fauxSelect.toggleClass(options.elAttrNames.activeClass);
-					$fauxSelectList.toggle();
-
 					// Toggle isOpen property
-					if($fauxSelectList.is(':hidden')){
-						options.isOpen = false;
+					if(options.isOpen == false){
+						console.log('show')
+						showDropdown($fauxSelect);
 					} else {
-						options.isOpen = true;
+						hideDropdown($fauxSelect)
 					};
+				};
 
-					// Hide $fauxSelectList if anything is clicked.
-					if(options.hideOnFocusLoss){
-						if(options.isOpen){
-							$('body').on('click.nosui', function(e){
-								toggleDropdown($fauxSelect);
-							});
-						} else {
-							$('body').off('click.nosui');
-						};
-					};
+				function showDropdown($fauxSelect) {
+
+					$fauxSelect.addClass(options.elAttrNames.activeClass);
+					$fauxSelectList.show();
+
+					// This event must be `mousedown` instead of `click` otherwise 
+					// the select will immediately hide once clicked
+					$('body').on('mousedown.nosui-form-select', function(e){
+						hideDropdown($fauxSelect);
+					});
+
+					options.isOpen = true;
+				};
+
+				function hideDropdown($fauxSelect) {
+					$fauxSelectList.hide();
+
+					options.isOpen = false;
+
+					// This event must be `mousedown` instead of `click` otherwise 
+					// the select will immediately hide once clicked
+					$('body').off('mousedown.nosui-form-select');
+
+					$fauxSelect.removeClass(options.elAttrNames.activeClass);
 				};
 
 				// Set vars
@@ -400,13 +412,7 @@ $.fn.extend({
 
 				// Faux select Events
 				$fauxSelect.on({
-					'click.nosui': function(e) {
-						// If hideOnFocusLoss is enabled, don't allow clicks
-						// to bubble up and trigger body click
-						if(options.hideOnFocusLoss){
-							e.stopPropagation();
-						};
-
+					'click.nosui-form-select': function(e) {
 						// Return if select is disabled
 						if(NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass) === true) {
 							return;
@@ -416,9 +422,9 @@ $.fn.extend({
 							options.onClick($el, $fauxSelect, options);
 						};
 
-						toggleDropdown($fauxSelect); // Toggle list
+						showDropdown($fauxSelect); // Toggle list
 					},
-					'mousedown.nosui': function(e) {
+					'mousedown.nosui-form-select': function(e) {
 						// Apply disabled styled if disabled
 						// returns false if disabled.
 						// If disabled stop running the function
@@ -429,11 +435,11 @@ $.fn.extend({
 						$fauxSelect.addClass(options.elAttrNames.mousedownClass);
 
 						// Prevent bug where checkbox can be left selected
-						$('body').on('mouseup.nosui', function(e){
+						$('body').on('mouseup.nosui-form-select', function(e){
 							$fauxSelect.removeClass(options.elAttrNames.mousedownClass);
 
 							// Remove event
-							$('body').off('mouseup.nosui');
+							$('body').off('mouseup.nosui-form-select');
 						});
 
 						// Event Callback
@@ -441,21 +447,17 @@ $.fn.extend({
 							options.onMousedown($el, $fauxSelect, options);
 						};
 					},
-					'mouseup.nosui': function(e) {
+					'mouseup.nosui-form-select': function(e) {
 						$fauxSelect.removeClass(options.elAttrNames.mousedownClass);
 
 						// Remove event
-						$('body').off('mouseup.nosui');
+						$('body').off('mouseup.nosui-form-select');
 					}
 				});
 
 				// Click functionality for fauxOption elements
 				$fauxOptions.on({
-					'click.nosui': function(e) {
-						// When clicking on an item, don't trigger
-						// the click on the $fauxSelect itself
-						e.stopPropagation();
-
+					'mousedown.nosui-form-select': function(e) {
 						var $this = $(this),
 							index = $this.index(),
 							text = $this.text();
@@ -477,7 +479,7 @@ $.fn.extend({
 							options.onChange($el, $fauxSelect, options);
 						};
 
-						toggleDropdown($fauxSelect); // Toggle list
+						//toggleDropdown($fauxSelect); // Toggle list
 					}
 				}); // .select li.click
 
