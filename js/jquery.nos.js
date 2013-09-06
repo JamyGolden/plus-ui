@@ -890,17 +890,21 @@ $.fn.extend({
 			lastElIndex = this.length -1,
 			scrollTimeout;
 
+		// Always disable resize event incase it runs multiple times
 		$window.off('resize.nosui-responsive-image').on('resize.nosui-responsive-image', function(){
 			if(typeof scrollTimeout !== 'undefined'){
 				window.clearTimeout(scrollTimeout);
-			}
+			};
 
-			scrollTimeout = window.setTimeout(setImage, 800);
+			// Set a timeout so the function doesn't run too often
+			scrollTimeout = window.setTimeout(setImage, 200);
 		});
 
+		// for each item targetted by the user
 		return this.each(function(i, $el){
 			var $el = $(this);
 
+			// Disable method if var is true
 			if(disableMethod){
 				$el.attr('src', $el.data('src-320')).removeClass(options.elAttrNames.elClass);
 
@@ -913,15 +917,18 @@ $.fn.extend({
 
 			$el.addClass(options.elAttrNames.elClass);
 
+			// Set the jQuery data attr
 			setDataAttr($el);
 			NosUIApp.matchElType($('img'), $el);
 
+			// Push $el to the nosui responsive element array
 			NosUIApp.elList.responsiveImages.push($el)
 
+			// If this is the last item, set all images to 
+			// their correct state.
 			if(i === lastElIndex){
 				setImage();
-			}
-
+			};
 		});
 	}
 });
