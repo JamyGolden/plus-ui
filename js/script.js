@@ -4,6 +4,8 @@ $(document).ready(function() {
 	// before running this
 	$('input[type="placeholder"]').nosInputPlaceholder();
 
+	$('img').nosResponsiveImages();
+
 	// Form Select
 	$('.js-select').nosFormSelect();
 
