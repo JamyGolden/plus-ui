@@ -849,7 +849,18 @@ $.fn.extend({
 			//if(disableMethod === true){
 			//});
 			$(window).off('resize.nosui').on('resize.nosui', function(){
+				if(typeof scrollTimeout !== 'undefined'){
+					window.clearTimeout(scrollTimeout);
+				}
 
+				var scrollTimeout = window.setTimeout(function(){
+
+					var windowWidth = $window.width();
+
+					$.each(NosUIApp.elList.responsiveImages, function(i, $el){
+						
+					})
+				}, 500);
 			});
 		});
 	}
