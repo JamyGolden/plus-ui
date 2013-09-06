@@ -318,7 +318,6 @@ $.fn.extend({
 				function toggleDropdown($fauxSelect) {
 					// Toggle isOpen property
 					if(options.isOpen == false){
-						console.log('show')
 						showDropdown($fauxSelect);
 					} else {
 						hideDropdown($fauxSelect)
@@ -831,7 +830,7 @@ $.fn.extend({
 			namespace: 'nosui-responsive-image'
 		};
 		options = NosUIApp.defineOptions(defaults, options);
-		
+
 		// Sets the data jQuery attributes of the obj
 		function setDataAttr($el){
 			var responsiveStateList = [],
@@ -884,14 +883,12 @@ $.fn.extend({
 				// Set new image
 				$respEl.attr('src', newSrc);
 			});
-		}
+		};
 
 		var $window = $(window),
 			windowWidth = $window.width(),
 			lastElIndex = this.length -1,
 			scrollTimeout;
-
-		NosUIApp.elList.responsiveImages = [];
 
 		$window.off('resize.nosui-responsive-image').on('resize.nosui-responsive-image', function(){
 			if(typeof scrollTimeout !== 'undefined'){
@@ -901,11 +898,20 @@ $.fn.extend({
 			scrollTimeout = window.setTimeout(setImage, 800);
 		});
 
-		console.log(this.length)
-
 		return this.each(function(i, $el){
-			console.log(i, $el)
 			var $el = $(this);
+
+			if(disableMethod){
+				$el.attr('src', $el.data('src-320')).removeClass(options.elAttrNames.elClass);
+
+				NosUIApp.elList.responsiveImages = $.grep( NosUIApp.elList.responsiveImages, function($grepEl,i){
+					return $grepEl.get(0) !== $el.get(0);
+				});
+
+				return;
+			};
+
+			$el.addClass(options.elAttrNames.elClass);
 
 			setDataAttr($el);
 			NosUIApp.matchElType($('img'), $el);
