@@ -827,6 +827,7 @@ $.fn.extend({
 			elAttrNames: {
 				'elClass': ''
 			},
+			minResponsiveWidth: 320,
 			namespace: 'nosui-responsive-image'
 		};
 		options = NosUIApp.defineOptions(defaults, options);
@@ -855,7 +856,8 @@ $.fn.extend({
 
 			// If attributes on element exist
 			if(!jQuery.isEmptyObject(attrMap)){
-				$el.data('src-320', $el.attr('src'))
+				$el.data('src-' + options.minResponsiveWidth, $el.attr('src'))
+				attrMap['src-' + options.minResponsiveWidth] = $el.attr('src');
 			};
 
 			return !jQuery.isEmptyObject(attrMap);
@@ -868,21 +870,16 @@ $.fn.extend({
 			$.each(NosUIApp.elList.responsiveImages, function(i, $respEl){
 
 				var dataAttr = $respEl.data(),
-					activeResponsiveWidth = null;
+					// Set activeResponseWidth to minimum by default
+					activeResponsiveWidth = options.minResponsiveWidth;
 
 				// For each data-src-num attribute
 				$.each(dataAttr, function(k, v){
 					var keyWidth = parseFloat(k.substring(3));
 
-					// Check to see `activeResponsiveWidth` is a num
-					if(typeof activeResponsiveWidth === 'number'){
-
-						// If larger than the current `keyWidth` and smaller than
-						// the current `windowWidth`
-						if(keyWidth > activeResponsiveWidth && keyWidth < windowWidth){
-							activeResponsiveWidth = keyWidth;
-						}
-					} else{
+					// If larger than the current `keyWidth` and smaller than
+					// the current `windowWidth`
+					if(keyWidth > activeResponsiveWidth && keyWidth < windowWidth){
 						activeResponsiveWidth = keyWidth;
 					}
 				});
@@ -915,8 +912,9 @@ $.fn.extend({
 
 			// Disable method if var is true
 			if(disableMethod){
-				$el.attr('src', $el.data('src-320')).removeClass(options.elAttrNames.elClass);
+				$el.attr('src', $el.data('src-' + options.minResponsiveWidth)).removeClass(options.elAttrNames.elClass);
 
+				// Remove elements from the list
 				NosUIApp.elList.responsiveImages = $.grep( NosUIApp.elList.responsiveImages, function($grepEl,i){
 					return $grepEl.get(0) !== $el.get(0);
 				});
@@ -932,7 +930,6 @@ $.fn.extend({
 			}
 
 			$el.addClass(options.elAttrNames.elClass);
-
 
 			NosUIApp.matchElType($('img'), $el);
 
