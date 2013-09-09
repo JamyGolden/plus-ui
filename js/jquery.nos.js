@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.8.7
+* jQuery NOs 0.8.8
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -56,6 +56,26 @@ window.NosUIApp = {
 			elSelector = elIdSelector + elClassSelector;
 
 		return elSelector;
+	},
+	jqueryDataVal: function(val){
+		val = val.split('-');
+
+		var newVal = '';
+		for (var i = 0; i < val.length; i++) {
+
+			// for cammelCase
+			var firstLetter = val[i].charAt(0);
+			if(i !== 0){
+				firstLetter = firstLetter.toUpperCase();
+			};
+
+			var word = val[i].substring(1);
+			word = firstLetter + word;
+
+			newVal += word;
+		};
+
+		return newVal;
 	},
 	form: {
 		isDisabled: function($el, $fauxEl, className) {
@@ -167,12 +187,10 @@ $.fn.extend({
 		var defaults = {
 			elAttrNames: { // Attr names without a namespace
 				typeDefault: {
-					'defaultClass': '--default',
-					'dataName'    : '-type-default'
+					'defaultClass': '--default'
 				},
 				typeCustom: {
 					'defaultClass'    : '--custom',
-					'dataName'        : '-type-custom',
 					'dataSelected'    : '-selected',
 					'listClass'       : '__list',
 					'itemClass'       : '__item',
@@ -186,9 +204,11 @@ $.fn.extend({
 				'mousedownClass'     : '--mousedown',
 				'disabledClass'      : '--disabled',
 				'dropdownButtonClass': '__dropdown-button',
-				'placeholderClass'   : '__placeholder'
+				'placeholderClass'   : '__placeholder',
+				'dataName'           : '-type'
 			},
 			namespace: 'nosui-form-select',
+			defaultDropdown: false,
 			isOpen: false,
 			onInit: null,
 			onClick: null,
@@ -205,28 +225,21 @@ $.fn.extend({
 			// Match element or throw error
 			NosUIApp.matchElType($('select'), $el);
 
-			var $elOptions = $el.find('option'),
-				$selectedOption = $elOptions.filter(function(){
-					return $(this).prop('selcted') === true;
-				});
-
-			$el.addClass(options.elAttrNames.elClass);
-			// Remove custom styling
 			// Restore element back to original state
-			if(disableMethod === true && $el.data(options.elAttrNames.typeDefault.dataName)){
+			if(disableMethod === true && $el.data(options.elAttrNames.dataName) == 'default'){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				$el.data(options.elAttrNames.typeDefault.dataName, false).off({
+				$el.removeClass(options.elAttrNames.elClass).data(options.elAttrNames.dataName, null).off({
 					'click.nosui-form-select': null,
 					'change.nosui-form-select': null,
 					'blur.nosui-form-select': null
 				}).unwrap();
 
 				return;
-			} else if(disableMethod === true && $el.data(options.elAttrNames.typeCustom.dataName)){
+			} else if(disableMethod === true && $el.data(options.elAttrNames.dataName) == 'custom'){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				$el.data(options.elAttrNames.typeCustom.dataName, false).show();
+				$el.removeClass(options.elAttrNames.elClass).data(options.elAttrNames.dataName, null).show();
 
 				// Turn off fauxEl and fauxOptions events
 				$el.prev().off({
@@ -237,12 +250,22 @@ $.fn.extend({
 					'change.nosui-form-select': null
 				}).end().remove();
 				return;
-			};
+			} else if(disableMethod === true){
+				// Return if this doesn't affect anything
+				return;
+			}
+
+			var $elOptions = $el.find('option'),
+				$selectedOption = $elOptions.filter(function(){
+					return $(this).prop('selcted') === true;
+				});
+
+			$el.addClass(options.elAttrNames.elClass);
 
 			if ( options.defaultDropdown == true ) {
 
 				// Adding element physical properties
-				$el.data(options.elAttrNames.typeDefault.dataName, true)
+				$el.data(options.elAttrNames.dataName, 'default')
 					.addClass(options.elAttrNames.elClass)
 					.wrap(
 						$('<div />', {
@@ -310,12 +333,11 @@ $.fn.extend({
 			} else {
 
 				// Set data for plugin
-				$el.data(options.elAttrNames.typeCustom.dataName, true);
+				$el.data(options.elAttrNames.dataName, 'custom');
 
 				function toggleDropdown($fauxSelect) {
 					// Toggle isOpen property
 					if(options.isOpen == false){
-						console.log('show')
 						showDropdown($fauxSelect);
 					} else {
 						hideDropdown($fauxSelect)
