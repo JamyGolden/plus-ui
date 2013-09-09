@@ -84,6 +84,9 @@ window.NosUIApp = {
 				elAttrNames[k] = nameSpace + v;
 			};
 		});
+	},
+	elList: {
+		responsiveImages: []
 	}
 };
 
@@ -821,7 +824,128 @@ $.fn.extend({
 
 		}); // return this.each
 
-	} // nosTooltip()
+	}, // nosTooltip()
+	nosResponsiveImages: function( options, disableMethod ){
+		var defaults = {
+			elAttrNames: {
+				'elClass': ''
+			},
+			minResponsiveWidth: 320,
+			namespace: 'nosui-responsive-image'
+		};
+		options = NosUIApp.defineOptions(defaults, options);
+
+		// Sets the data jQuery attributes of the obj
+		function setDataAttr($el){
+			var responsiveStateList = [],
+				attrList = $el.get(0).attributes,
+				attrMap = {};
+
+
+			for (a = 0; a < attrList.length; a++) {
+				var attrKey = attrList[a].name.toLowerCase(),
+					attrVal = attrList[a].value;
+
+				if(attrKey.indexOf('data-') !== -1){
+					attrKey = attrKey.substring(5);
+				} else {
+					// Don't add attribute to the list
+					continue;
+				}
+
+				$el.data(attrKey);
+				attrMap[attrKey] = attrVal;
+			}
+
+			// If attributes on element exist
+			if(!jQuery.isEmptyObject(attrMap)){
+				$el.data('src-' + options.minResponsiveWidth, $el.attr('src'))
+				attrMap['src-' + options.minResponsiveWidth] = $el.attr('src');
+			};
+
+			return !jQuery.isEmptyObject(attrMap);
+		};
+
+		function setImage(){
+
+			var windowWidth = $(window).width();
+
+			$.each(NosUIApp.elList.responsiveImages, function(i, $respEl){
+
+				var dataAttr = $respEl.data(),
+					// Set activeResponseWidth to minimum by default
+					activeResponsiveWidth = options.minResponsiveWidth;
+
+				// For each data-src-num attribute
+				$.each(dataAttr, function(k, v){
+					var keyWidth = parseFloat(k.substring(3));
+
+					// If larger than the current `keyWidth` and smaller than
+					// the current `windowWidth`
+					if(keyWidth > activeResponsiveWidth && keyWidth < windowWidth){
+						activeResponsiveWidth = keyWidth;
+					}
+				});
+
+				var newSrc = $respEl.data('src-' + activeResponsiveWidth);
+
+				// Set new image
+				$respEl.attr('src', newSrc);
+			});
+		};
+
+		var $window = $(window),
+			windowWidth = $window.width(),
+			lastElIndex = this.length -1,
+			scrollTimeout;
+
+		// Always disable resize event incase it runs multiple times
+		$window.off('resize.nosui-responsive-image').on('resize.nosui-responsive-image', function(){
+			if(typeof scrollTimeout !== 'undefined'){
+				window.clearTimeout(scrollTimeout);
+			};
+
+			// Set a timeout so the function doesn't run too often
+			scrollTimeout = window.setTimeout(setImage, 200);
+		});
+
+		// for each item targetted by the user
+		return this.each(function(i, $el){
+			var $el = $(this);
+
+			// Disable method if var is true
+			if(disableMethod){
+				$el.attr('src', $el.data('src-' + options.minResponsiveWidth)).removeClass(options.elAttrNames.elClass);
+
+				// Remove elements from the list
+				NosUIApp.elList.responsiveImages = $.grep( NosUIApp.elList.responsiveImages, function($grepEl,i){
+					return $grepEl.get(0) !== $el.get(0);
+				});
+
+				return;
+			};
+
+			// Set the jQuery data attr
+			var elAttributesExist = setDataAttr($el);
+
+			if(elAttributesExist === false){
+				return;
+			}
+
+			$el.addClass(options.elAttrNames.elClass);
+
+			NosUIApp.matchElType($('img'), $el);
+
+			// Push $el to the nosui responsive element array
+			NosUIApp.elList.responsiveImages.push($el)
+
+			// If this is the last item, set all images to 
+			// their correct state.
+			if(i === lastElIndex){
+				setImage();
+			};
+		});
+	}
 });
 
 })( jQuery );
