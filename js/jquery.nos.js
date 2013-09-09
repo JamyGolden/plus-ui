@@ -57,26 +57,6 @@ window.NosUIApp = {
 
 		return elSelector;
 	},
-	jqueryDataVal: function(val){
-		val = val.split('-');
-
-		var newVal = '';
-		for (var i = 0; i < val.length; i++) {
-
-			// for cammelCase
-			var firstLetter = val[i].charAt(0);
-			if(i !== 0){
-				firstLetter = firstLetter.toUpperCase();
-			};
-
-			var word = val[i].substring(1);
-			word = firstLetter + word;
-
-			newVal += word;
-		};
-
-		return newVal;
-	},
 	form: {
 		isDisabled: function($el, $fauxEl, className) {
 			if(typeof $el == 'undefined'){
