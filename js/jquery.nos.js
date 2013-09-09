@@ -226,13 +226,9 @@ $.fn.extend({
 				$el.removeClass(options.elAttrNames.elClass).data(options.elAttrNames.dataName, null).show();
 
 				// Turn off fauxEl and fauxOptions events
-				$el.prev().off({
-					'click.nosui-form-select': null,
-					'change.nosui-form-select': null
-				}).find('.' + options.elAttrNames.typeCustom.itemClass).off({
-					'click.nosui-form-select': null,
-					'change.nosui-form-select': null
-				}).end().remove();
+				$el.prev().off() // turn off fauxEl events
+					.find('.' + options.elAttrNames.typeCustom.itemClass).off() //turn off fauxOption events
+					.end().remove(); // remove fauxEl
 				return;
 			} else if(disableMethod === true){
 				// Return if this doesn't affect anything
@@ -285,7 +281,7 @@ $.fn.extend({
 
 				// Events
 				$el.on({
-					'focus.nosui-frorm-select': function(e) {
+					'focus.nosui-form-select': function(e) {
 						// Applied for disabled styling if applied
 						NosUIApp.form.isDisabled($el, $fauxSelect, options.elAttrNames.disabledClass);
 						$fauxSelect.toggleClass( options.elAttrNames.activeClass );
@@ -295,7 +291,7 @@ $.fn.extend({
 							options.onClick($el, $fauxSelect, options);
 						};
 					},
-					'change.nosui-frorm-select': function(e) {
+					'change.nosui-form-select': function(e) {
 						var text = $el.find(':selected').text();
 						$placeholder.text(text);
 
@@ -304,7 +300,7 @@ $.fn.extend({
 							options.onChange($el, $fauxSelect, options);
 						};
 					},
-					'blur.nosui-frorm-select': function(e) {
+					'blur.nosui-form-select': function(e) {
 						$fauxSelect.removeClass( options.elAttrNames.activeClass );
 
 						// Event Callback
@@ -766,7 +762,8 @@ $.fn.extend({
 			if(disableMethod === true){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				$el.removeClass(options.elAttrNames.elClass)
+				$el.off('change.nosui')
+					.removeClass(options.elAttrNames.elClass)
 					.siblings().remove() // Remove button/placeholder
 					.end().unwrap('.' + options.elAttrNames.fauxElClass); // Remove fauxEl
 
@@ -797,7 +794,7 @@ $.fn.extend({
 			};
 
 			$el.on({
-				change: function(){
+				'change.nosui': function(){
 					$placeholder.text( $el.val() );
 
 					if(typeof options.onChange === 'function') {
