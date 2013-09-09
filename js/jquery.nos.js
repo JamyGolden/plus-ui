@@ -212,11 +212,12 @@ $.fn.extend({
 			if(disableMethod === true && $el.data(options.elAttrNames.dataName) == 'default'){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				$el.removeClass(options.elAttrNames.elClass).data(options.elAttrNames.dataName, null).off({
-					'click.nosui-form-select': null,
-					'change.nosui-form-select': null,
-					'blur.nosui-form-select': null
-				}).unwrap();
+				$el.siblings().remove() // remove placeholder and button
+					.end().removeClass(options.elAttrNames.elClass).data(options.elAttrNames.dataName, null).off({
+						'click.nosui-form-select': null,
+						'change.nosui-form-select': null,
+						'blur.nosui-form-select': null
+					}).unwrap();
 
 				return;
 			} else if(disableMethod === true && $el.data(options.elAttrNames.dataName) == 'custom'){
@@ -761,6 +762,16 @@ $.fn.extend({
 
 			// Match element or throw error
 			NosUIApp.matchElType($('input[type="file"]'), $el);
+
+			if(disableMethod === true){
+				// Changing the data on the element to
+				// reflect that it has been disabled
+				$el.removeClass(options.elAttrNames.elClass)
+					.siblings().remove() // Remove button/placeholder
+					.end().unwrap('.' + options.elAttrNames.fauxElClass); // Remove fauxEl
+
+				return;
+			};
 
 			$el.addClass(options.elAttrNames.elClass);
 
