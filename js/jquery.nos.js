@@ -421,9 +421,11 @@ $.fn.extend({
 							options.onClick($el, $fauxSelect, options);
 						};
 
-						showDropdown($fauxSelect); // Toggle list
+						toggleDropdown($fauxSelect); // Toggle list
 					},
 					'mousedown.nosui-form-select': function(e) {
+						e.stopPropagation();
+
 						// Apply disabled styled if disabled
 						// returns false if disabled.
 						// If disabled stop running the function
