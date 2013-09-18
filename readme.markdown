@@ -163,8 +163,10 @@ Remember to do some feature detection for `placeholder` support with something l
 		}
 	})
 
-
 # Changelog version 0.5:
 Changed all elements to divs. The plugin shouldn't dictate the element
 Updated to jQuery 1.9
 added disable method functionality
+
+# Known bugs:
+None at the moment

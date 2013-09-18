@@ -100,7 +100,7 @@ $height: 25px;
 	@include border-bottom-right-radius(0);
 
 	// z-index is useful when there are various selects being used on the page
-	z-index: 1; 
+	z-index: 5; 
 }
 
 @import "form-select-alt";
