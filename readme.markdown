@@ -12,6 +12,6 @@ For detailed information about the various custom jQuery methods, [visit the wik
 
 ## Things to note
 * Supports jQuery 1.7+
-* 
+
 ## Changelog
 Changelog will begin at version 1.0
