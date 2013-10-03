@@ -5,7 +5,7 @@ NOS (Native OS) UI is a jQuery library containing useful, extensible and easily 
 State changes to the custom form element are mirrored on the actual form elements themselves, therefore as far as the server and the DOM is concerned, there are no custom form elements. 
 
 ### BEM friendly
-The [BEM](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/) CSS methodology played a big role in the NOS UI design. Changing the object's CSS namespace is encouraged.
+The [BEM](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/) CSS methodology played a big role in the NOS UI design. Changing the object's CSS namespace is not only simple, but encouraged.
 
 ## Wiki
 For detailed information about the various custom jQuery methods, [visit the wiki](https://github.com/NATIVEVML/NOS-UI/wiki).
