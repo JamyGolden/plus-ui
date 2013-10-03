@@ -9,7 +9,4 @@ State changes to the custom form element are mirrored on the actual form element
 For detailed information about the various custom jQuery methods, [visit the wiki](https://github.com/NATIVEVML/NOS-UI/wiki).
 
 ## Things to note
-* NOS UI supports jQuery 1.9+
-
-## Known bugs:
-None at the moment
+* NOS UI supports jQuery 1.7+
