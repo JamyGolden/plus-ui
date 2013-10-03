@@ -111,7 +111,7 @@ $.fn.extend({
 
 			var val =  $el.attr('placeholder');
 
-			// The value hasn't been defined 
+			// The value hasn't been defined
 			// and cannot be guessed either.
 			// Everything should stop here
 			if(typeof val !== 'string') {
@@ -328,7 +328,7 @@ $.fn.extend({
 					$fauxSelect.addClass(o.elAttrNames.activeClass);
 					$fauxSelectList.show();
 
-					// This event must be `mousedown` instead of `click` otherwise 
+					// This event must be `mousedown` instead of `click` otherwise
 					// the select will immediately hide once clicked
 					$('body').on('mousedown.nosui-form-select', function(e){
 						hideDropdown($fauxSelect);
@@ -342,7 +342,7 @@ $.fn.extend({
 
 					o.isOpen = false;
 
-					// This event must be `mousedown` instead of `click` otherwise 
+					// This event must be `mousedown` instead of `click` otherwise
 					// the select will immediately hide once clicked
 					$('body').off('mousedown.nosui-form-select');
 
@@ -433,7 +433,7 @@ $.fn.extend({
 						};
 
 						// This is to stop the body mouse down event from firing
-						// when the list is open. This causes a click on the list 
+						// when the list is open. This causes a click on the list
 						// when open to close and re-open
 						if(o.isOpen){
 							e.stopPropagation();
@@ -683,7 +683,7 @@ $.fn.extend({
 
 					// Faux siblings must be defined after all fauxSiblings hvae been created
 					// i.e. on click should be enough time
-					var $fauxSiblings = 
+					var $fauxSiblings =
 							$elContainerForm
 							.find('.' + options.elAttrNames.fauxElClass)
 							.filter(function(){
@@ -847,7 +847,7 @@ $.fn.extend({
 			elAttrNames: {
 				'elClass': ''
 			},
-			minResponsiveWidth: 320,
+			minResponsiveWidth: 0,
 			namespace: 'nosui-responsive-image'
 		};
 		options = NosUIApp.defineOptions(defaults, options);
@@ -956,7 +956,7 @@ $.fn.extend({
 			// Push $el to the nosui responsive element array
 			NosUIApp.elList.responsiveImages.push($el)
 
-			// If this is the last item, set all images to 
+			// If this is the last item, set all images to
 			// their correct state.
 			if(i === lastElIndex){
 				setImage();
