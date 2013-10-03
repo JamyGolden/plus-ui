@@ -10,6 +10,9 @@ The [BEM](http://nicolasgallagher.com/about-html-semantics-front-end-architectur
 ## Wiki
 For detailed information about the various custom jQuery methods, [visit the wiki](https://github.com/NATIVEVML/NOS-UI/wiki).
 
+## Browser support
+Internet Explorer 7+ and modern browsers.
+
 ## Things to note
 * Supports jQuery 1.7+
 
