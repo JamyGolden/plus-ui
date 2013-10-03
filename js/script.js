@@ -2,7 +2,7 @@ $(document).ready(function() {
 	// Use something like modernizr to check
 	// if placeholder is supported natively
 	// before running this
-	$('input[type="placeholder"]').nosInputPlaceholder();
+	$('input[placeholder]').nosInputPlaceholder();
 
 	$('img').nosResponsiveImages();
 
