@@ -13,7 +13,9 @@ $height: 25px;
 	height: $height;
 	overflow: hidden;
 	width: 400px; 
-	@include user-select(none);
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
 	position: relative; 
 
 	&:hover {

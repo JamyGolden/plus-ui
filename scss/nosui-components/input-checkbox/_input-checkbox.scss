@@ -8,7 +8,9 @@
 	width: form-sprite-width(checkbox);
 
 	@include inline-block(); 
-	@include user-select(none);
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
 }
 
 // Various states

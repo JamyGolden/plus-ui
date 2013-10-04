@@ -6,7 +6,9 @@
 	background: red; 
 	@include inline-block(); 
 	height: 10px; 
-	@include user-select(none);
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
 	width: 10px;
 }
 

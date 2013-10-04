@@ -17,7 +17,9 @@ $height: 25px;
 	height: $height;
 	line-height: $height;
 	cursor: default;
-	@include user-select(none);
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+	        user-select: none;
 	width: 200px;
 	position: relative;
 }
