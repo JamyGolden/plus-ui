@@ -5,10 +5,10 @@ NOS (Native OS) UI is a jQuery library containing useful, extensible and easily 
 
 ## Features
 * [BEM](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/) friendly
-* SCSS
+* SCSS used. Easy to customize components.
 * Simple and extensible API
-* NOS UI works ontop of default browser components therefore with JS disabled the default components still function.
-* Plays well with others - State changes to the custom form element are mirrored on the actual form elements themselves. 
+* NOS UI works ontop of default browser components therefore if JS is disabled the default components still function correctly.
+* Plays well with others. State changes to the custom form element are mirrored on the actual form elements themselves. 
 * IE7+ Support
 
 ## Component list
@@ -21,7 +21,7 @@ List of the current NOS UI component support
 * [nosResponsiveImages](./wiki/nosResponsiveImages)
 
 ## Documentation
-For detailed information about the various custom jQuery methods, [visit the wiki](https://github.com/NATIVEVML/NOS-UI/wiki).
+For detailed information about various NOS UI jQuery methods, [visit the wiki](https://github.com/NATIVEVML/NOS-UI/wiki).
 
 ## Browser support
 Internet Explorer 7+ and modern browsers.
