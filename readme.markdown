@@ -1,7 +1,7 @@
 ## Overview
 NOS (Native OS) UI is a jQuery library containing useful, extensible and easily stylable browser components. The idea is to have the custom functionality work as close to native component functionality as possible. With JavaScript disabled the default component functionality will still work without a problem.
 
-View component [example page](http://nativevml.github.io/NOS-UI/).
+**View component [example page](http://nativevml.github.io/NOS-UI/)**.
 
 ## Features
 * [BEM](http://nicolasgallagher.com/about-html-semantics-front-end-architecture/) friendly
