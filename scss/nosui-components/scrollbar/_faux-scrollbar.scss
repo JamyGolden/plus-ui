@@ -1,0 +1,64 @@
+// ==========================================================================
+// Scrollbar
+// ==========================================================================
+
+.nosui-fscroll {
+	overflow: hidden;
+
+	// Disable webkit scrollbar
+	// ::-webkit-scrollbar {
+	// 	width: 0;
+	// }
+	width: 600px;
+	position: relative;
+}
+
+	.nosui-fscroll__scroll {
+		background: red;
+		cursor: default;
+		height: 100%;
+		width: 10px;
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		z-index: 1; 
+	}
+
+		.nosui-fscroll__scroll-handle {
+			background: green;
+			cursor: default;
+			height: 20%;
+			width: 100%;
+
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+		}
+
+	.nosui-fscroll__container {
+		//@include box-sizing(border-box);
+		height: 100px;
+		overflow: auto;
+		overflow-x: hidden;
+		padding-right: 17px;
+		width: 100%;
+	}
+
+		.nosui-fscroll__canvas {
+			width: 600px;
+			overflow: visible;
+		}
+
+// This class gets applied to the body when
+// an element is being dragged to stop
+// text from being highlighted
+.nosui-component-drag {
+	cursor: default !important;
+
+	-webkit-user-select: none;
+	   -moz-user-select: -moz-none;
+	    -ms-user-select: none;
+	        user-select: none;
+}
