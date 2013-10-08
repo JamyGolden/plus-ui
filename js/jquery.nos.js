@@ -967,15 +967,48 @@ $.fn.extend({
 
 			var defaults = {
 					elAttrNames: {
-						'el'    : '-element',
-						'container': '',
-						'handleClass' : '__handle'
+						'elClass'    : '-element',
+						'container'  : '',
+						'handleClass': '__handle'
 					},
-					namespace: 'nosui-input-range'
+					namespace: 'nosui-input-range',
+					timeoutThrottle: 0
 				},
 				$el = $(this),
-				o   = NosUIApp.defineOptions(defaults, options),
-				$body = $('body'),
+				o   = NosUIApp.defineOptions(defaults, options);
+
+			// Match element or throw error
+			NosUIApp.matchElType($('input'), $el);
+
+			if(disableMethod === true){
+				// Changing the data on the element to
+				// reflect that it has been disabled
+				$el.prev().off()
+					.children().off();
+				$el.prev().remove();
+
+				return;
+			};
+
+			// Setting options
+			o.stepVal = $el.attr('step') ? parseFloat($el.attr('step')) : 1;
+			// Set default min/max val whether it's been set or not
+			o.minVal = $el.attr('min') ? parseFloat($el.attr('min')) : 0;
+			o.maxVal = $el.attr('max') ? parseFloat($el.attr('max')) : 100;
+			if(o.minVal > o.maxVal){
+				o.maxVal = o.minVal;
+			};
+			// According to MDN (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input)
+			// value: min + (max-min)/2, or min if max is less than min
+			o.valueVal = $el.val() ? parseFloat($el.val()) : o.minVal + (o.maxVal - o.minVal)/2;
+			if(o.valueVal < o.minVal){
+				o.valueVal = o.minVal;
+			} else if(o.valueVal > o.maxVal){
+				o.valueVal = o.maxVal;
+			};
+
+			// Setting variables
+			var $body   = $('body'),
 				$fauxEl = $('<div />', {
 					'class': o.elAttrNames.el
 				}),
@@ -987,19 +1020,7 @@ $.fn.extend({
 				$fauxEl.css({'position': 'relative', 'height': '10px', 'background': 'red', 'width': 500})
 				$handle.css({'position': 'absolute', 'left': 0, 'top': 0, 'height': '10px', 'width': '10px', 'background': 'green'})
 
-			// Set default min/max val whether it's been set or not
-			o.minVal = $el.attr('min') ? parseFloat($el.attr('min')) : 0;
-			o.maxVal = $el.attr('max') ? parseFloat($el.attr('max')) : 100;
-			if(o.minVal > o.maxVal){
-				o.maxVal = o.minVal;
-			};
-			// According to MDN (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input)
-			// value: min + (max-min)/2, or min if max is less than min
-			o.valueVal = $el.val() ? parseFloat($el.val()) : o.minVal + (o.maxVal - o.minVal)/2;
-			o.stepVal = $el.attr('step') ? parseFloat($el.attr('step')) : 1;
-
-			$fauxEl.insertBefore( $el );
-
+			// Define functions
 			function nextStep(val){
 				var stepPerc = (o.stepVal / (o.maxVal - o.minVal)) * 100,
 					rem = val % stepPerc;
@@ -1011,46 +1032,80 @@ $.fn.extend({
 				};
 			};
 
-			$handle.on({
-				'mousedown.nosui': function(e){
-					e.stopPropagation();
+			function setPosition(xPos){
+				var fauxElWidth = $fauxEl.width(),
+					// Get percentage value
+					xPerc = (xPos/fauxElWidth) * 100,
+					// Filter the percentage through the step
+					xPerc = nextStep(xPerc);
 
-					//var handleOffset = e.pageY - $scrollHandle.offset().top;
-					var handleOffset = e.pageX - $handle.offset().left;
+				if(xPerc < 0){
+					xPerc = 0;
+				} else if(xPerc > 100){
+					xPerc = 100;
+				};
 
-					$body.addClass('nosui-component-drag');
+				// Get correct slider value
+				o.valueVal = Math.round(((o.maxVal - o.minVal) * xPerc/100) + o.minVal);
+				$el.val(o.valueVal);
 
-					$body.on('mousemove.nosui', function(e){
-						if(typeof nosInputRangeTimeout !== 'undefined'){
-							window.clearTimeout(nosInputRangeTimeout);
-						};
+				$handle.css('left', xPerc + '%');
 
-						var nosInputRangeTimeout = window.setTimeout(function(){
-							// Get scroll handle percentage form left val
-							var xPos = e.pageX - $fauxEl.offset().left - handleOffset,
-								fauxElWidth = $fauxEl.width(),
-								// Get percentage value
-								xPerc = (xPos/fauxElWidth) * 100,
-								// Filter the percentage through the step
-								xPerc = nextStep(xPerc);
+				// onChange
+				if(typeof o.onInit === 'function') {
+					o.onInit($el, $fauxEl, o);
+				};
+			};
 
-							if(xPerc < 0){
-								xPerc = 0;
-							} else if(xPerc > 100){
-								xPerc = 100;
+			function init(){
+				// Dom manipulation and events
+				$el.addClass(o.elAttrNames.elClass).val(o.valueVal);
+				$fauxEl.on({
+					'click.nosui': function(e){
+						var xPos = e.pageX - $fauxEl.offset().left;
+						setPosition(xPos)
+					}
+				}).insertBefore( $el );
+
+				// Set init slider position based on el
+				var initPos = nextStep(o.valueVal - o.minVal);
+				$handle.css('left', initPos + '%').on({
+					'click.nosui': function(e){
+						e.stopPropagation();
+					},
+					'mousedown.nosui': function(e){
+						e.stopPropagation();
+
+						// Make sure that the handle position stays in the correct
+						// position when you start dragging. This prevents a
+						// handle "jump" bug
+						var handleOffset = e.pageX - $handle.offset().left;
+
+						$body.addClass('nosui-component-drag');
+
+						$body.on('mousemove.nosui', function(e){
+							if(typeof o.timeoutThrottle !== 'undefined'){
+								window.clearTimeout(o.timeoutThrottle);
 							};
 
-							$handle.css('left', xPerc + '%')
-						}, 20);
-					});
+							o.timeoutThrottle = window.setTimeout(function(){
+								// Get scroll handle percentage form left val
+								var xPos = e.pageX - $fauxEl.offset().left - handleOffset;
 
-					$body.on('mouseup.nosui', function(){
-						$body.off('mousemove.nosui');
-						$body.off('mouseup.nosui');
-						$body.removeClass('nosui-component-drag');
-					});
-				}
-			});
+								setPosition(xPos);
+							}, 5);
+						});
+
+						$body.on('mouseup.nosui', function(){
+							$body.off('mousemove.nosui');
+							$body.removeClass('nosui-component-drag');
+							$body.off('mouseup.nosui');
+						});
+					}
+				});
+			}; // init
+
+			init();
 		});
 	}
 });
