@@ -975,9 +975,55 @@ $.fn.extend({
 				},
 				o   = NosUIApp.defineOptions(defaults, options),
 				$el = $(this),
+				$body = $('body'),
 				$fauxEl = $('<div />', {
 					'class': o.elAttrNames.el
-				}).insertBefore( $el )
+				}),
+				$handle = $('<div />', {
+					'class': o.elAttrNames.handleClass,
+					'text': 'handle'
+				}).appendTo($fauxEl);
+
+				$fauxEl.css({'position': 'relative', 'height': '10px', 'background': 'red'})
+				$handle.css({'position': 'absolute', 'left': 0, 'top': 0, 'height': '10px', 'width': '10px', 'background': 'green'})
+
+			$fauxEl.insertBefore( $el );
+
+			$handle.on({
+				'mousedown.nosui': function(e){
+					e.stopPropagation();
+
+					//var handleOffset = e.pageY - $scrollHandle.offset().top;
+					var handleOffset = e.pageX - $handle.offset().left;
+
+					$body.addClass('nosui-component-drag');
+
+					$fauxEl.on('mousemove.nosui', function(e){
+						if(typeof scrollTimeout !== 'undefined'){
+							window.clearTimeout(scrollTimeout);
+						}
+
+						var scrollTimeout = window.setTimeout(function(){
+							// Get scroll handle percentage form top val
+							var xPos = e.pageX - $fauxEl.offset().left - handleOffset,
+								fauxElWidth = $fauxEl.width();
+							if(xPos < 0){
+								xPos = 0;
+							} else if(xPos > fauxElWidth){
+								xPos = fauxElWidth;
+							}
+
+							$handle.css('left', xPos)
+						}, 10);
+					});
+
+					$body.on('mouseup.nosui', function(){
+						$fauxEl.off('mousemove.nosui');
+						$body.off('mouseup.nosui');
+						$body.removeClass('nosui-component-drag');
+					});
+				}
+			});
 		});
 	}
 });
