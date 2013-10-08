@@ -961,6 +961,24 @@ $.fn.extend({
 				setImage();
 			};
 		});
+	},
+	nosInputRange: function( options, disableMethod ){
+		return this.each(function(){
+
+			var defaults = {
+					elAttrNames: {
+						'el'    : '-element',
+						'container': '',
+						'handleClass' : '__handle'
+					},
+					namespace: 'nosui-input-range'
+				},
+				o   = NosUIApp.defineOptions(defaults, options),
+				$el = $(this),
+				$fauxEl = $('<div />', {
+					'class': o.elAttrNames.el
+				}).insertBefore( $el )
+		});
 	}
 });
 

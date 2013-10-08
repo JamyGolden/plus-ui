@@ -22,6 +22,7 @@ $(document).ready(function() {
 	$('input[type="radio"]').nosInputRadio();
 
 	// Input file
-	$('input[type="file"]').nosInputFile();
+    $('input[type="file"]').nosInputFile();
+	$('input[type="range"]').nosInputRange();
 
 }); // document.ready()
