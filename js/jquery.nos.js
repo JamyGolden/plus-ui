@@ -1017,7 +1017,9 @@ $.fn.extend({
 				$slider = $('<div />', {
 					'class': o.elAttrNames.sliderClass
 				}).appendTo($fauxEl),
-				$handle = $('<div />', {
+				// Anchor used to stop page text select when dragging
+				$handle = $('<a />', {
+					'href': '#',
 					'class': o.elAttrNames.handleClass
 				}).appendTo($fauxEl);
 
@@ -1072,17 +1074,16 @@ $.fn.extend({
 				var initPos = nextStep(o.valueVal);
 				$handle.css('left', initPos + '%').on({
 					'click.nosui': function(e){
+						e.preventDefault();
 						e.stopPropagation();
 					},
 					'mousedown.nosui': function(e){
-						e.stopPropagation();
+						e.preventDefault();
 
 						// Make sure that the handle position stays in the correct
 						// position when you start dragging. This prevents a
 						// handle "jump" bug
 						var handleOffset = e.pageX - $handle.offset().left;
-
-						$body.addClass('nosui-component-drag');
 
 						$body.on('mousemove.nosui', function(e){
 							if(typeof o.timeoutThrottle !== 'undefined'){
@@ -1099,11 +1100,15 @@ $.fn.extend({
 
 						$body.on('mouseup.nosui', function(){
 							$body.off('mousemove.nosui');
-							$body.removeClass('nosui-component-drag');
 							$body.off('mouseup.nosui');
 						});
 					}
 				});
+
+				// onInit
+				if(typeof o.onInit === 'function') {
+					o.onInit($el, $fauxEl, o);
+				};
 			}; // init
 
 			init();
