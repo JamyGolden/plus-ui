@@ -968,6 +968,7 @@ $.fn.extend({
 			var defaults = {
 					elAttrNames: {
 						'elClass'    : '-element',
+						'fauxElClass': '',
 						'container'  : '',
 						'handleClass': '__handle'
 					},
@@ -1010,15 +1011,11 @@ $.fn.extend({
 			// Setting variables
 			var $body   = $('body'),
 				$fauxEl = $('<div />', {
-					'class': o.elAttrNames.el
+					'class': o.elAttrNames.fauxElClass
 				}),
 				$handle = $('<div />', {
-					'class': o.elAttrNames.handleClass,
-					'text': 'handle'
+					'class': o.elAttrNames.handleClass
 				}).appendTo($fauxEl);
-
-				$fauxEl.css({'position': 'relative', 'height': '10px', 'background': 'red', 'width': 500})
-				$handle.css({'position': 'absolute', 'left': 0, 'top': 0, 'height': '10px', 'width': '10px', 'background': 'green'})
 
 			// Define functions
 			function nextStep(val){
@@ -1052,8 +1049,8 @@ $.fn.extend({
 				$handle.css('left', xPerc + '%');
 
 				// onChange
-				if(typeof o.onInit === 'function') {
-					o.onInit($el, $fauxEl, o);
+				if(typeof o.onChange === 'function') {
+					o.onChange($el, $fauxEl, o);
 				};
 			};
 
