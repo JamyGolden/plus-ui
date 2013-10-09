@@ -1069,7 +1069,7 @@ $.fn.extend({
 				}).insertBefore( $el );
 
 				// Set init slider position based on el
-				var initPos = nextStep(o.valueVal - o.minVal);
+				var initPos = nextStep(o.valueVal);
 				$handle.css('left', initPos + '%').on({
 					'click.nosui': function(e){
 						e.stopPropagation();
