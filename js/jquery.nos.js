@@ -1017,9 +1017,7 @@ $.fn.extend({
 				$slider = $('<div />', {
 					'class': o.elAttrNames.sliderClass
 				}).appendTo($fauxEl),
-				// Anchor used to stop page text select when dragging
-				$handle = $('<a />', {
-					'href': '#',
+				$handle = $('<div />', {
 					'class': o.elAttrNames.handleClass
 				}).appendTo($fauxEl);
 
@@ -1085,17 +1083,21 @@ $.fn.extend({
 						// handle "jump" bug
 						var handleOffset = e.pageX - $handle.offset().left;
 
-						$body.on('mousemove.nosui', function(e){
-							if(typeof o.timeoutThrottle !== 'undefined'){
-								window.clearTimeout(o.timeoutThrottle);
-							};
+						$body.on({
+							'mousemove.nosui': function(e){
+								e.preventDefault(); // prevent text selection
 
-							o.timeoutThrottle = window.setTimeout(function(){
-								// Get scroll handle percentage form left val
-								var xPos = e.pageX - $fauxEl.offset().left - handleOffset;
+								if(typeof o.timeoutThrottle !== 'undefined'){
+									window.clearTimeout(o.timeoutThrottle);
+								};
 
-								setPosition(xPos);
-							}, 5);
+								o.timeoutThrottle = window.setTimeout(function(){
+									// Get scroll handle percentage form left val
+									var xPos = e.pageX - $fauxEl.offset().left - handleOffset;
+
+									setPosition(xPos);
+								}, 5);
+							}
 						});
 
 						$body.on('mouseup.nosui', function(){
