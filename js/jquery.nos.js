@@ -1060,9 +1060,19 @@ $.fn.extend({
 				};
 			};
 
+			function reflectInputVal(e){
+				var valPos = nextStep(
+					(($el.val() - o.minVal) / (o.maxVal - o.minVal)) * 100 // percentage val
+				);
+
+				$handle.css('left', valPos + '%')
+			}
+
 			function init(){
 				// Dom manipulation and events
-				$el.hide().addClass(o.elAttrNames.elClass).val(o.valueVal);
+				$el.hide().addClass(o.elAttrNames.elClass).val(o.valueVal).on({
+					'change.nosui': reflectInputVal
+				});
 				$fauxEl.on({
 					'click.nosui': function(e){
 						var xPos = e.pageX - $fauxEl.offset().left;
@@ -1071,17 +1081,17 @@ $.fn.extend({
 				}).insertBefore( $el );
 
 				// Set init slider position based on el
-				var initPos = nextStep(
-					((o.valueVal - o.minVal) / (o.maxVal - o.minVal)) * 100 // percentage val
-				);
+				reflectInputVal(o.valueVal);
 
-				$handle.css('left', initPos + '%').on({
+				$handle.on({
 					'click.nosui': function(e){
 						e.preventDefault();
 						e.stopPropagation();
 					},
 					'mousedown.nosui': function(e){
 						e.preventDefault();
+
+						$el.off('change.nosui')
 
 						// Make sure that the handle position stays in the correct
 						// position when you start dragging. This prevents a
@@ -1108,6 +1118,9 @@ $.fn.extend({
 						$body.on('mouseup.nosui', function(){
 							$body.off('mousemove.nosui');
 							$body.off('mouseup.nosui');
+
+							// Turn reflection back on
+							$el.on('change.nosui', reflectInputVal)
 						});
 					}
 				});
