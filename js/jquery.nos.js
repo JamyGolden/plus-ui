@@ -1024,14 +1024,14 @@ $.fn.extend({
 				}).appendTo($fauxEl);
 
 			// Define functions
-			function nextStep(val){
+			function nextStep(percVal){
 				var stepPerc = (o.stepVal / (o.maxVal - o.minVal)) * 100,
-					rem = val % stepPerc;
+					rem = percVal % stepPerc;
 
 				if (rem <= (stepPerc/2)) {
-					return val - rem;
+					return percVal - rem;
 				} else {
-					return val + stepPerc - rem;
+					return percVal + stepPerc - rem;
 				};
 			};
 
@@ -1071,7 +1071,10 @@ $.fn.extend({
 				}).insertBefore( $el );
 
 				// Set init slider position based on el
-				var initPos = nextStep(o.valueVal);
+				var initPos = nextStep(
+					((o.valueVal - o.minVal) / (o.maxVal - o.minVal)) * 100 // percentage val
+				);
+
 				$handle.css('left', initPos + '%').on({
 					'click.nosui': function(e){
 						e.preventDefault();
@@ -1095,7 +1098,7 @@ $.fn.extend({
 
 								o.timeoutThrottle = window.setTimeout(function(){
 									// Get scroll handle percentage form left val
-									var xPos = e.pageX - $fauxEl.offset().left - handleOffset;
+									var xPos = e.pageX - $fauxEl.offset().left;
 
 									setPosition(xPos);
 								}, 5);
