@@ -974,7 +974,9 @@ $.fn.extend({
 						'handleClass': '__handle'
 					},
 					namespace: 'nosui-input-range',
-					timeoutThrottle: 0
+					timeoutThrottle: 0,
+					onInit: null,
+					onChange: null
 				},
 				$el = $(this),
 				o   = NosUIApp.defineOptions(defaults, options);
@@ -1060,7 +1062,7 @@ $.fn.extend({
 
 			function init(){
 				// Dom manipulation and events
-				$el.addClass(o.elAttrNames.elClass).val(o.valueVal);
+				$el.hide().addClass(o.elAttrNames.elClass).val(o.valueVal);
 				$fauxEl.on({
 					'click.nosui': function(e){
 						var xPos = e.pageX - $fauxEl.offset().left;
