@@ -1,7 +1,24 @@
+// ==========================================================================
+// NOS-UI Component list
+// ==========================================================================
+
+// This class gets applied to the body when
+// an element is being dragged to stop
+// text from being highlighted
+.nosui-component-drag {
+	cursor: default !important;
+
+	-webkit-user-select: none;
+	   -moz-user-select: -moz-none;
+	    -ms-user-select: none;
+	        user-select: none;
+}
+
 @import "form-select/form-select";
 @import "input-checkbox/input-checkbox";
 @import "input-text/input-text";
 @import "input-file/input-file";
 @import "input-radio/input-radio";
+@import "input-range/input-range";
 @import "tooltip/tooltip";
 @import "scrollbar/scrollbar";
