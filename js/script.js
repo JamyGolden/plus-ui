@@ -25,4 +25,9 @@ $(document).ready(function() {
 	$('input[type="file"]').nosInputFile();
 	$('.scroll').nosScrollbar();
 
+	// Use something like modernizr to check
+	// if input[type="range"] is supported natively
+	// before running this
+	$('input[type="range"]').nosInputRange();
+
 }); // document.ready()

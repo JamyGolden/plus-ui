@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.3
+* jQuery NOs 0.9.5
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -1089,6 +1089,178 @@ $.fn.extend({
 			if(i === lastElIndex){
 				setImage();
 			};
+		});
+	},
+	nosInputRange: function( options, disableMethod ){
+		return this.each(function(){
+
+			var defaults = {
+					elAttrNames: {
+						'elClass'    : '-element',
+						'fauxElClass': '',
+						'container'  : '',
+						'sliderClass': '__slider',
+						'handleClass': '__handle'
+					},
+					namespace: 'nosui-input-range',
+					timeoutThrottle: 0,
+					onInit: null,
+					onChange: null
+				},
+				$el = $(this),
+				o   = NosUIApp.defineOptions(defaults, options);
+
+			// Match element or throw error
+			NosUIApp.matchElType($('input'), $el);
+
+			if(disableMethod === true){
+				// Changing the data on the element to
+				// reflect that it has been disabled
+				$el.prev().off()
+					.children().off();
+				$el.prev().remove();
+
+				return;
+			};
+
+			// Setting options
+			o.stepVal = $el.attr('step') ? parseFloat($el.attr('step')) : 1;
+			// Set default min/max val whether it's been set or not
+			o.minVal = $el.attr('min') ? parseFloat($el.attr('min')) : 0;
+			o.maxVal = $el.attr('max') ? parseFloat($el.attr('max')) : 100;
+			if(o.minVal > o.maxVal){
+				o.maxVal = o.minVal;
+			};
+			// According to MDN (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input)
+			// value: min + (max-min)/2, or min if max is less than min
+			o.valueVal = $el.val() ? parseFloat($el.val()) : o.minVal + (o.maxVal - o.minVal)/2;
+			if(o.valueVal < o.minVal){
+				o.valueVal = o.minVal;
+			} else if(o.valueVal > o.maxVal){
+				o.valueVal = o.maxVal;
+			};
+
+			// Setting variables
+			var $body   = $('body'),
+				$fauxEl = $('<div />', {
+					'class': o.elAttrNames.fauxElClass
+				}),
+				$slider = $('<div />', {
+					'class': o.elAttrNames.sliderClass
+				}).appendTo($fauxEl),
+				$handle = $('<div />', {
+					'class': o.elAttrNames.handleClass
+				}).appendTo($fauxEl);
+
+			// Define functions
+			function nextStep(percVal){
+				var stepPerc = (o.stepVal / (o.maxVal - o.minVal)) * 100,
+					rem = percVal % stepPerc;
+
+				if (rem <= (stepPerc/2)) {
+					return percVal - rem;
+				} else {
+					return percVal + stepPerc - rem;
+				};
+			};
+
+			function setPosition(xPos){
+				var fauxElWidth = $fauxEl.width(),
+					// Get percentage value
+					xPerc = (xPos/fauxElWidth) * 100,
+					// Filter the percentage through the step
+					xPerc = nextStep(xPerc);
+
+				if(xPerc < 0){
+					xPerc = 0;
+				} else if(xPerc > 100){
+					xPerc = 100;
+				};
+
+				// Get correct slider value
+				o.valueVal = Math.round(((o.maxVal - o.minVal) * xPerc/100) + o.minVal);
+				$el.val(o.valueVal);
+
+				$handle.css('left', xPerc + '%');
+
+				// onChange
+				if(typeof o.onChange === 'function') {
+					o.onChange($el, $fauxEl, o);
+				};
+			};
+
+			function reflectInputVal(e){
+				var valPos = nextStep(
+					(($el.val() - o.minVal) / (o.maxVal - o.minVal)) * 100 // percentage val
+				);
+
+				$handle.css('left', valPos + '%')
+			}
+
+			function init(){
+				// Dom manipulation and events
+				$el.hide().addClass(o.elAttrNames.elClass).val(o.valueVal).on({
+					'change.nosui': reflectInputVal
+				});
+				$fauxEl.on({
+					'click.nosui': function(e){
+						var xPos = e.pageX - $fauxEl.offset().left;
+						setPosition(xPos)
+					}
+				}).insertBefore( $el );
+
+				// Set init slider position based on el
+				reflectInputVal(o.valueVal);
+
+				$handle.on({
+					'click.nosui': function(e){
+						e.preventDefault();
+						e.stopPropagation();
+					},
+					'mousedown.nosui': function(e){
+						e.preventDefault();
+
+						$el.off('change.nosui')
+
+						// Make sure that the handle position stays in the correct
+						// position when you start dragging. This prevents a
+						// handle "jump" bug
+						var handleOffset = e.pageX - $handle.offset().left;
+
+						$body.on({
+							'mousemove.nosui': function(e){
+								e.preventDefault(); // prevent text selection
+
+								if(typeof o.timeoutThrottle !== 'undefined'){
+									window.clearTimeout(o.timeoutThrottle);
+								};
+
+								o.timeoutThrottle = window.setTimeout(function(){
+									// Get scroll handle percentage form left val
+									var xPos = e.pageX - $fauxEl.offset().left;
+
+									setPosition(xPos);
+								}, 5);
+							}
+						});
+
+						$body.on('mouseup.nosui', function(){
+							$body.off('mousemove.nosui');
+							$body.off('mouseup.nosui');
+
+							// Turn reflection back on
+							$el.on('change.nosui', reflectInputVal)
+						});
+					}
+				});
+
+				// onInit
+				if(typeof o.onInit === 'function') {
+					o.onInit($el, $fauxEl, o);
+				};
+			}; // init
+
+			init();
 		});
 	}
 });

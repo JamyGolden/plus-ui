@@ -1,0 +1,36 @@
+// ==========================================================================
+// Form Input Range
+// ==========================================================================
+
+$height: 15px;
+.nosui-input-range {
+	height: $height;
+	width: 500px;
+	position: relative;
+}
+
+.nosui-input-range__slider {
+	background-color: #ebebeb;
+	border-top: 1px solid #dfdfdf;
+	height: 3px;
+	position: relative;
+	top: ($height - 4)/2; // subtract __slider height
+}
+
+$height: $height - 2; // Subtract border
+.nosui-input-range__handle {
+	background-image: url(../img/form-repeat/select.png);
+	@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
+	border: 1px solid #ababab;
+	@include border-radius(3px);
+	position: absolute;
+	left: 100%;
+	top: 0;
+	height: $height;
+	width: $height;
+
+	&:hover {
+		background-image: url(../img/form-repeat/select-hovered.png);
+		@include background-image(linear-gradient(bottom, #dfdfdf, #f1f1f1));
+	}
+}
