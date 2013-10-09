@@ -970,6 +970,7 @@ $.fn.extend({
 						'elClass'    : '-element',
 						'fauxElClass': '',
 						'container'  : '',
+						'sliderClass': '__slider',
 						'handleClass': '__handle'
 					},
 					namespace: 'nosui-input-range',
@@ -1013,6 +1014,9 @@ $.fn.extend({
 				$fauxEl = $('<div />', {
 					'class': o.elAttrNames.fauxElClass
 				}),
+				$slider = $('<div />', {
+					'class': o.elAttrNames.sliderClass
+				}).appendTo($fauxEl),
 				$handle = $('<div />', {
 					'class': o.elAttrNames.handleClass
 				}).appendTo($fauxEl);
