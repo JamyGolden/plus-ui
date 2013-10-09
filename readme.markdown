@@ -18,6 +18,7 @@ List of the current NOS UI component support
 * [nosInputRadio](./wiki/nosInputRadio)
 * [nosInputPlaceholder](./wiki/nosInputPlaceholder)
 * [nosInputFile](./wiki/nosInputFile)
+* [nosInputRange](./wiki/nosInputRange)
 * [nosResponsiveImages](./wiki/nosResponsiveImages)
 
 ## Documentation
