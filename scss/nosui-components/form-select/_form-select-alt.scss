@@ -43,7 +43,6 @@ $height: 25px;
 	}
 
 	.nosui-form-select-alt__dropdown-button {
-		@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
 		border-left: 1px solid #dbdbdb;
 		height: $height;
 		width: $height;
