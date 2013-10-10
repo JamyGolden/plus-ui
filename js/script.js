@@ -27,6 +27,8 @@ $(document).ready(function() {
 	// Use something like modernizr to check
 	// if input[type="range"] is supported natively
 	// before running this
-	$('input[type="range"]').nosInputRange();
+	$('.input-range').nosInputRange();
+	// $('input[type="range"]') doesn't return the correct element in IE7 
+	// so a class was given to the element to target it.
 
 }); // document.ready()

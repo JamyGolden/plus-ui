@@ -1005,11 +1005,7 @@ $.fn.extend({
 			// According to MDN (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input)
 			// value: min + (max-min)/2, or min if max is less than min
 			o.valueVal = $el.val() ? parseFloat($el.val()) : o.minVal + (o.maxVal - o.minVal)/2;
-			if(o.valueVal < o.minVal){
-				o.valueVal = o.minVal;
-			} else if(o.valueVal > o.maxVal){
-				o.valueVal = o.maxVal;
-			};
+			elValueFilter();
 
 			// Setting variables
 			var $body   = $('body'),
@@ -1022,6 +1018,21 @@ $.fn.extend({
 				$handle = $('<div />', {
 					'class': o.elAttrNames.handleClass
 				}).appendTo($fauxEl);
+
+			// Ensure the value adheres to the max/min values
+			function elValueFilter(){
+				if(o.valueVal < o.minVal){
+					o.valueVal = o.minVal;
+
+					// Correct element value
+					$el.val(o.valueVal);
+				} else if(o.valueVal > o.maxVal){
+					o.valueVal = o.maxVal;
+
+					// Correct element value
+					$el.val(o.valueVal);
+				};
+			};
 
 			// Define functions
 			function nextStep(percVal){
@@ -1050,6 +1061,8 @@ $.fn.extend({
 
 				// Get correct slider value
 				o.valueVal = Math.round(((o.maxVal - o.minVal) * xPerc/100) + o.minVal);
+				elValueFilter();
+
 				// Set val and trigger change for external plugins
 				$el.val(o.valueVal).trigger('change');
 
@@ -1062,8 +1075,11 @@ $.fn.extend({
 			};
 
 			function reflectInputVal(e){
+				o.valueVal = $el.val();
+				elValueFilter();
+
 				var valPos = nextStep(
-					(($el.val() - o.minVal) / (o.maxVal - o.minVal)) * 100 // percentage val
+					((o.valueVal - o.minVal) / (o.maxVal - o.minVal)) * 100 // percentage val
 				);
 
 				$handle.css('left', valPos + '%')
