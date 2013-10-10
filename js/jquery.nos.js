@@ -864,7 +864,7 @@ $.fn.extend({
 					return percentage;
 			}
 
-			// Converts the scroll percentage to necessary 
+			// Converts the scroll percentage to necessary
 			// pixels to scroll
 			function getScrollPercToPx($el, perc) {
 				var height = $el.get(0).scrollHeight,
@@ -916,7 +916,7 @@ $.fn.extend({
 			// jQuery's wrap clones the object
 			$el.wrap($fauxEl);
 			$fauxEl = $el.parent();
-			
+
 			$el.wrap($container);
 			$container = $el.parent();
 
