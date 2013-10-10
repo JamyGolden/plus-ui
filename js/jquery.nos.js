@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.5
+* jQuery NOs 0.9.6
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -1050,7 +1050,8 @@ $.fn.extend({
 
 				// Get correct slider value
 				o.valueVal = Math.round(((o.maxVal - o.minVal) * xPerc/100) + o.minVal);
-				$el.val(o.valueVal);
+				// Set val and trigger change for external plugins
+				$el.val(o.valueVal).trigger('change');
 
 				$handle.css('left', xPerc + '%');
 
