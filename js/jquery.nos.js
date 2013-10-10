@@ -145,6 +145,7 @@ $.fn.extend({
 			};
 
 			// Set value
+			$el.addClass(o.elAttrNames.elClass);
 			blurInput();
 
 			// Turn off functions
