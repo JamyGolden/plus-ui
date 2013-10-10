@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.7
+* jQuery NOs 0.9.9
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -94,10 +94,14 @@ $.fn.extend({
 
 	nosInputPlaceholder: function( options, disableMethod ) {
 
-
 		return this.each(function(){
 
 			var defaults = {
+					elAttrNames: {
+						elClass: '',
+						hasPlaceholderClass: '--placeholder-active'
+					},
+					namespace: 'nosui-input-placeholder',
 					placeholder: null
 				},
 				o = NosUIApp.defineOptions(defaults, options),
@@ -109,7 +113,7 @@ $.fn.extend({
 				$el.attr('placeholder', o.placeholder);
 			};
 
-			var val =  $el.attr('placeholder');
+			var val = $el.attr('placeholder');
 
 			// The value hasn't been defined
 			// and cannot be guessed either.
@@ -125,7 +129,7 @@ $.fn.extend({
 				};
 
 				if($el.val() == val){
-					$el.val('')
+					$el.removeClass(o.elAttrNames.hasPlaceholderClass).val('')
 				};
 			};
 
@@ -136,12 +140,12 @@ $.fn.extend({
 				};
 
 				if($el.val() == ''){
-					$el.val(val)
+					$el.addClass(o.elAttrNames.hasPlaceholderClass).val(val)
 				};
 			};
 
 			// Set value
-			$el.val(val);
+			blurInput();
 
 			// Turn off functions
 			// Incase this is called twice
