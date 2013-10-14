@@ -708,11 +708,11 @@ $.fn.extend({
 			};
 
 			function init(){
-				o._dom.elName = o._dom.$el.attr('name');
+				o._dom.elName           = o._dom.$el.attr('name');
 				o._dom.$elContainerForm = o._dom.$el.closest('form').length ? o._dom.$el.closest('form') : $('body');
-				o._dom.$elSiblings = o._dom.$elContainerForm.find('input[type="radio"]').filter(function(){
-					return $(this).attr('name') == o._dom.elName;
-				}).not(o._dom.$el);
+				o._dom.$elSiblings      = o._dom.$elContainerForm.find('input[type="radio"]').filter(function(){
+						return $(this).attr('name') == o._dom.elName;
+					}).not(o._dom.$el);
 				o._dom.$fauxEl = $('<div />', {
 					'class': o.elAttrNames.fauxElClass
 				})
@@ -861,10 +861,9 @@ $.fn.extend({
 
 			function init(){
 				o._dom.$el.addClass(o.elAttrNames.elClass);
-
-				o._dom.$fauxInputFile = $('<div />', {
-						'class': o.elAttrNames.fauxElClass
-					})
+				o._dom.$fauxEl = $('<div />', {
+					'class': o.elAttrNames.fauxElClass
+				});
 				o._dom.$placeholder = $('<div />', {
 					'class': o.elAttrNames.placeholderClass,
 					'text': o.placeholderText
@@ -874,9 +873,9 @@ $.fn.extend({
 					'text': o.buttonText
 				});
 
-				NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxInputFile, o.elAttrNames.disabledClass);
+				NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxEl, o.elAttrNames.disabledClass);
 
-				o._dom.$el.wrap( o._dom.$fauxInputFile ).before( o._dom.$placeholder, o._dom.$button );
+				o._dom.$el.wrap( o._dom.$fauxEl ).before( o._dom.$placeholder, o._dom.$button );
 
 				// Event Callback
 				if(typeof o.onInit === 'function') {
@@ -890,7 +889,7 @@ $.fn.extend({
 						o._dom.$placeholder.text( o._dom.$el.val() );
 
 						if(typeof o.onChange === 'function') {
-							o.onChange(o._dom.$el, o._dom.$fauxInputFile, o);
+							o.onChange(o._dom.$el, o._dom.$fauxEl, o);
 						};
 					}
 				});
@@ -1068,47 +1067,23 @@ $.fn.extend({
 					onInit: null,
 					onChange: null
 				},
-				$el = $(this),
 				o   = NosUIApp.defineOptions(defaults, options);
 
+			o._dom.$el = $(this)
+
 			// Match element or throw error
-			NosUIApp.matchElType($('input'), $el);
+			NosUIApp.matchElType($('input'), o._dom.$el);
 
 			if(disableMethod === true){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				$el.show()
+				o._dom.$el.show()
 					.prev().off()
 					.children().off();
-				$el.prev().remove();
+				o._dom.$el.prev().remove();
 
 				return;
 			};
-
-			// Setting options
-			o.stepVal = $el.attr('step') ? parseFloat($el.attr('step')) : 1;
-			// Set default min/max val whether it's been set or not
-			o.minVal = $el.attr('min') ? parseFloat($el.attr('min')) : 0;
-			o.maxVal = $el.attr('max') ? parseFloat($el.attr('max')) : 100;
-			if(o.minVal > o.maxVal){
-				o.maxVal = o.minVal;
-			};
-			// According to MDN (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input)
-			// value: min + (max-min)/2, or min if max is less than min
-			o.valueVal = $el.val() ? parseFloat($el.val()) : o.minVal + (o.maxVal - o.minVal)/2;
-			elValueFilter();
-
-			// Setting variables
-			var $body   = $('body'),
-				$fauxEl = $('<div />', {
-					'class': o.elAttrNames.fauxElClass
-				}),
-				$slider = $('<div />', {
-					'class': o.elAttrNames.sliderClass
-				}).appendTo($fauxEl),
-				$handle = $('<div />', {
-					'class': o.elAttrNames.handleClass
-				}).appendTo($fauxEl);
 
 			// Ensure the value adheres to the max/min values
 			function elValueFilter(){
@@ -1116,12 +1091,12 @@ $.fn.extend({
 					o.valueVal = o.minVal;
 
 					// Correct element value
-					$el.val(o.valueVal);
+					o._dom.$el.val(o.valueVal);
 				} else if(o.valueVal > o.maxVal){
 					o.valueVal = o.maxVal;
 
 					// Correct element value
-					$el.val(o.valueVal);
+					o._dom.$el.val(o.valueVal);
 				};
 			};
 
@@ -1138,7 +1113,7 @@ $.fn.extend({
 			};
 
 			function setPosition(xPos){
-				var fauxElWidth = $fauxEl.width(),
+				var fauxElWidth = o._dom.$fauxEl.width(),
 					// Get percentage value
 					xPerc = (xPos/fauxElWidth) * 100,
 					// Filter the percentage through the step
@@ -1155,43 +1130,67 @@ $.fn.extend({
 				elValueFilter();
 
 				// Set val and trigger change for external plugins
-				$el.val(o.valueVal).trigger('change');
+				o._dom.$el.val(o.valueVal).trigger('change');
 
-				$handle.css('left', xPerc + '%');
+				o._dom.$handle.css('left', xPerc + '%');
 
 				// onChange
 				if(typeof o.onChange === 'function') {
-					o.onChange($el, $fauxEl, o);
+					o.onChange(o._dom.$el, o._dom.$fauxEl, o);
 				};
 			};
 
 			function reflectInputVal(e){
-				o.valueVal = $el.val();
+				o.valueVal = o._dom.$el.val();
 				elValueFilter();
 
 				var valPos = nextStep(
 					((o.valueVal - o.minVal) / (o.maxVal - o.minVal)) * 100 // percentage val
 				);
 
-				$handle.css('left', valPos + '%')
+				o._dom.$handle.css('left', valPos + '%')
 			}
 
 			function init(){
+				// Setting options
+				o.stepVal = o._dom.$el.attr('step') ? parseFloat(o._dom.$el.attr('step')) : 1;
+				// Set default min/max val whether it's been set or not
+				o.minVal = o._dom.$el.attr('min') ? parseFloat(o._dom.$el.attr('min')) : 0;
+				o.maxVal = o._dom.$el.attr('max') ? parseFloat(o._dom.$el.attr('max')) : 100;
+				if(o.minVal > o.maxVal){
+					o.maxVal = o.minVal;
+				};
+				// According to MDN (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input)
+				// value: min + (max-min)/2, or min if max is less than min
+				o.valueVal = o._dom.$el.val() ? parseFloat(o._dom.$el.val()) : o.minVal + (o.maxVal - o.minVal)/2;
+				elValueFilter();
+
+				// Setting variables
+				o._dom.$fauxEl = $('<div />', {
+						'class': o.elAttrNames.fauxElClass
+					});
+				o._dom.$slider = $('<div />', {
+						'class': o.elAttrNames.sliderClass
+					}).appendTo(o._dom.$fauxEl);
+				o._dom.$handle = $('<div />', {
+						'class': o.elAttrNames.handleClass
+					}).appendTo(o._dom.$fauxEl);
+
 				// Dom manipulation and events
-				$el.hide().addClass(o.elAttrNames.elClass).val(o.valueVal).on({
+				o._dom.$el.hide().addClass(o.elAttrNames.elClass).val(o.valueVal).on({
 					'change.nosui': reflectInputVal
 				});
-				$fauxEl.on({
+				o._dom.$fauxEl.on({
 					'click.nosui': function(e){
-						var xPos = e.pageX - $fauxEl.offset().left;
+						var xPos = e.pageX - o._dom.$fauxEl.offset().left;
 						setPosition(xPos)
 					}
-				}).insertBefore( $el );
+				}).insertBefore( o._dom.$el );
 
 				// Set init slider position based on el
 				reflectInputVal(o.valueVal);
 
-				$handle.on({
+				o._dom.$handle.on({
 					'click.nosui': function(e){
 						e.preventDefault();
 						e.stopPropagation();
@@ -1199,14 +1198,14 @@ $.fn.extend({
 					'mousedown.nosui': function(e){
 						e.preventDefault();
 
-						$el.off('change.nosui')
+						o._dom.$el.off('change.nosui')
 
 						// Make sure that the handle position stays in the correct
 						// position when you start dragging. This prevents a
 						// handle "jump" bug
-						var handleOffset = e.pageX - $handle.offset().left;
+						var handleOffset = e.pageX - o._dom.$handle.offset().left;
 
-						$body.on({
+						$('body').on({
 							'mousemove.nosui': function(e){
 								e.preventDefault(); // prevent text selection
 
@@ -1216,26 +1215,26 @@ $.fn.extend({
 
 								o.timeoutThrottle = window.setTimeout(function(){
 									// Get scroll handle percentage form left val
-									var xPos = e.pageX - $fauxEl.offset().left;
+									var xPos = e.pageX - o._dom.$fauxEl.offset().left;
 
 									setPosition(xPos);
 								}, 5);
 							}
 						});
 
-						$body.on('mouseup.nosui', function(){
-							$body.off('mousemove.nosui');
-							$body.off('mouseup.nosui');
+						$('body').on('mouseup.nosui', function(){
+							$('body').off('mousemove.nosui');
+							$('body').off('mouseup.nosui');
 
 							// Turn reflection back on
-							$el.on('change.nosui', reflectInputVal)
+							o._dom.$el.on('change.nosui', reflectInputVal)
 						});
 					}
 				});
 
 				// onInit
 				if(typeof o.onInit === 'function') {
-					o.onInit($el, $fauxEl, o);
+					o.onInit(o._dom.$el, o._dom.$fauxEl, o);
 				};
 			}; // init
 
