@@ -580,14 +580,17 @@ $.fn.extend({
 			NosUIApp.matchElType($('input[type="checkbox"]'), o._dom.$el);
 
 			if(disableMethod === true){
+				disable();
+				return;
+			};
+
+			function disable(){
 				// Changing the data on the element to
 				// reflect that it has been disabled
 				o._dom.$el.prev('.' + o.elAttrNames.fauxElClass).off() // Turn off fauxEl events
 					.remove(); // Remove fauxEl
 				o._dom.$el.show(); // Show the element
-
-				return;
-			};
+			}
 
 			function init(){
 				o._dom.$fauxEl = $('<div />', {
@@ -711,13 +714,16 @@ $.fn.extend({
 			NosUIApp.matchElType($('input[type="radio"]'), o._dom.$el);
 
 			if(disableMethod === true){
+				disable();
+				return;
+			};
+
+			function disable(){
 				// Changing the data on the element to
 				// reflect that it has been disabled
 				o._dom.$el.prev('.' + o.elAttrNames.fauxElClass).off() // Turn off fauxEl events
 					.remove(); // Remove fauxEl
 				o._dom.$el.show(); // Show the element
-
-				return;
 			};
 
 			function init(){
@@ -862,15 +868,18 @@ $.fn.extend({
 			NosUIApp.matchElType($('input[type="file"]'), o._dom.$el);
 
 			if(disableMethod === true){
+				disable();
+				return;
+			};
+
+			function disable(){
 				// Changing the data on the element to
 				// reflect that it has been disabled
 				o._dom.$el.off('change.nosui')
 					.removeClass(o.elAttrNames.elClass)
 					.siblings().remove() // Remove button/placeholder
 					.end().unwrap('.' + o.elAttrNames.fauxElClass); // Remove fauxEl
-
-				return;
-			};
+			}
 
 			function init(){
 				o._dom.$el.addClass(o.elAttrNames.elClass);
@@ -1088,14 +1097,17 @@ $.fn.extend({
 			NosUIApp.matchElType($('input'), o._dom.$el);
 
 			if(disableMethod === true){
+				disable();
+				return;
+			};
+
+			function disable(){
 				// Changing the data on the element to
 				// reflect that it has been disabled
 				o._dom.$el.show()
 					.prev().off()
 					.children().off();
 				o._dom.$el.prev().remove();
-
-				return;
 			};
 
 			// Ensure the value adheres to the max/min values
