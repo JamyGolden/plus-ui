@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.11
+* jQuery NOs 0.9.12
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -40,6 +40,8 @@ window.NosUIApp = {
 	},
 	createPrivateMethods: function(obj){
 		obj._dom = {};
+		// This is used to prevent stackoverflows within callbacks
+		obj._stackOverflow = 0;
 		return obj;
 	},
 	matchElType: function($elType, $el){
@@ -320,13 +322,15 @@ $.fn.extend({
 							};
 						},
 						'change.nosui-form-select': function(e) {
+							o._stackOverflow++;
 							var text = o._dom.$el.find(':selected').text();
 							o._dom.$placeholder.text(text);
 
 							// Event Callback
-							if(typeof o.onChange === 'function') {
+							if(typeof o.onChange === 'function' && o._stackOverflow <= 1) {
 								o.onChange(o._dom.$el, o._dom.$fauxSelect, o);
 							};
+							o._stackOverflow = 0;
 						},
 						'blur.nosui-form-select': function(e) {
 							o._dom.$fauxSelect.removeClass( o.elAttrNames.activeClass );
@@ -528,6 +532,8 @@ $.fn.extend({
 
 				// Reflect selected state element
 				function reflectChange(e){
+					o._stackOverflow++;
+
 					o._dom.$selectedOption     = o._dom.$el.find('option:selected');
 					var index                  = o._dom.$selectedOption.index();
 					o._dom.$fauxSelectedOption = o._dom.$fauxOptions.eq(index);
@@ -543,9 +549,11 @@ $.fn.extend({
 					o._dom.$fauxOptions.data(NosUIApp.namespace + 'selected', false)
 						.eq(index).data(NosUIApp.namespace + 'selected', true);
 
-					if(typeof o.onChange === 'function') {
+					if(typeof o.onChange === 'function' && o._stackOverflow <= 1) {
 						o.onChange(o._dom.$el, o._dom.$fauxSelect, o);
 					};
+
+					o._stackOverflow = 0;
 				};
 
 				// Run
@@ -614,18 +622,22 @@ $.fn.extend({
 			}
 
 			function reflectChange(e){
-				o._dom.$fauxEl.toggleClass(o.elAttrNames.checkedClass);
+				o._stackOverflow++;
 
 				// Toggle Attribute
 				if(o._dom.$el.prop('checked')){
 					o._dom.$el.data('nosui-checked', true);
+					o._dom.$fauxEl.addClass(o.elAttrNames.checkedClass);
 				} else {
 					o._dom.$el.data('nosui-checked', false);
+					o._dom.$fauxEl.removeClass(o.elAttrNames.checkedClass);
 				};
 
-				if(typeof o.onChange === 'function') {
+				if(typeof o.onChange === 'function' && o._stackOverflow <= 1) {
 					o.onChange(o._dom.$el, o._dom.$fauxEl, o);
 				};
+
+				o._stackOverflow = 0;
 			};
 
 			function events(){
@@ -759,6 +771,7 @@ $.fn.extend({
 			};
 
 			function reflectChange(e){
+				o._stackOverflow++;
 				// Faux siblings must be defined after all fauxSiblings hvae been created
 				// i.e. on click should be enough time
 				o._dom.$fauxSiblings = o._dom.$elContainerForm
@@ -778,9 +791,11 @@ $.fn.extend({
 				// Check radio
 				o._dom.$fauxEl.data(NosUIApp.namespace + '-checked', true).addClass(o.elAttrNames.checkedClass);
 
-				if(typeof o.onChange === 'function') {
+				if(typeof o.onChange === 'function' && o._stackOverflow <= 1) {
 					o.onChange(o._dom.$el, o._dom.$fauxEl, o);
 				};
+
+				o._stackOverflow = 0;
 			};
 
 			function events(){
