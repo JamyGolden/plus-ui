@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.10
+* jQuery NOs 0.9.11
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -424,7 +424,7 @@ $.fn.extend({
 							};
 
 							if(typeof o.onClick === 'function') {
-								o.onClick(o._dom.$el, $fauxSelect, o);
+								o.onClick(o._dom.$el, o._dom.$fauxSelect, o);
 							};
 
 							toggleDropdown(o._dom.$fauxSelect); // Toggle list
