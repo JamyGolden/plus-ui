@@ -841,16 +841,17 @@ $.fn.extend({
 					onInit: null,
 					onChange: null
 				},
-				o = NosUIApp.defineOptions(defaults, options),
-				$el = $(this);
+				o = NosUIApp.defineOptions(defaults, options);
+
+			o._dom.$el = $(this);
 
 			// Match element or throw error
-			NosUIApp.matchElType($('input[type="file"]'), $el);
+			NosUIApp.matchElType($('input[type="file"]'), o._dom.$el);
 
 			if(disableMethod === true){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				$el.off('change.nosui')
+				o._dom.$el.off('change.nosui')
 					.removeClass(o.elAttrNames.elClass)
 					.siblings().remove() // Remove button/placeholder
 					.end().unwrap('.' + o.elAttrNames.fauxElClass); // Remove fauxEl
@@ -858,38 +859,45 @@ $.fn.extend({
 				return;
 			};
 
-			$el.addClass(o.elAttrNames.elClass);
+			function init(){
+				o._dom.$el.addClass(o.elAttrNames.elClass);
 
-			var $fauxInputFile = $('<div />', {
-					'class': o.elAttrNames.fauxElClass
-				}),
-				$placeholder = $('<div />', {
+				o._dom.$fauxInputFile = $('<div />', {
+						'class': o.elAttrNames.fauxElClass
+					})
+				o._dom.$placeholder = $('<div />', {
 					'class': o.elAttrNames.placeholderClass,
 					'text': o.placeholderText
-				}),
-				$button = $('<div />', {
+				});
+				o._dom.$button = $('<div />', {
 					'class': o.elAttrNames.buttonClass,
 					'text': o.buttonText
 				});
 
-			NosUIApp.form.isDisabled($el, $fauxInputFile, o.elAttrNames.disabledClass);
+				NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxInputFile, o.elAttrNames.disabledClass);
 
-			$el.wrap( $fauxInputFile ).before( $placeholder, $button );
+				o._dom.$el.wrap( o._dom.$fauxInputFile ).before( o._dom.$placeholder, o._dom.$button );
 
-			// Event Callback
-			if(typeof o.onInit === 'function') {
-				o.onInit($el, $fauxEl, o);
+				// Event Callback
+				if(typeof o.onInit === 'function') {
+					o.onInit(o._dom.$el, o._dom.$fauxEl, o);
+				};
 			};
 
-			$el.on({
-				'change.nosui': function(){
-					$placeholder.text( $el.val() );
+			function events(){
+				o._dom.$el.on({
+					'change.nosui': function(){
+						o._dom.$placeholder.text( o._dom.$el.val() );
 
-					if(typeof o.onChange === 'function') {
-						o.onChange($el, $fauxInputFile, o);
-					};
-				}
-			});
+						if(typeof o.onChange === 'function') {
+							o.onChange(o._dom.$el, o._dom.$fauxInputFile, o);
+						};
+					}
+				});
+			};
+
+			init();
+			events();
 
 		}); // return this.each
 
@@ -1069,7 +1077,8 @@ $.fn.extend({
 			if(disableMethod === true){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				$el.prev().off()
+				$el.show()
+					.prev().off()
 					.children().off();
 				$el.prev().remove();
 
