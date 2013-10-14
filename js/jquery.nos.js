@@ -108,69 +108,79 @@ $.fn.extend({
 					namespace: 'nosui-input-placeholder',
 					placeholder: null
 				},
-				o = NosUIApp.defineOptions(defaults, options),
-				$el = $(this);
+				o = NosUIApp.defineOptions(defaults, options);
 
-			NosUIApp.matchElType($('input'), $el);
+			o._dom.$el = $(this);
+			NosUIApp.matchElType($('input'), o._dom.$el);
 
-			if(typeof o.placeholder === 'string') {
-				$el.attr('placeholder', o.placeholder);
+			if(disableMethod === true){
+				disable();
+				return;
+			}
+
+			function disable(){
+				o._dom.$el.off().removeClass(o.elAttrNames.hasPlaceholderClass).val('');
 			};
 
-			var val = $el.attr('placeholder');
+			function init(){
+				if(typeof o.placeholder === 'string') {
+					o._dom.$el.attr('placeholder', o.placeholder);
+				};
 
-			// The value hasn't been defined
-			// and cannot be guessed either.
-			// Everything should stop here
-			if(typeof val !== 'string') {
-				return;
+				o._dom.val = o._dom.$el.attr('placeholder');
+
+				// The value hasn't been defined
+				// and cannot be guessed either.
+				// Everything should stop here
+				if(typeof o._dom.val !== 'string') {
+					return;
+				};
+
+				// Set value
+				o._dom.$el.addClass(o.elAttrNames.elClass);
+				blurInput();
 			};
 
 			function focusInput(){
 				// Focus Callback
 				if(typeof o.onFocus === 'function') {
-					o.onFocus($el);
+					o.onFocus(o._dom.$el);
 				};
 
-				if($el.val() == val){
-					$el.removeClass(o.elAttrNames.hasPlaceholderClass).val('')
+				if(o._dom.$el.val() == o._dom.val){
+					o._dom.$el.removeClass(o.elAttrNames.hasPlaceholderClass).val('')
 				};
 			};
 
 			function blurInput(){
 				// Blur Callback
 				if(typeof o.onBlur === 'function') {
-					o.onBlur($el);
+					o.onBlur(o._dom.$el);
 				};
 
-				if($el.val() == ''){
-					$el.addClass(o.elAttrNames.hasPlaceholderClass).val(val)
+				if(o._dom.$el.val() == ''){
+					o._dom.$el.addClass(o.elAttrNames.hasPlaceholderClass).val(o._dom.val)
 				};
 			};
 
-			// Set value
-			$el.addClass(o.elAttrNames.elClass);
-			blurInput();
+			function events(){
+				// Turn off functions
+				// Incase this is called twice
+				o._dom.$el.off({
+					'focus.nosui-placeholder': focusInput,
+					'blur.nosui-placeholder': blurInput
+				});
 
-			// Turn off functions
-			// Incase this is called twice
-			$el.off({
-				'focus.nosui-placeholder': focusInput,
-				'blur.nosui-placeholder': blurInput
-			});
-
-			// Disable this method
-			// Return here before the elements have the functionality
-			// turned on
-			if(disableMethod === true){
-				return;
+				// Turn on functions
+				o._dom.$el.on({
+					'focus.nosui-placeholder': focusInput,
+					'blur.nosui-placeholder': blurInput
+				});
 			};
 
-			// Turn on functions
-			$el.on({
-				'focus.nosui-placeholder': focusInput,
-				'blur.nosui-placeholder': blurInput
-			});
+			init();
+			events();
+
 		});
 
 	}, // nosPlaceholder()
