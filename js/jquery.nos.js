@@ -307,7 +307,7 @@ $.fn.extend({
 
 				} // initDefault
 
-				function events(){
+				function eventsDefault(){
 					o._dom.$el.on({
 						'focus.nosui-form-select': function(e) {
 							// Applied for disabled styling if applied
@@ -340,7 +340,7 @@ $.fn.extend({
 				};
 
 				initDefault();
-				events();
+				eventsDefault();
 
 			} else {
 				function initCustom(){
@@ -406,6 +406,9 @@ $.fn.extend({
 						o.onInit(o._dom.$el, o._dom.$fauxSelect, o);
 					};
 
+				}; // initCustom()
+
+				function eventsCustom(){
 					o._dom.$el.on({
 						'change.nosui-form-select': function(e){
 							reflectChange(e);
@@ -472,8 +475,7 @@ $.fn.extend({
 							selectOption($(this));
 						}
 					}); // .select li.click
-
-				}; // initCustom()
+				}
 
 				function toggleDropdown($fauxSelect) {
 					// Toggle isOpen property
@@ -548,6 +550,7 @@ $.fn.extend({
 
 				// Run
 				initCustom();
+				eventsCustom();
 			};
 
 		}); // each
