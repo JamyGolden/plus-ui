@@ -13,13 +13,13 @@ NOS (Native OS) UI is a jQuery library that helps to create useful, extensible a
 
 ## Component list
 List of the current NOS UI component support
-* [nosFormSelect](./wiki/nosFormSelect)
-* [nosInputCheckbox](./wiki/nosInputCheckbox)
-* [nosInputRadio](./wiki/nosInputRadio)
-* [nosInputPlaceholder](./wiki/nosInputPlaceholder)
-* [nosInputFile](./wiki/nosInputFile)
-* [nosInputRange](./wiki/nosInputRange)
-* [nosResponsiveImages](./wiki/nosResponsiveImages)
+* [nosFormSelect](https://github.com/NATIVEVML/NOS-UI/wiki/nosFormSelect)
+* [nosInputCheckbox](https://github.com/NATIVEVML/NOS-UI/wiki/nosInputCheckbox)
+* [nosInputRadio](https://github.com/NATIVEVML/NOS-UI/wiki/nosInputRadio)
+* [nosInputPlaceholder](https://github.com/NATIVEVML/NOS-UI/wiki/nosInputPlaceholder)
+* [nosInputFile](https://github.com/NATIVEVML/NOS-UI/wiki/nosInputFile)
+* [nosInputRange](https://github.com/NATIVEVML/NOS-UI/wiki/nosInputRange)
+* [nosResponsiveImages](https://github.com/NATIVEVML/NOS-UI/wiki/nosResponsiveImages)
 
 ## Documentation
 For detailed information about various NOS UI jQuery methods, [visit the wiki](https://github.com/NATIVEVML/NOS-UI/wiki).
