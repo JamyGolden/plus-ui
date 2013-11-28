@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.12
+* jQuery NOs 0.9.13
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -1015,7 +1015,7 @@ $.fn.extend({
 
 					// If larger than the current `keyWidth` and smaller than
 					// the current `windowWidth`
-					if(keyWidth > activeResponsiveWidth && keyWidth < windowWidth){
+					if(keyWidth >= activeResponsiveWidth && keyWidth <= windowWidth){
 						activeResponsiveWidth = keyWidth;
 					}
 				});
