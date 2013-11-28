@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.13
+* jQuery NOs 0.9.14
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -160,7 +160,7 @@ $.fn.extend({
 					o.onBlur(o._dom.$el);
 				};
 
-				if(o._dom.$el.val() == ''){
+				if(o._dom.$el.val() == '' || o._dom.$el.val() == o._dom.val){
 					o._dom.$el.addClass(o.elAttrNames.hasPlaceholderClass).val(o._dom.val)
 				};
 			};
