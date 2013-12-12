@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.14
+* jQuery NOs 0.9.15
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -39,7 +39,7 @@ window.NosUIApp = {
 		};
 	},
 	createPrivateMethods: function(obj){
-		obj._dom = {};
+		obj.dom = {};
 		// This is used to prevent stackoverflows within callbacks
 		obj._stackOverflow = 0;
 		return obj;
@@ -112,8 +112,8 @@ $.fn.extend({
 				},
 				o = NosUIApp.defineOptions(defaults, options);
 
-			o._dom.$el = $(this);
-			NosUIApp.matchElType($('input'), o._dom.$el);
+			o.dom.$el = $(this);
+			NosUIApp.matchElType($('input'), o.dom.$el);
 
 			if(disableMethod === true){
 				disable();
@@ -121,60 +121,60 @@ $.fn.extend({
 			}
 
 			function disable(){
-				o._dom.$el.off().removeClass(o.elAttrNames.hasPlaceholderClass).val('');
+				o.dom.$el.off().removeClass(o.elAttrNames.hasPlaceholderClass).val('');
 			};
 
 			function init(){
 				if(typeof o.placeholder === 'string') {
-					o._dom.$el.attr('placeholder', o.placeholder);
+					o.dom.$el.attr('placeholder', o.placeholder);
 				};
 
-				o._dom.val = o._dom.$el.attr('placeholder');
+				o.dom.val = o.dom.$el.attr('placeholder');
 
 				// The value hasn't been defined
 				// and cannot be guessed either.
 				// Everything should stop here
-				if(typeof o._dom.val !== 'string') {
+				if(typeof o.dom.val !== 'string') {
 					return;
 				};
 
 				// Set value
-				o._dom.$el.addClass(o.elAttrNames.elClass);
+				o.dom.$el.addClass(o.elAttrNames.elClass);
 				blurInput();
 			};
 
 			function focusInput(){
 				// Focus Callback
 				if(typeof o.onFocus === 'function') {
-					o.onFocus(o._dom.$el);
+					o.onFocus(o.dom.$el);
 				};
 
-				if(o._dom.$el.val() == o._dom.val){
-					o._dom.$el.removeClass(o.elAttrNames.hasPlaceholderClass).val('')
+				if(o.dom.$el.val() == o.dom.val){
+					o.dom.$el.removeClass(o.elAttrNames.hasPlaceholderClass).val('')
 				};
 			};
 
 			function blurInput(){
 				// Blur Callback
 				if(typeof o.onBlur === 'function') {
-					o.onBlur(o._dom.$el);
+					o.onBlur(o.dom.$el);
 				};
 
-				if(o._dom.$el.val() == '' || o._dom.$el.val() == o._dom.val){
-					o._dom.$el.addClass(o.elAttrNames.hasPlaceholderClass).val(o._dom.val)
+				if(o.dom.$el.val() == '' || o.dom.$el.val() == o.dom.val){
+					o.dom.$el.addClass(o.elAttrNames.hasPlaceholderClass).val(o.dom.val)
 				};
 			};
 
 			function events(){
 				// Turn off functions
 				// Incase this is called twice
-				o._dom.$el.off({
+				o.dom.$el.off({
 					'focus.nosui-placeholder': focusInput,
 					'blur.nosui-placeholder': blurInput
 				});
 
 				// Turn on functions
-				o._dom.$el.on({
+				o.dom.$el.on({
 					'focus.nosui-placeholder': focusInput,
 					'blur.nosui-placeholder': blurInput
 				});
@@ -232,112 +232,112 @@ $.fn.extend({
 			};
 
 			var o = NosUIApp.defineOptions(defaults, options);
-			o._dom.$el = $(this);
+			o.dom.$el = $(this);
 
 			// Match element or throw error
-			NosUIApp.matchElType($('select'), o._dom.$el);
+			NosUIApp.matchElType($('select'), o.dom.$el);
 
 			// Restore element back to original state
-			if(disableMethod === true && o._dom.$el.data(o.elAttrNames.dataName) == 'custom'){
+			if(disableMethod === true && o.dom.$el.data(o.elAttrNames.dataName) == 'custom'){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				o._dom.$el.removeClass(o.elAttrNames.elClass).data(o.elAttrNames.dataName, null).show();
+				o.dom.$el.removeClass(o.elAttrNames.elClass).data(o.elAttrNames.dataName, null).show();
 
 				// Turn off fauxEl and fauxOptions events
-				o._dom.$el.prev().off() // turn off fauxEl events
+				o.dom.$el.prev().off() // turn off fauxEl events
 					.find('.' + o.elAttrNames.typeCustom.itemClass).off() //turn off fauxOption events
 					.end().remove(); // remove fauxEl
 				return;
 			} else if(disableMethod === true){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				o._dom.$el.removeClass(o.elAttrNames.elClass).data(o.elAttrNames.dataName, null).off({
+				o.dom.$el.removeClass(o.elAttrNames.elClass).data(o.elAttrNames.dataName, null).off({
 					'click.nosui-form-select': null,
 					'change.nosui-form-select': null,
 					'blur.nosui-form-select': null
 				}).siblings().remove() // remove placeholder and button
-				o._dom.$el.unwrap();
+				o.dom.$el.unwrap();
 
 				return;
 			};
 
-			o._dom.$elOptions = o._dom.$el.find('option');
-			o._dom.$selectedOption = o._dom.$elOptions.filter(function(){
+			o.dom.$elOptions = o.dom.$el.find('option');
+			o.dom.$selectedOption = o.dom.$elOptions.filter(function(){
 					return $(this).prop('selcted') === true;
 				});
 
-			o._dom.$el.addClass(o.elAttrNames.elClass)
+			o.dom.$el.addClass(o.elAttrNames.elClass)
 				.data('nosui-namespace', o.namespace)
 
 			if ( o.defaultDropdown == true ) {
 				function initDefault(){
 
 					// Adding element physical properties
-					o._dom.$el.data(o.elAttrNames.dataName, 'default')
+					o.dom.$el.data(o.elAttrNames.dataName, 'default')
 						.addClass(o.elAttrNames.elClass)
 						.wrap(
 							$('<div />', {
 								'class': o.elAttrNames.fauxElClass + ' ' + o.elAttrNames.typeDefault.defaultClass,
-								'id': o._dom.$el.attr('id') ? o.elAttrNames.fauxElClass + '-' + o._dom.$el.attr('id') : ''
+								'id': o.dom.$el.attr('id') ? o.elAttrNames.fauxElClass + '-' + o.dom.$el.attr('id') : ''
 							})
 						);
 
 					// Creating variables and dom elements
-					o._dom.elName = o._dom.$el.attr('name') ? o._dom.$el.attr('name') : null;
-					o._dom.$fauxSelect = o._dom.$el.parent();
+					o.dom.elName = o.dom.$el.attr('name') ? o.dom.$el.attr('name') : null;
+					o.dom.$fauxSelect = o.dom.$el.parent();
 
-					o._dom.$fauxSelect.data('name', o._dom.elName);
+					o.dom.$fauxSelect.data('name', o.dom.elName);
 
-					var placeholderText = o._dom.$selectedOption.length ? o._dom.$selectedOption.text() : o._dom.$elOptions.first().text();
+					var placeholderText = o.dom.$selectedOption.length ? o.dom.$selectedOption.text() : o.dom.$elOptions.first().text();
 						// Adding select placeholder text
-					o._dom.$placeholder = $('<div />', {
+					o.dom.$placeholder = $('<div />', {
 						'class': o.elAttrNames.placeholderClass,
 						'text': placeholderText
-					}).prependTo( o._dom.$fauxSelect ),
+					}).prependTo( o.dom.$fauxSelect ),
 
-					o._dom.$dropdownButton = $('<div />', {
+					o.dom.$dropdownButton = $('<div />', {
 						'class': o.elAttrNames.dropdownButtonClass
-					}).insertAfter( o._dom.$placeholder );
+					}).insertAfter( o.dom.$placeholder );
 
 					// Applied for disabled styling if applied
-					NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxSelect, o.elAttrNames.disabledClass);
+					NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxSelect, o.elAttrNames.disabledClass);
 
 					// Event Callback
 					if(typeof o.onInit === 'function') {
-						o.onInit(o._dom.$el, o._dom.$fauxSelect, o);
+						o.onInit(o.dom.$el, o.dom.$fauxSelect, o);
 					};
 
 				} // initDefault
 
 				function eventsDefault(){
-					o._dom.$el.on({
+					o.dom.$el.on({
 						'focus.nosui-form-select': function(e) {
 							// Applied for disabled styling if applied
-							NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxSelect, o.elAttrNames.disabledClass);
-							o._dom.$fauxSelect.toggleClass( o.elAttrNames.activeClass );
+							NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxSelect, o.elAttrNames.disabledClass);
+							o.dom.$fauxSelect.toggleClass( o.elAttrNames.activeClass );
 
 							// Event Callback
 							if(typeof o.onClick === 'function') {
-								o.onClick(o._dom.$el, o._dom.$fauxSelect, o);
+								o.onClick(o.dom.$el, o.dom.$fauxSelect, o);
 							};
 						},
 						'change.nosui-form-select': function(e) {
 							o._stackOverflow++;
-							var text = o._dom.$el.find(':selected').text();
-							o._dom.$placeholder.text(text);
+							var text = o.dom.$el.find(':selected').text();
+							o.dom.$placeholder.text(text);
 
 							// Event Callback
 							if(typeof o.onChange === 'function' && o._stackOverflow <= 1) {
-								o.onChange(o._dom.$el, o._dom.$fauxSelect, o);
+								o.onChange(o.dom.$el, o.dom.$fauxSelect, o);
 							};
 							o._stackOverflow = 0;
 						},
 						'blur.nosui-form-select': function(e) {
-							o._dom.$fauxSelect.removeClass( o.elAttrNames.activeClass );
+							o.dom.$fauxSelect.removeClass( o.elAttrNames.activeClass );
 
 							// Event Callback
 							if(typeof o.onBlur === 'function') {
-								o.onBlur(o._dom.$el, o._dom.$fauxSelect, o);
+								o.onBlur(o.dom.$el, o.dom.$fauxSelect, o);
 							};
 						}
 					});
@@ -349,89 +349,89 @@ $.fn.extend({
 			} else {
 				function initCustom(){
 					// Set data for plugin
-					o._dom.$el.data(o.elAttrNames.dataName, 'custom');
+					o.dom.$el.data(o.elAttrNames.dataName, 'custom');
 
 					// Set vars
-					o._dom.elName = o._dom.$el.attr('name') ? o._dom.$el.attr('name') : null,
-					o._dom.$fauxSelect = $('<div />', {
+					o.dom.elName = o.dom.$el.attr('name') ? o.dom.$el.attr('name') : null,
+					o.dom.$fauxSelect = $('<div />', {
 						'class': o.elAttrNames.fauxElClass + ' ' + o.elAttrNames.typeCustom.defaultClass,
-						'id': o._dom.$el.attr('id') ? o.elAttrNames.fauxElClass + '-' + o._dom.$el.attr('id') : ''
-					}).data('name', o._dom.elName);
+						'id': o.dom.$el.attr('id') ? o.elAttrNames.fauxElClass + '-' + o.dom.$el.attr('id') : ''
+					}).data('name', o.dom.elName);
 
 					// Check if is disabled
 					// If so add the necessary classes
-					NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxSelect, o.elAttrNames.disabledClass);
+					NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxSelect, o.elAttrNames.disabledClass);
 
-					o._dom.$el.hide().before( o._dom.$fauxSelect );
+					o.dom.$el.hide().before( o.dom.$fauxSelect );
 
 					// Creating List
-					o._dom.$fauxSelectList = $('<div />', {
+					o.dom.$fauxSelectList = $('<div />', {
 						'class': o.elAttrNames.typeCustom.listClass
-					}).appendTo( o._dom.$fauxSelect ).hide();
+					}).appendTo( o.dom.$fauxSelect ).hide();
 
-					o._dom.$dropdownButton = $('<div />', {
+					o.dom.$dropdownButton = $('<div />', {
 						'class': o.elAttrNames.dropdownButtonClass
-					}).appendTo( o._dom.$fauxSelect );
+					}).appendTo( o.dom.$fauxSelect );
 
 					// For each option, create a fauxOption
-					o._dom.$elOptions.each( function( i ) {
+					o.dom.$elOptions.each( function( i ) {
 						$('<div />', {
 							'class': i == 0 ? o.elAttrNames.typeCustom.activeItemClass + ' ' + o.elAttrNames.typeCustom.itemClass : o.elAttrNames.typeCustom.itemClass,
 							'text': $(this).text()
 						})
 							.data(NosUIApp.namespace + '-selected', $(this).prop('selected'))
-							.appendTo( o._dom.$fauxSelectList );
+							.appendTo( o.dom.$fauxSelectList );
 					});
 
-					o._dom.$fauxOptions = o._dom.$fauxSelect.find('.' + o.elAttrNames.typeCustom.itemClass);
-					o._dom.$fauxSelectedOption = o._dom.$fauxOptions.filter(function(){
+					o.dom.$fauxOptions = o.dom.$fauxSelect.find('.' + o.elAttrNames.typeCustom.itemClass);
+					o.dom.$fauxSelectedOption = o.dom.$fauxOptions.filter(function(){
 						return $(this).data(NosUIApp.namespace + '-selected');
 					});
 
 					// Add first/last classes to faux o
-					o._dom.$fauxOptions.first().addClass(o.elAttrNames.typeCustom.firstItemClass);
-					o._dom.$fauxOptions.last().addClass(o.elAttrNames.typeCustom.lastItemClass);
+					o.dom.$fauxOptions.first().addClass(o.elAttrNames.typeCustom.firstItemClass);
+					o.dom.$fauxOptions.last().addClass(o.elAttrNames.typeCustom.lastItemClass);
 
 					// If nothing is selected, select the first in the list
-					if(!o._dom.$fauxSelectedOption.length){
-						o._dom.$fauxSelectedOption = $fauxOptions.eq(0);
+					if(!o.dom.$fauxSelectedOption.length){
+						o.dom.$fauxSelectedOption = $fauxOptions.eq(0);
 					}
 
 					// Adding select placeholder text
-					o._dom.$placeholder = $('<div />', {
+					o.dom.$placeholder = $('<div />', {
 						'class': o.elAttrNames.placeholderClass,
-						'text': o._dom.$fauxSelectedOption.text()
-					}).insertBefore( o._dom.$fauxSelectList );
+						'text': o.dom.$fauxSelectedOption.text()
+					}).insertBefore( o.dom.$fauxSelectList );
 
-					NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxSelect, o.elAttrNames.disabledClass);
+					NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxSelect, o.elAttrNames.disabledClass);
 
 					// Event Callback
 					if(typeof o.onInit === 'function') {
-						o.onInit(o._dom.$el, o._dom.$fauxSelect, o);
+						o.onInit(o.dom.$el, o.dom.$fauxSelect, o);
 					};
 
 				}; // initCustom()
 
 				function eventsCustom(){
-					o._dom.$el.on({
+					o.dom.$el.on({
 						'change.nosui-form-select': function(e){
 							reflectChange(e);
 						}
 					})
 
 					// Faux select Events
-					o._dom.$fauxSelect.on({
+					o.dom.$fauxSelect.on({
 						'click.nosui-form-select': function(e) {
 							// Return if select is disabled
-							if(NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxSelect, o.elAttrNames.disabledClass) === true) {
+							if(NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxSelect, o.elAttrNames.disabledClass) === true) {
 								return;
 							};
 
 							if(typeof o.onClick === 'function') {
-								o.onClick(o._dom.$el, o._dom.$fauxSelect, o);
+								o.onClick(o.dom.$el, o.dom.$fauxSelect, o);
 							};
 
-							toggleDropdown(o._dom.$fauxSelect); // Toggle list
+							toggleDropdown(o.dom.$fauxSelect); // Toggle list
 						},
 						'mousedown.nosui-form-select': function(e) {
 							//e.stopPropagation();
@@ -439,7 +439,7 @@ $.fn.extend({
 							// Apply disabled styled if disabled
 							// returns false if disabled.
 							// If disabled stop running the function
-							if(NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxSelect, o.elAttrNames.disabledClass)){
+							if(NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxSelect, o.elAttrNames.disabledClass)){
 								return;
 							};
 
@@ -450,11 +450,11 @@ $.fn.extend({
 								e.stopPropagation();
 							};
 
-							o._dom.$fauxSelect.addClass(o.elAttrNames.mousedownClass);
+							o.dom.$fauxSelect.addClass(o.elAttrNames.mousedownClass);
 
 							// Prevent bug where checkbox can be left selected
 							$('body').on('mouseup.nosui-form-select', function(e){
-								o._dom.$fauxSelect.removeClass(o.elAttrNames.mousedownClass);
+								o.dom.$fauxSelect.removeClass(o.elAttrNames.mousedownClass);
 
 								// Remove event
 								$('body').off('mouseup.nosui-form-select');
@@ -462,11 +462,11 @@ $.fn.extend({
 
 							// Event Callback
 							if(typeof o.onMousedown === 'function') {
-								o.onMousedown(o._dom.$el, o._dom.$fauxSelect, o);
+								o.onMousedown(o.dom.$el, o.dom.$fauxSelect, o);
 							};
 						},
 						'mouseup.nosui-form-select': function(e) {
-							o._dom.$fauxSelect.removeClass(o.elAttrNames.mousedownClass);
+							o.dom.$fauxSelect.removeClass(o.elAttrNames.mousedownClass);
 
 							// Remove event
 							$('body').off('mouseup.nosui-form-select');
@@ -474,7 +474,7 @@ $.fn.extend({
 					});
 
 					// Click functionality for fauxOption elements
-					o._dom.$fauxOptions.on({
+					o.dom.$fauxOptions.on({
 						'mousedown.nosui-form-select': function(e) {
 							selectOption($(this));
 						}
@@ -484,28 +484,28 @@ $.fn.extend({
 				function toggleDropdown($fauxSelect) {
 					// Toggle isOpen property
 					if(o.isOpen == false){
-						showDropdown(o._dom.$fauxSelect);
+						showDropdown(o.dom.$fauxSelect);
 					} else {
-						hideDropdown(o._dom.$fauxSelect)
+						hideDropdown(o.dom.$fauxSelect)
 					};
 				};
 
 				function showDropdown($fauxSelect) {
 
-					o._dom.$fauxSelect.addClass(o.elAttrNames.activeClass);
-					o._dom.$fauxSelectList.show();
+					o.dom.$fauxSelect.addClass(o.elAttrNames.activeClass);
+					o.dom.$fauxSelectList.show();
 
 					// This event must be `mousedown` instead of `click` otherwise
 					// the select will immediately hide once clicked
 					$('body').on('mousedown.nosui-form-select', function(e){
-						hideDropdown(o._dom.$fauxSelect);
+						hideDropdown(o.dom.$fauxSelect);
 					});
 
 					o.isOpen = true;
 				};
 
 				function hideDropdown($fauxSelect) {
-					o._dom.$fauxSelectList.hide();
+					o.dom.$fauxSelectList.hide();
 
 					o.isOpen = false;
 
@@ -513,7 +513,7 @@ $.fn.extend({
 					// the select will immediately hide once clicked
 					$('body').off('mousedown.nosui-form-select');
 
-					o._dom.$fauxSelect.removeClass(o.elAttrNames.activeClass);
+					o.dom.$fauxSelect.removeClass(o.elAttrNames.activeClass);
 				};
 
 				// Select option based on target faux option
@@ -522,35 +522,35 @@ $.fn.extend({
 						text = $fauxOption.text();
 
 					// Change selected item on the select menu
-					o._dom.$elOptions.prop('selected', false)
+					o.dom.$elOptions.prop('selected', false)
 						.eq(index).prop('selected', true);
 
 					// Force the default element change event to fire
 					// This is for consistency with the defaultDropdown option
-					o._dom.$el.change();
+					o.dom.$el.change();
 				};
 
 				// Reflect selected state element
 				function reflectChange(e){
 					o._stackOverflow++;
 
-					o._dom.$selectedOption     = o._dom.$el.find('option:selected');
-					var index                  = o._dom.$selectedOption.index();
-					o._dom.$fauxSelectedOption = o._dom.$fauxOptions.eq(index);
-					var text                   = o._dom.$fauxSelectedOption.text();
+					o.dom.$selectedOption     = o.dom.$el.find('option:selected');
+					var index                  = o.dom.$selectedOption.index();
+					o.dom.$fauxSelectedOption = o.dom.$fauxOptions.eq(index);
+					var text                   = o.dom.$fauxSelectedOption.text();
 
-					o._dom.$fauxSelectedOption.addClass(o.elAttrNames.typeCustom.activeItemClass).data('nosui-selected', 'selected')
+					o.dom.$fauxSelectedOption.addClass(o.elAttrNames.typeCustom.activeItemClass).data('nosui-selected', 'selected')
 						.siblings().removeClass(o.elAttrNames.typeCustom.activeItemClass).data('nosui-selected', null);
-					o._dom.$placeholder.text(text);
+					o.dom.$placeholder.text(text);
 
 					// Change selected item on the select menu
-					o._dom.$elOptions.prop('selected', false)
+					o.dom.$elOptions.prop('selected', false)
 						.eq(index).prop('selected', true);
-					o._dom.$fauxOptions.data(NosUIApp.namespace + 'selected', false)
+					o.dom.$fauxOptions.data(NosUIApp.namespace + 'selected', false)
 						.eq(index).data(NosUIApp.namespace + 'selected', true);
 
 					if(typeof o.onChange === 'function' && o._stackOverflow <= 1) {
-						o.onChange(o._dom.$el, o._dom.$fauxSelect, o);
+						o.onChange(o.dom.$el, o.dom.$fauxSelect, o);
 					};
 
 					o._stackOverflow = 0;
@@ -582,10 +582,10 @@ $.fn.extend({
 				},
 				o = NosUIApp.defineOptions(defaults, options);
 
-			o._dom.$el = $(this);
+			o.dom.$el = $(this);
 
 			// Match element or throw error
-			NosUIApp.matchElType($('input[type="checkbox"]'), o._dom.$el);
+			NosUIApp.matchElType($('input[type="checkbox"]'), o.dom.$el);
 
 			if(disableMethod === true){
 				disable();
@@ -595,29 +595,29 @@ $.fn.extend({
 			function disable(){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				o._dom.$el.prev('.' + o.elAttrNames.fauxElClass).off() // Turn off fauxEl events
+				o.dom.$el.prev('.' + o.elAttrNames.fauxElClass).off() // Turn off fauxEl events
 					.remove(); // Remove fauxEl
-				o._dom.$el.show(); // Show the element
+				o.dom.$el.show(); // Show the element
 			}
 
 			function init(){
-				o._dom.$fauxEl = $('<div />', {
+				o.dom.$fauxEl = $('<div />', {
 						'class': o.elAttrNames.fauxElClass + ' ' + o.elAttrNames.inputClass
 					})
-					.data('nosui-checked', o._dom.$el.prop('checked'))
-					.insertBefore( o._dom.$el.hide() );
+					.data('nosui-checked', o.dom.$el.prop('checked'))
+					.insertBefore( o.dom.$el.hide() );
 
-				NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxEl, o.elAttrNames.disabledClass);
+				NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxEl, o.elAttrNames.disabledClass);
 
 				// Force fauxEl to match the checked state of the
 				// input on init
-				if(o._dom.$el.prop('checked')){
-					o._dom.$fauxEl.addClass(o.elAttrNames.checkedClass);
+				if(o.dom.$el.prop('checked')){
+					o.dom.$fauxEl.addClass(o.elAttrNames.checkedClass);
 				};
 
 				// Event Callback
 				if(typeof o.onInit === 'function') {
-					o.onInit(o._dom.$el, o._dom.$fauxEl, o);
+					o.onInit(o.dom.$el, o.dom.$fauxEl, o);
 				};
 			}
 
@@ -625,57 +625,57 @@ $.fn.extend({
 				o._stackOverflow++;
 
 				// Toggle Attribute
-				if(o._dom.$el.prop('checked')){
-					o._dom.$el.data('nosui-checked', true);
-					o._dom.$fauxEl.addClass(o.elAttrNames.checkedClass);
+				if(o.dom.$el.prop('checked')){
+					o.dom.$el.data('nosui-checked', true);
+					o.dom.$fauxEl.addClass(o.elAttrNames.checkedClass);
 				} else {
-					o._dom.$el.data('nosui-checked', false);
-					o._dom.$fauxEl.removeClass(o.elAttrNames.checkedClass);
+					o.dom.$el.data('nosui-checked', false);
+					o.dom.$fauxEl.removeClass(o.elAttrNames.checkedClass);
 				};
 
 				if(typeof o.onChange === 'function' && o._stackOverflow <= 1) {
-					o.onChange(o._dom.$el, o._dom.$fauxEl, o);
+					o.onChange(o.dom.$el, o.dom.$fauxEl, o);
 				};
 
 				o._stackOverflow = 0;
 			};
 
 			function events(){
-				o._dom.$el.on({
+				o.dom.$el.on({
 					'change.nosui': reflectChange
 				});
 
-				o._dom.$fauxEl.on({
+				o.dom.$fauxEl.on({
 					'click.nosui': function(e){
 						// This applies disabled styled if disabled
 						// returns false.
 						// If disabled stop running the function
-						if(NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxEl, o.elAttrNames.disabledClass)){
+						if(NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxEl, o.elAttrNames.disabledClass)){
 							return;
 						};
 
 						// Toggle Attribute
-						if(o._dom.$el.prop('checked')){
-							o._dom.$el.prop('checked', false);
+						if(o.dom.$el.prop('checked')){
+							o.dom.$el.prop('checked', false);
 						} else {
-							o._dom.$el.prop('checked', true);
+							o.dom.$el.prop('checked', true);
 						};
 
-						o._dom.$el.change();
+						o.dom.$el.change();
 					},
 					'mousedown.nosui': function(e) {
 						// This applies disabled styled if disabled
 						// returns false.
 						// If disabled stop running the function
-						if(NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxEl, o.elAttrNames.disabledClass)){
+						if(NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxEl, o.elAttrNames.disabledClass)){
 							return;
 						};
 
-						o._dom.$fauxEl.addClass(o.elAttrNames.mousedownClass);
+						o.dom.$fauxEl.addClass(o.elAttrNames.mousedownClass);
 
 						// Prevent bug where checkbox can be left selected
 						$('body').on('mouseup.nosui', function(e){
-							o._dom.$fauxEl.removeClass(o.elAttrNames.mousedownClass);
+							o.dom.$fauxEl.removeClass(o.elAttrNames.mousedownClass);
 
 							// Remove event
 							$('body').off('mouseup.nosui');
@@ -683,11 +683,11 @@ $.fn.extend({
 
 						// Event Callback
 						if(typeof o.onMousedown === 'function') {
-							o.onMousedown(o._dom.$el, o._dom.$fauxEl, o);
+							o.onMousedown(o.dom.$el, o.dom.$fauxEl, o);
 						};
 					},
 					'mouseup.nosui': function(e) {
-						o._dom.$fauxEl.removeClass(o.elAttrNames.mousedownClass);
+						o.dom.$fauxEl.removeClass(o.elAttrNames.mousedownClass);
 
 						// Remove event
 						$('body').off('mouseup.nosui');
@@ -720,10 +720,10 @@ $.fn.extend({
 				},
 				o = NosUIApp.defineOptions(defaults, options);
 
-			o._dom.$el = $(el);
+			o.dom.$el = $(el);
 
 			// Match element or throw error
-			NosUIApp.matchElType($('input[type="radio"]'), o._dom.$el);
+			NosUIApp.matchElType($('input[type="radio"]'), o.dom.$el);
 
 			if(disableMethod === true){
 				disable();
@@ -733,40 +733,40 @@ $.fn.extend({
 			function disable(){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				o._dom.$el.prev('.' + o.elAttrNames.fauxElClass).off() // Turn off fauxEl events
+				o.dom.$el.prev('.' + o.elAttrNames.fauxElClass).off() // Turn off fauxEl events
 					.remove(); // Remove fauxEl
-				o._dom.$el.show(); // Show the element
+				o.dom.$el.show(); // Show the element
 			};
 
 			function init(){
-				o._dom.elName           = o._dom.$el.attr('name');
-				o._dom.$elContainerForm = o._dom.$el.closest('form').length ? o._dom.$el.closest('form') : $('body');
-				o._dom.$elSiblings      = o._dom.$elContainerForm.find('input[type="radio"]').filter(function(){
-						return $(this).attr('name') == o._dom.elName;
-					}).not(o._dom.$el);
-				o._dom.$fauxEl = $('<div />', {
+				o.dom.elName           = o.dom.$el.attr('name');
+				o.dom.$elContainerForm = o.dom.$el.closest('form').length ? o.dom.$el.closest('form') : $('body');
+				o.dom.$elSiblings      = o.dom.$elContainerForm.find('input[type="radio"]').filter(function(){
+						return $(this).attr('name') == o.dom.elName;
+					}).not(o.dom.$el);
+				o.dom.$fauxEl = $('<div />', {
 					'class': o.elAttrNames.fauxElClass
 				})
-					.data(NosUIApp.namespace + '-name', o._dom.elName)
-					.data(NosUIApp.namespace + '-checked', o._dom.$el.prop('checked')) // Copy element checked property value
-					.insertBefore( o._dom.$el.hide() );
+					.data(NosUIApp.namespace + '-name', o.dom.elName)
+					.data(NosUIApp.namespace + '-checked', o.dom.$el.prop('checked')) // Copy element checked property value
+					.insertBefore( o.dom.$el.hide() );
 
 				// Force fauxEl to match the checked state of the
 				// input on init
-				if(o._dom.$fauxEl.data(NosUIApp.namespace + '-checked')){
-					o._dom.$fauxEl.addClass(o.elAttrNames.checkedClass);
+				if(o.dom.$fauxEl.data(NosUIApp.namespace + '-checked')){
+					o.dom.$fauxEl.addClass(o.elAttrNames.checkedClass);
 				};
 
 				// This applies disabled styled if disabled
 				// returns false.
 				// If disabled stop running the function
-				if(NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxEl, o.elAttrNames.disabledClass)){
+				if(NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxEl, o.elAttrNames.disabledClass)){
 					return;
 				};
 
 				// Event Callback
 				if(typeof o.onInit === 'function') {
-					o.onInit(o._dom.$el, o._dom.$fauxEl, o);
+					o.onInit(o.dom.$el, o.dom.$fauxEl, o);
 				};
 			};
 
@@ -774,49 +774,49 @@ $.fn.extend({
 				o._stackOverflow++;
 				// Faux siblings must be defined after all fauxSiblings hvae been created
 				// i.e. on click should be enough time
-				o._dom.$fauxSiblings = o._dom.$elContainerForm
+				o.dom.$fauxSiblings = o.dom.$elContainerForm
 					.find('.' + o.elAttrNames.fauxElClass)
 					.filter(function(i, el){
-						if($(el).data(NosUIApp.namespace + '-name') == o._dom.elName){
+						if($(el).data(NosUIApp.namespace + '-name') == o.dom.elName){
 							return true
 						} else {
 							return false;
 						};
 					})
-					.not(o._dom.$fauxEl);
+					.not(o.dom.$fauxEl);
 
 				// Uncheck siblings
-				o._dom.$fauxSiblings.data(NosUIApp.namespace + '-checked', false).removeClass(o.elAttrNames.checkedClass);
+				o.dom.$fauxSiblings.data(NosUIApp.namespace + '-checked', false).removeClass(o.elAttrNames.checkedClass);
 
 				// Check radio
-				o._dom.$fauxEl.data(NosUIApp.namespace + '-checked', true).addClass(o.elAttrNames.checkedClass);
+				o.dom.$fauxEl.data(NosUIApp.namespace + '-checked', true).addClass(o.elAttrNames.checkedClass);
 
 				if(typeof o.onChange === 'function' && o._stackOverflow <= 1) {
-					o.onChange(o._dom.$el, o._dom.$fauxEl, o);
+					o.onChange(o.dom.$el, o.dom.$fauxEl, o);
 				};
 
 				o._stackOverflow = 0;
 			};
 
 			function events(){
-				o._dom.$el.on({
+				o.dom.$el.on({
 					'change.nosui': reflectChange
 				});
 
-				o._dom.$fauxEl.on({
+				o.dom.$fauxEl.on({
 					'click.nosui': function(e){
 						// Apply disabled styled if disabled
 						// returns false if disabled.
 						// If disabled stop running the function
-						if(NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxEl, o.elAttrNames.disabledClass)){
+						if(NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxEl, o.elAttrNames.disabledClass)){
 							return;
 						};
 
 						// Uncheck siblings
-						o._dom.$elSiblings.prop('checked', false);
+						o.dom.$elSiblings.prop('checked', false);
 
 						// Check radio
-						o._dom.$el.prop('checked', true);
+						o.dom.$el.prop('checked', true);
 
 						reflectChange(e);
 					},
@@ -824,15 +824,15 @@ $.fn.extend({
 						// Apply disabled styled if disabled
 						// returns false if disabled.
 						// If disabled stop running the function
-						if(NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxEl, o.elAttrNames.disabledClass)){
+						if(NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxEl, o.elAttrNames.disabledClass)){
 							return;
 						};
 
-						o._dom.$fauxEl.addClass(o.elAttrNames.mousedownClass);
+						o.dom.$fauxEl.addClass(o.elAttrNames.mousedownClass);
 
 						// Prevent bug where checkbox can be left selected
 						$('body').on('mouseup.nosui', function(e){
-							o._dom.$fauxEl.removeClass(o.elAttrNames.mousedownClass);
+							o.dom.$fauxEl.removeClass(o.elAttrNames.mousedownClass);
 
 							// Remove event
 							$('body').off('mouseup.nosui');
@@ -840,11 +840,11 @@ $.fn.extend({
 
 						// Event Callback
 						if(typeof o.onMousedown === 'function') {
-							o.onMousedown(o._dom.$el, o._dom.$fauxEl, o);
+							o.onMousedown(o.dom.$el, o.dom.$fauxEl, o);
 						};
 					},
 					'mouseup.nosui': function(e) {
-						o._dom.$fauxEl.removeClass(o.elAttrNames.mousedownClass);
+						o.dom.$fauxEl.removeClass(o.elAttrNames.mousedownClass);
 
 						// Remove event
 						$('body').off('mouseup.nosui');
@@ -877,10 +877,10 @@ $.fn.extend({
 				},
 				o = NosUIApp.defineOptions(defaults, options);
 
-			o._dom.$el = $(this);
+			o.dom.$el = $(this);
 
 			// Match element or throw error
-			NosUIApp.matchElType($('input[type="file"]'), o._dom.$el);
+			NosUIApp.matchElType($('input[type="file"]'), o.dom.$el);
 
 			if(disableMethod === true){
 				disable();
@@ -890,43 +890,43 @@ $.fn.extend({
 			function disable(){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				o._dom.$el.off('change.nosui')
+				o.dom.$el.off('change.nosui')
 					.removeClass(o.elAttrNames.elClass)
 					.siblings().remove() // Remove button/placeholder
 					.end().unwrap('.' + o.elAttrNames.fauxElClass); // Remove fauxEl
 			}
 
 			function init(){
-				o._dom.$el.addClass(o.elAttrNames.elClass);
-				o._dom.$fauxEl = $('<div />', {
+				o.dom.$el.addClass(o.elAttrNames.elClass);
+				o.dom.$fauxEl = $('<div />', {
 					'class': o.elAttrNames.fauxElClass
 				});
-				o._dom.$placeholder = $('<div />', {
+				o.dom.$placeholder = $('<div />', {
 					'class': o.elAttrNames.placeholderClass,
 					'text': o.placeholderText
 				});
-				o._dom.$button = $('<div />', {
+				o.dom.$button = $('<div />', {
 					'class': o.elAttrNames.buttonClass,
 					'text': o.buttonText
 				});
 
-				NosUIApp.form.isDisabled(o._dom.$el, o._dom.$fauxEl, o.elAttrNames.disabledClass);
+				NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxEl, o.elAttrNames.disabledClass);
 
-				o._dom.$el.wrap( o._dom.$fauxEl ).before( o._dom.$placeholder, o._dom.$button );
+				o.dom.$el.wrap( o.dom.$fauxEl ).before( o.dom.$placeholder, o.dom.$button );
 
 				// Event Callback
 				if(typeof o.onInit === 'function') {
-					o.onInit(o._dom.$el, o._dom.$fauxEl, o);
+					o.onInit(o.dom.$el, o.dom.$fauxEl, o);
 				};
 			};
 
 			function events(){
-				o._dom.$el.on({
+				o.dom.$el.on({
 					'change.nosui': function(){
-						o._dom.$placeholder.text( o._dom.$el.val() );
+						o.dom.$placeholder.text( o.dom.$el.val() );
 
 						if(typeof o.onChange === 'function') {
-							o.onChange(o._dom.$el, o._dom.$fauxEl, o);
+							o.onChange(o.dom.$el, o.dom.$fauxEl, o);
 						};
 					}
 				});
@@ -1106,10 +1106,10 @@ $.fn.extend({
 				},
 				o   = NosUIApp.defineOptions(defaults, options);
 
-			o._dom.$el = $(this)
+			o.dom.$el = $(this)
 
 			// Match element or throw error
-			NosUIApp.matchElType($('input'), o._dom.$el);
+			NosUIApp.matchElType($('input'), o.dom.$el);
 
 			if(disableMethod === true){
 				disable();
@@ -1119,10 +1119,10 @@ $.fn.extend({
 			function disable(){
 				// Changing the data on the element to
 				// reflect that it has been disabled
-				o._dom.$el.show()
+				o.dom.$el.show()
 					.prev().off()
 					.children().off();
-				o._dom.$el.prev().remove();
+				o.dom.$el.prev().remove();
 			};
 
 			// Ensure the value adheres to the max/min values
@@ -1131,12 +1131,12 @@ $.fn.extend({
 					o.valueVal = o.minVal;
 
 					// Correct element value
-					o._dom.$el.val(o.valueVal);
+					o.dom.$el.val(o.valueVal);
 				} else if(o.valueVal > o.maxVal){
 					o.valueVal = o.maxVal;
 
 					// Correct element value
-					o._dom.$el.val(o.valueVal);
+					o.dom.$el.val(o.valueVal);
 				};
 			};
 
@@ -1153,7 +1153,7 @@ $.fn.extend({
 			};
 
 			function setPosition(xPos){
-				var fauxElWidth = o._dom.$fauxEl.width(),
+				var fauxElWidth = o.dom.$fauxEl.width(),
 					// Get percentage value
 					xPerc = (xPos/fauxElWidth) * 100,
 					// Filter the percentage through the step
@@ -1170,67 +1170,67 @@ $.fn.extend({
 				elValueFilter();
 
 				// Set val and trigger change for external plugins
-				o._dom.$el.val(o.valueVal).trigger('change');
+				o.dom.$el.val(o.valueVal).trigger('change');
 
-				o._dom.$handle.css('left', xPerc + '%');
+				o.dom.$handle.css('left', xPerc + '%');
 
 				// onChange
 				if(typeof o.onChange === 'function') {
-					o.onChange(o._dom.$el, o._dom.$fauxEl, o);
+					o.onChange(o.dom.$el, o.dom.$fauxEl, o);
 				};
 			};
 
 			function reflectInputVal(e){
-				o.valueVal = o._dom.$el.val();
+				o.valueVal = o.dom.$el.val();
 				elValueFilter();
 
 				var valPos = nextStep(
 					((o.valueVal - o.minVal) / (o.maxVal - o.minVal)) * 100 // percentage val
 				);
 
-				o._dom.$handle.css('left', valPos + '%')
+				o.dom.$handle.css('left', valPos + '%')
 			}
 
 			function init(){
 				// Setting options
-				o.stepVal = o._dom.$el.attr('step') ? parseFloat(o._dom.$el.attr('step')) : 1;
+				o.stepVal = o.dom.$el.attr('step') ? parseFloat(o.dom.$el.attr('step')) : 1;
 				// Set default min/max val whether it's been set or not
-				o.minVal = o._dom.$el.attr('min') ? parseFloat(o._dom.$el.attr('min')) : 0;
-				o.maxVal = o._dom.$el.attr('max') ? parseFloat(o._dom.$el.attr('max')) : 100;
+				o.minVal = o.dom.$el.attr('min') ? parseFloat(o.dom.$el.attr('min')) : 0;
+				o.maxVal = o.dom.$el.attr('max') ? parseFloat(o.dom.$el.attr('max')) : 100;
 				if(o.minVal > o.maxVal){
 					o.maxVal = o.minVal;
 				};
 				// According to MDN (https://developer.mozilla.org/en-US/docs/Web/HTML/Element/Input)
 				// value: min + (max-min)/2, or min if max is less than min
-				o.valueVal = o._dom.$el.val() ? parseFloat(o._dom.$el.val()) : o.minVal + (o.maxVal - o.minVal)/2;
+				o.valueVal = o.dom.$el.val() ? parseFloat(o.dom.$el.val()) : o.minVal + (o.maxVal - o.minVal)/2;
 				elValueFilter();
 
 				// Setting variables
-				o._dom.$fauxEl = $('<div />', {
+				o.dom.$fauxEl = $('<div />', {
 						'class': o.elAttrNames.fauxElClass
 					});
-				o._dom.$slider = $('<div />', {
+				o.dom.$slider = $('<div />', {
 						'class': o.elAttrNames.sliderClass
-					}).appendTo(o._dom.$fauxEl);
-				o._dom.$handle = $('<div />', {
+					}).appendTo(o.dom.$fauxEl);
+				o.dom.$handle = $('<div />', {
 						'class': o.elAttrNames.handleClass
-					}).appendTo(o._dom.$fauxEl);
+					}).appendTo(o.dom.$fauxEl);
 
 				// Dom manipulation and events
-				o._dom.$el.hide().addClass(o.elAttrNames.elClass).val(o.valueVal).on({
+				o.dom.$el.hide().addClass(o.elAttrNames.elClass).val(o.valueVal).on({
 					'change.nosui': reflectInputVal
 				});
-				o._dom.$fauxEl.on({
+				o.dom.$fauxEl.on({
 					'click.nosui': function(e){
-						var xPos = e.pageX - o._dom.$fauxEl.offset().left;
+						var xPos = e.pageX - o.dom.$fauxEl.offset().left;
 						setPosition(xPos)
 					}
-				}).insertBefore( o._dom.$el );
+				}).insertBefore( o.dom.$el );
 
 				// Set init slider position based on el
 				reflectInputVal(o.valueVal);
 
-				o._dom.$handle.on({
+				o.dom.$handle.on({
 					'click.nosui': function(e){
 						e.preventDefault();
 						e.stopPropagation();
@@ -1238,12 +1238,12 @@ $.fn.extend({
 					'mousedown.nosui': function(e){
 						e.preventDefault();
 
-						o._dom.$el.off('change.nosui')
+						o.dom.$el.off('change.nosui')
 
 						// Make sure that the handle position stays in the correct
 						// position when you start dragging. This prevents a
 						// handle "jump" bug
-						var handleOffset = e.pageX - o._dom.$handle.offset().left;
+						var handleOffset = e.pageX - o.dom.$handle.offset().left;
 
 						$('body').on({
 							'mousemove.nosui': function(e){
@@ -1255,7 +1255,7 @@ $.fn.extend({
 
 								o.timeoutThrottle = window.setTimeout(function(){
 									// Get scroll handle percentage form left val
-									var xPos = e.pageX - o._dom.$fauxEl.offset().left;
+									var xPos = e.pageX - o.dom.$fauxEl.offset().left;
 
 									setPosition(xPos);
 								}, 5);
@@ -1267,14 +1267,14 @@ $.fn.extend({
 							$('body').off('mouseup.nosui');
 
 							// Turn reflection back on
-							o._dom.$el.on('change.nosui', reflectInputVal)
+							o.dom.$el.on('change.nosui', reflectInputVal)
 						});
 					}
 				});
 
 				// onInit
 				if(typeof o.onInit === 'function') {
-					o.onInit(o._dom.$el, o._dom.$fauxEl, o);
+					o.onInit(o.dom.$el, o.dom.$fauxEl, o);
 				};
 			}; // init
 
