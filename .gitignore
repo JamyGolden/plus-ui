@@ -1,9 +1,15 @@
+# Node
+node_modules
+
+# Production files
+public
+
 # Sass
 .sass-cache
 
 # Sublime
-.sublime-project
-.sublime-workspace
+*.sublime-project
+*.sublime-workspace
 
 # OS generated styles
 .DS_Store
