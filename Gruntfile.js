@@ -4,6 +4,18 @@ module.exports = function(grunt) {
     // Project config
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
+        banner: {
+          full: '/*!\n' +
+            ' * <%= pkg.name %> v<%= pkg.version %>\n' +
+            ' * http://nativevml.github.io/NOS-UI/\n *\n' +
+            ' * Copyright (c) <%= _.pluck(pkg.contributors, "name").join(", ") %>\n' +
+            ' * <%= pkg.license %> License\n */' +
+            ' \n' +
+            '/*\n' +
+            ' * NOS UI is a jQuery framework mainted and developed by the Native team to\n' +
+            ' * help streamline workflow.\n' +
+            ' */'
+        },
         jshint: {
             options: {
                 boss: true,
