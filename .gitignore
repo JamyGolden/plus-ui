@@ -12,6 +12,7 @@ public
 *.sublime-workspace
 
 # OS generated styles
+*.TMP
 .DS_Store
 .DS_Store?
 ._*

@@ -25,6 +25,8 @@ module.exports = function(grunt) {
                 undef: true,
                 unused: true,
                 globals: {
+                    jQuery: true,
+                    NosUIApp: true,
                     Modernizr: true,
                     define: true,
                     require: true
@@ -112,7 +114,7 @@ module.exports = function(grunt) {
 
     // Default tasks
     grunt.registerTask('default', [
-        // 'jshint',
+        'jshint',
         'concat',
         'uglify',
         'compass',
