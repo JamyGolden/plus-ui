@@ -5,6 +5,16 @@
 .sublime-project
 .sublime-workspace
 
+# General
+node_modules
+
+# Temp/Cache files
+*.TMP
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+
 # OS generated styles
 .DS_Store
 .DS_Store?

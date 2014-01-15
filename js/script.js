@@ -16,7 +16,13 @@ $(document).ready(function() {
 	});
 
 	// Input Checkbox
-	$('input[type="checkbox"]').nosInputCheckbox();
+	$('.checkbox').nosInputCheckbox();
+
+	// Input Checkbox Switch
+	$('.checkbox-switch').nosInputCheckbox({
+		namespace: 'nosui-form-switch',
+		'switch': true
+	});
 
 	// Input Radio
 	$('input[type="radio"]').nosInputRadio();
@@ -28,7 +34,7 @@ $(document).ready(function() {
 	// if input[type="range"] is supported natively
 	// before running this
 	$('.input-range').nosInputRange();
-	// $('input[type="range"]') doesn't return the correct element in IE7 
+	// $('input[type="range"]') doesn't return the correct element in IE7
 	// so a class was given to the element to target it.
 
 }); // document.ready()

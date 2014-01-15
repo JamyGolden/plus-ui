@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.15
+* jQuery NOs 0.9.16
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -570,12 +570,24 @@ $.fn.extend({
 
 			var defaults = {
 					elAttrNames: {
-						'fauxElClass'   : '',
-						'disabledClass' : '--disabled',
-						'checkedClass'  : '--checked',
-						'mousedownClass': '--mousedown'
+						'fauxElClass'           : '',
+						'disabledClass'         : '--disabled',
+						'checkedClass'          : '--checked',
+						'mousedownClass'        : '--mousedown',
+						'switchClass'           : '--switch',
+						'switchHandelClass'     : '__switch-handel',
+						'switchBtnClass'        : '__switch-handel-btn',
+						'switchLabelClass'      : '__switch-label',
+						'switchLabelAClass'     : '__switch-label-a',
+						'switchLabelBClass'     : '__switch-label-b',
+						'switchLabelTextClass' : '__switch-label-text',
+						'switchLabelATextClass' : '__switch-label-a-text',
+						'switchLabelBTextClass' : '__switch-label-b-text'
 					},
 					namespace: 'nosui-form-checkbox',
+					'switch': false,
+					'switchLabelAText': 'On',
+					'switchLabelBText': 'Off',
 					onInit: null,
 					onChange: null,
 					onMousedown: null
@@ -602,7 +614,7 @@ $.fn.extend({
 
 			function init(){
 				o.dom.$fauxEl = $('<div />', {
-						'class': o.elAttrNames.fauxElClass + ' ' + o.elAttrNames.inputClass
+						'class': o.elAttrNames.fauxElClass
 					})
 					.data('nosui-checked', o.dom.$el.prop('checked'))
 					.insertBefore( o.dom.$el.hide() );
@@ -638,7 +650,47 @@ $.fn.extend({
 				};
 
 				o._stackOverflow = 0;
-			};
+			}
+
+			function switchBox() {
+				o.dom.$fauxEl.addClass(o.elAttrNames.switchClass)
+
+
+				o.dom.$fauxSwitchHandel = $('<div />', {
+					'class': o.elAttrNames.switchHandelClass
+				});
+
+				// Switch container
+				o.dom.$switchBtnClass = $('<div />', {
+					'class': o.elAttrNames.switchBtnClass
+				}).appendTo(o.dom.$fauxSwitchHandel);
+
+				// Switch A
+				o.dom.$fauxSwitchLabelA = $('<div />', {
+					'class': o.elAttrNames.switchLabelAClass + ' ' + o.elAttrNames.switchLabelClass
+				});
+
+				// Switch A Text
+				o.dom.$fauxSwitchLabelAText = $('<div />', {
+					'class': o.elAttrNames.switchLabelATextClass + ' ' + o.elAttrNames.switchLabelTextClass,
+					text: o.switchLabelAText
+				}).appendTo(o.dom.$fauxSwitchLabelA);
+
+				// Switch B
+				o.dom.$fauxSwitchLabelB = $('<div />', {
+					'class': o.elAttrNames.switchLabelBClass + ' ' + o.elAttrNames.switchLabelClass
+				});
+
+				// Switch B Text
+				o.dom.$fauxSwitchLabelBText = $('<div />', {
+					'class': o.elAttrNames.switchLabelBTextClass + ' ' + o.elAttrNames.switchLabelTextClass,
+					text: o.switchLabelBText
+				}).appendTo(o.dom.$fauxSwitchLabelB);
+
+				o.dom.$fauxSwitchLabelA.appendTo(o.dom.$fauxEl);
+				o.dom.$fauxSwitchLabelB.appendTo(o.dom.$fauxEl);
+				o.dom.$fauxSwitchHandel.appendTo(o.dom.$fauxEl);
+			}
 
 			function events(){
 				o.dom.$el.on({
@@ -696,6 +748,11 @@ $.fn.extend({
 			};
 
 			init();
+
+			if(o['switch'] === true) {
+				switchBox();
+			}
+
 			events();
 
 		}); // this.each()
@@ -708,7 +765,6 @@ $.fn.extend({
 			var defaults = {
 					elAttrNames: {
 						'fauxElClass'    : '',
-						'inputClass'     : '-text',
 						'disabledClass'  : '--disabled',
 						'checkedClass'   : '--checked',
 						'mousedownClass' : '--mousedown'
