@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.19
+* jQuery NOs 0.9.20
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -1461,7 +1461,6 @@ $.fn.extend({
 						o.val = 0;
 					}
 					o.val++;
-					console.log(o.val)
 					elValueFilter();
 
 					// Prevent bug where checkbox can be left selected
@@ -1480,7 +1479,7 @@ $.fn.extend({
 					// increase val by 1
 					// Make sure text/empty string doesn't break
 					if (isNaN(o.val) || o.val === null) {
-						val = 0;
+						o.val = 0;
 					}
 					o.val--;
 					elValueFilter();
@@ -1500,11 +1499,32 @@ $.fn.extend({
 					var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
 
 					// Return if not number
-					// Allow non-character keys, eg: backspace, ctrl + c, arrows, del, etc
+					// Allow non-character keys, eg: ctrl + c, arrows, del, etc
+					// Not backspace since we want that to register
 					if (charCode > 31 && (charCode < 48 || charCode > 57)) {
 						return false;
 					}
-				});
+
+				}).on('keyup', function(e){
+					var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+
+					// disallow previously disallowed keys
+					if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+						return false;
+					}
+
+					// If charkey was pressed
+					if (charCode >= 48 || charCode <= 57 || charCode === 8) {
+						o.val = parseFloat(o.dom.$input.val());
+
+						if (isNaN(o.val) || o.val === null) {
+							o.val = 0;
+						}
+						elValueFilter();
+
+						charKey = false;
+					}
+				})
 			}
 
 			function reflectInputVal() {
