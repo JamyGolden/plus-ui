@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.16
+* jQuery NOs 0.9.17
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -968,7 +968,7 @@ $.fn.extend({
 
 				NosUIApp.form.isDisabled(o.dom.$el, o.dom.$fauxEl, o.elAttrNames.disabledClass);
 
-				o.dom.$el.wrap( o.dom.$fauxEl ).before( o.dom.$placeholder, o.dom.$button );
+				o.dom.$el.wrap( o.dom.$fauxEl ).after( o.dom.$placeholder, o.dom.$button );
 
 				// Event Callback
 				if(typeof o.onInit === 'function') {
