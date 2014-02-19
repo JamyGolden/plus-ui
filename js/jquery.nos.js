@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.16
+* jQuery NOs 0.9.18
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -81,6 +81,18 @@ window.NosUIApp = {
 				return false;
 			}
 		}
+	},
+	disableDragText: function() {
+		$('body').on({
+			'mousemove.nosui-drag': function(e){
+				e.preventDefault(); // prevent text selection
+			}
+		});
+
+		$('body').on('mouseup.nosui-drag', function(){
+			$('body').off('mousemove.nosui-drag');
+			$('body').off('mouseup.nosui-drag');
+		});
 	},
 	applyCssNamespace: function(elAttrNames, nameSpace){
 		$.each(elAttrNames, function(k, v){
@@ -1301,9 +1313,10 @@ $.fn.extend({
 						// handle "jump" bug
 						var handleOffset = e.pageX - o.dom.$handle.offset().left;
 
+						NosUIApp.disableDragText();
+
 						$('body').on({
 							'mousemove.nosui': function(e){
-								e.preventDefault(); // prevent text selection
 
 								if(typeof o.timeoutThrottle !== 'undefined'){
 									window.clearTimeout(o.timeoutThrottle);
@@ -1317,14 +1330,6 @@ $.fn.extend({
 								}, 5);
 							}
 						});
-
-						$('body').on('mouseup.nosui', function(){
-							$('body').off('mousemove.nosui');
-							$('body').off('mouseup.nosui');
-
-							// Turn reflection back on
-							o.dom.$el.on('change.nosui', reflectInputVal)
-						});
 					}
 				});
 
@@ -1335,6 +1340,176 @@ $.fn.extend({
 			}; // init
 
 			init();
+		});
+	},
+	nosInputNumber: function( options, disableMethod ){
+		return this.each(function(){
+
+			var defaults = {
+					elAttrNames: {
+						'elClass'          : '-element',
+						'fauxElClass'      : '',
+						'inputClass'       : '__input',
+						'btnContainerClass': '__btn-container',
+						'btnClass'         : '__btn',
+						'btnUpClass'       : '__btn--up',
+						'btnDownClass'     : '__btn--down',
+						'btnMouseDownClass': '__btn--mousedown'
+					},
+					namespace: 'nosui-input-number',
+					onInit: null,
+					onChange: null
+				},
+				o  = NosUIApp.defineOptions(defaults, options);
+
+			o.dom.$el = $(this)
+
+			// Match element or throw error
+			NosUIApp.matchElType($('input[type="number"]'), o.dom.$el);
+
+			if(disableMethod === true){
+				disable();
+				return;
+			};
+
+			function disable(){
+				// Changing the data on the element to
+				// reflect that it has been disabled
+				o.dom.$el.off('change.nosui')
+					.removeClass(o.elAttrNames.elClass)
+					.prev('.' + o.elAttrNames.fauxElClass)
+					.find('.' + o.elAttrNames.btnClass)
+					.off()
+				o.dom.$el
+					.prev('.' + o.elAttrNames.fauxElClass)
+					.remove();
+
+				o.dom.$el.removeClass(o.elAttrNames.elClass).removeAttr('style');
+			}
+
+			function init(){
+				o.minVal = o.dom.$el.attr('min') ? parseFloat(o.dom.$el.attr('min')) : null;
+				o.maxVal = o.dom.$el.attr('max') ? parseFloat(o.dom.$el.attr('max')) : null;
+				o.val = o.dom.$el.val();
+
+				if(o.minVal > o.maxVal){
+					o.maxVal = o.minVal;
+				};
+
+				if(o.maxVal < o.mixVal){
+					o.minVal = o.maxVal;
+				};
+
+				// Force max/min vals
+				o.val = o.val < o.minVal ? o.minVal : o.val;
+				o.val = o.val > o.maxVal ? o.minVal : o.val;
+
+				o.dom.$el.hide();
+				o.dom.$fauxEl = $('<div />', {
+					'class': o.elAttrNames.fauxElClass
+				});
+				o.dom.$input = $('<input />', {
+					'class': o.elAttrNames.inputClass,
+					'type': 'text',
+					'placeholder': o.dom.$el.attr('placeholder'),
+					'value': o.val
+				});
+				o.dom.$btnContainer = $('<div />', {
+					'class': o.elAttrNames.btnContainerClass
+				});
+				o.dom.$btnUp = $('<div />', {
+					'class': o.elAttrNames.btnUpClass + ' ' + o.elAttrNames.btnClass,
+					'text': '+'
+				});
+				o.dom.$btnDown = $('<div />', {
+					'class': o.elAttrNames.btnDownClass + ' ' + o.elAttrNames.btnClass,
+					'text': '-'
+				});
+
+				o.dom.$btnContainer.append(o.dom.$btnUp, o.dom.$btnDown);
+				o.dom.$input.appendTo(o.dom.$fauxEl);
+				o.dom.$btnContainer.appendTo(o.dom.$fauxEl);
+
+				o.dom.$fauxEl.insertBefore(o.dom.$el);
+			}
+
+			// Ensure the value adheres to the max/min values
+			function elValueFilter(){
+				if((typeof o.minVal && o.minVal !== null) && o.val < o.minVal){
+					o.val = o.minVal;
+				} else if((typeof o.maxVal && o.maxVal !== null) && o.val > o.maxVal){
+					o.val = o.maxVal;
+				};
+
+				// Correct element value
+				o.dom.$el.val(o.val).change();
+			};
+
+			function events() {
+				o.dom.$btnUp.on('mousedown.nosui', function(){
+
+					o.dom.$btnUp.addClass(o.elAttrNames.btnMouseDownClass);
+					NosUIApp.disableDragText();
+
+					// increase val by 1
+					// Make sure text/empty string doesn't break
+					if (isNaN(o.val) || o.val === null) {
+						o.val = 0;
+					}
+					o.val++;
+					console.log(o.val)
+					elValueFilter();
+
+					// Prevent bug where checkbox can be left selected
+					$('body').on('mouseup.nosui', function(e){
+						o.dom.$btnUp.removeClass(o.elAttrNames.btnMouseDownClass);
+
+						// Remove event
+						$('body').off('mouseup.nosui');
+					});
+				});
+
+				o.dom.$btnDown.on('mousedown.nosui', function(){
+					o.dom.$btnDown.addClass(o.elAttrNames.btnMouseDownClass);
+					NosUIApp.disableDragText();
+
+					// increase val by 1
+					// Make sure text/empty string doesn't break
+					if (isNaN(o.val) || o.val === null) {
+						val = 0;
+					}
+					o.val--;
+					elValueFilter();
+
+					// Prevent bug where checkbox can be left selected
+					$('body').on('mouseup.nosui', function(e){
+						o.dom.$btnDown.removeClass(o.elAttrNames.btnMouseDownClass);
+
+						// Remove event
+						$('body').off('mouseup.nosui');
+					});
+				});
+
+				o.dom.$el.on('change.nosui', reflectInputVal);
+
+				o.dom.$input.on('keypress', function(e){
+					var charCode = (typeof e.which == "undefined") ? e.keyCode : e.which;
+
+					// Return if not number
+					// Allow non-character keys, eg: backspace, ctrl + c, arrows, del, etc
+					if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+						return false;
+					}
+				});
+			}
+
+			function reflectInputVal() {
+				// Set new val and trigger change
+				o.dom.$input.val(o.val);
+			}
+
+			init();
+			events();
 		});
 	}
 });

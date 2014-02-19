@@ -1,0 +1,87 @@
+// ==========================================================================
+// Form Input Number
+// ==========================================================================
+$height: 25px;
+$totalWidth: 80px;
+$btnWidth: 17px;
+
+.nosui-input-number {
+	border: 1px solid #ababab;
+	width: $totalWidth;
+	height: $height;
+}
+
+	.nosui-input-number__input {
+		border: 0;
+		@include border-radius(2px);
+		color: #444;
+		float: left;
+		height: $height - (6px); // account for padding
+		line-height: $height - (6px); // account for padding
+		margin: 0;
+		padding: 3px 8px;
+		width: ($totalWidth - $btnWidth) - 16px; // account for padding
+
+		&::-webkit-input-placeholder {
+			font-size: 12px;
+		}
+
+		&:-moz-placeholder { /* Firefox 18- */
+			font-size: 12px;
+		}
+
+		&::-moz-placeholder {  /* Firefox 19+ */
+			font-size: 12px;
+		}
+
+		&:-ms-input-placeholder {
+			font-size: 12px;
+		}
+	}
+
+	.nosui-input-number__btn-container {
+		border-left: 1px solid #ababab;
+		color: #666;
+		float: right;
+		height: $height;
+		width: $btnWidth - 2px; // acount for border
+		position: relative;
+	}
+
+	.nosui-input-number__btn {
+		cursor: pointer;
+		background-color: #e5e5e5;
+		@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
+		font-size: 12px;
+		height: 12px;
+		line-height: 12px;
+		text-align: center;
+		width: 100%;
+		position: absolute;
+		right: 0;
+
+		// Disable text selection
+		-webkit-user-select: none;
+		   -moz-user-select: none;
+		    -ms-user-select: none;
+
+		&:hover {
+			background-color: #dfdfdf;
+			@include background-image(linear-gradient(bottom, #dfdfdf, #f1f1f1));
+		}
+
+		&.nosui-input-number__btn--mousedown {
+			background-color: #f1f1f1;
+			@include background-image(linear-gradient(top, #dfdfdf, #f1f1f1));
+		}
+	}
+
+	.nosui-input-number__btn--up {
+		top: 0;
+	}
+
+	.nosui-input-number__btn--down {
+		border-top: 1px solid #ababab;
+		bottom: 0;
+	}
+
