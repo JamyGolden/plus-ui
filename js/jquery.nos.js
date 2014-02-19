@@ -1,5 +1,5 @@
 /*
-* jQuery NOs 0.9.18
+* jQuery NOs 0.9.19
 *
 * Dual licensed under the MIT or GPL Version 2 licenses.
 */
@@ -1401,8 +1401,12 @@ $.fn.extend({
 				};
 
 				// Force max/min vals
-				o.val = o.val < o.minVal ? o.minVal : o.val;
-				o.val = o.val > o.maxVal ? o.minVal : o.val;
+				if (o.minVal !== null) {
+					o.val = o.val < o.minVal ? o.minVal : o.val;
+				}
+				if (o.maxVal !== null) {
+					o.val = o.val > o.maxVal ? o.minVal : o.val;
+				}
 
 				o.dom.$el.hide();
 				o.dom.$fauxEl = $('<div />', {
