@@ -128,7 +128,6 @@ $.fn.extend({
 				o = NosUIApp.defineOptions(defaults, options);
 
 			o.dom.$el = $(this);
-			NosUIApp.matchElType($('input'), o.dom.$el);
 
 			if(disableMethod === true){
 				disable();
