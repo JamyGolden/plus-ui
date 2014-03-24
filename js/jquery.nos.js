@@ -1,7 +1,10 @@
 /*
-* jQuery NOs 0.9.20
-*
-* Dual licensed under the MIT or GPL Version 2 licenses.
+* NOS-UI
+* A form component library
+* Version: "0.9.20"
+* Jamy Golden
+* https://github.com/NATIVEVML/NOS-UI
+* License: MIT
 */
 (function( $, undefined ) {
 

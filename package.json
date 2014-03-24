@@ -1,0 +1,21 @@
+{
+    "name": "NOS-UI",
+    "description": "A form component library",
+    "version": "0.9.20",
+    "author": "Jamy Golden (http://twitter.com/jamygolden/)",
+    "homepage": "https://github.com/NATIVEVML/NOS-UI",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:NATIVEVML/NOS-UI.git"
+    },
+    "bugs": {
+        "url": "https://github.com/NATIVEVML/NOS-UI/issues"
+    },
+    "devDependencies": {
+        "grunt": "~0.4.1",
+        "grunt-contrib-compass": "~0.7.0",
+        "grunt-version": "~0.3.0",
+        "grunt-contrib-uglify": "~0.4.0"
+    },
+    "license" : "MIT"
+}
