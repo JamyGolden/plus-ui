@@ -648,6 +648,11 @@ $.fn.extend({
 			}
 
 			function reflectChange(e){
+				// stop recursive triggering
+				o.dom.$el.off({
+					'change.nosui': reflectChange
+				});
+
 				o._stackOverflow++;
 
 				// Toggle Attribute
@@ -659,11 +664,20 @@ $.fn.extend({
 					o.dom.$fauxEl.removeClass(o.elAttrNames.checkedClass);
 				};
 
-				if(typeof o.onChange === 'function' && o._stackOverflow <= 1) {
-					o.onChange(o.dom.$el, o.dom.$fauxEl, o);
-				};
+				if (o._stackOverflow <= 1) {
+					o.dom.$el.trigger('change');
+
+					if (typeof o.onChange === 'function') {
+						o.onChange(o.dom.$el, o.dom.$fauxEl, o);
+					}
+				}
 
 				o._stackOverflow = 0;
+
+				// reactivate change event
+				o.dom.$el.on({
+					'change.nosui': reflectChange
+				});
 			}
 
 			function switchBox() {
@@ -841,6 +855,11 @@ $.fn.extend({
 			};
 
 			function reflectChange(e){
+				// stop recursive triggering
+				o.dom.$el.off({
+					'change.nosui': reflectChange
+				});
+
 				o._stackOverflow++;
 				// Faux siblings must be defined after all fauxSiblings hvae been created
 				// i.e. on click should be enough time
@@ -861,11 +880,20 @@ $.fn.extend({
 				// Check radio
 				o.dom.$fauxEl.data(NosUIApp.namespace + '-checked', true).addClass(o.elAttrNames.checkedClass);
 
-				if(typeof o.onChange === 'function' && o._stackOverflow <= 1) {
-					o.onChange(o.dom.$el, o.dom.$fauxEl, o);
-				};
+				if (o._stackOverflow <= 1) {
+					o.dom.$el.trigger('change');
+
+					if (typeof o.onChange === 'function') {
+						o.onChange(o.dom.$el, o.dom.$fauxEl, o);
+					}
+				}
 
 				o._stackOverflow = 0;
+
+				// reactivate change event
+				o.dom.$el.on({
+					'change.nosui': reflectChange
+				});
 			};
 
 			function events(){
