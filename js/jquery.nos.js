@@ -231,6 +231,7 @@ $.fn.extend({
 					defaultDropdown: false,
 					isOpen: false,
 					onInit: null,
+					onLoad: null,
 					onClick: null,
 					onChange: null,
 					onMousedown: null, // Only used for defaultDropdown: false
@@ -573,6 +574,11 @@ $.fn.extend({
 				// Run
 				initCustom();
 				eventsCustom();
+
+				// Load callback
+				if (typeof o.onLoad === 'function') {
+					o.onLoad(o.dom.$el, o.dom.$fauxSelect, o);
+				}
 			};
 
 		}); // each
