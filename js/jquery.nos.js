@@ -1,7 +1,7 @@
 /*
 * NOS-UI
 * A form component library
-* Version: "0.9.23"
+* Version: "0.9.24"
 * Jamy Golden
 * https://github.com/NATIVEVML/NOS-UI
 * License: MIT
@@ -278,7 +278,7 @@ $.fn.extend({
 
 			o.dom.$elOptions = o.dom.$el.find('option');
 			o.dom.$selectedOption = o.dom.$elOptions.filter(function(){
-					return $(this).prop('selcted') === true;
+					return $(this).prop('selected') === true;
 				});
 
 			o.dom.$el.addClass(o.elAttrNames.elClass)
