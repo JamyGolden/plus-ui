@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset='utf-8' />
+	<meta http-equiv="X-UA-Compatible" content="chrome=1" />
+	<meta name="description" content="Nos-ui : NOS UI is a jQuery framework mainted and developed by the Native team to help streamline workflow." />
+
+	<link rel="stylesheet" type="text/css" media="screen" href="gh-pages/stylesheets/stylesheet.css">
+	<link href="css/main.css" rel="stylesheet" />
+
+	<title>Nos-ui</title>
+</head>
+
+<body>
+	<!-- HEADER -->
+	<div id="header_wrap" class="outer">
+		<header class="inner">
+			<a id="forkme_banner" href="https://github.com/JamyGolden/plus-ui">View on GitHub</a>
+
+			<h1 id="project_title">Nos-ui</h1>
+			<h2 id="project_tagline">NOS UI is a jQuery framework mainted and developed by the Native team to help streamline workflow.</h2>
+
+				<section id="downloads">
+					<a class="zip_download_link" href="https://github.com/JamyGolden/plus-ui/zipball/master">Download this project as a .zip file</a>
+					<a class="tar_download_link" href="https://github.com/JamyGolden/plus-ui/tarball/master">Download this project as a tar.gz file</a>
+				</section>
+		</header>
+	</div>
+
+	<!-- MAIN CONTENT -->
+	<div id="main_content_wrap" class="outer">
+		<section id="main_content" class="inner">
+
+			<form>
+				<h1>
+					NOS UI
+				</h1>
+
+				<h2>
+					nosInputPlaceholder
+				</h2>
+				<input class="nosui-form-text"
+				 id="placeholder"
+				 type="text"
+				 placeholder="Placeholder">
+
+				<h2>
+					nosInputNumber
+				</h2>
+				<input class="js-input-number"
+				 placeholder="Number"
+				 min="0"
+				 type="number">
+
+				<h2>
+					nosFormSelect
+				</h2>
+				<h3>Standard</h3>
+				<select class="js-select">
+					<option value="south africa">
+						South Africa
+					</option>
+					<option value="america">
+						America
+					</option>
+					<option value="england">
+						England
+					</option>
+				</select>
+				<h3>Disabled</h3>
+				<select class="js-select" disabled>
+					<option value="south africa">
+						South Africa
+					</option>
+					<option value="america">
+						America
+					</option>
+					<option value="england">
+						England
+					</option>
+				</select>
+
+				<h3>Default dropdown menu (Primarily for mobile)</h3>
+				<select class="js-select-alt">
+					<option value="south africa">
+						South Africa
+					</option>
+					<option value="america">
+						America
+					</option>
+					<option value="england">
+						England
+					</option>
+				</select>
+
+				<h2>
+					nosInputCheckbox
+				</h2>
+				<h3>Standard</h3>
+				<input name="checkbox1"
+				 type="checkbox">
+				<input name="checkbox1"
+				 type="checkbox"
+				 checked>
+				<input name="checkbox1"
+				 type="checkbox">
+
+				<h3>Disabled</h3>
+				<input name="checkbox2"
+				 type="checkbox"
+				 checked
+				 disabled>
+				<input name="checkbox2"
+				 type="checkbox"
+				 disabled>
+				<input name="checkbox2"
+				 type="checkbox"
+				 disabled>
+
+				<h2>
+					nosInputRadio
+				</h2>
+				<h3>Standard</h3>
+				<input name="radio1" type="radio">
+				<input name="radio1" type="radio">
+				<input name="radio1" type="radio">
+
+				<h3>Disabled</h3>
+				<input name="radio2"
+				 type="radio"
+				 checked
+				 disabled>
+				<input name="radio2"
+				 type="radio"
+				 disabled>
+				<input name="radio2"
+				 type="radio"
+				 disabled>
+
+				<h2>
+					NosInputRange
+				</h2>
+				<input type="range" min="20" max="100" val="70" step="1">
+
+				<h2>
+					NosInputFile
+				</h2>
+				<h3>Standard</h3>
+				<input class="inputfile"
+				 type="file">
+
+				 <h3>Disabled</h3>
+				<input class="inputfile"
+				 type="file"
+				 disabled>
+			</form>
+
+			<h2>Custom Scrollbar - No JS (Webkit/Partial IE support)</h2>
+			<div class="scrollbar-example">
+				<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+				<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+				<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+				<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+				<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+				<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+				<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+				<p>Take a look at this custom scrollbar! Take a look at this custom scrollbar!</p>
+			</div>
+
+			<h2>Responsive images</h2>
+
+			<img src="./img/general/img-small.jpg"
+			 data-src-768="./img/general/img-medium.jpg"
+			 data-src-960="./img/general/img-large.jpg">
+
+		</section>
+	</div>
+
+	<!-- FOOTER  -->
+	<div id="footer_wrap" class="outer">
+		<footer class="inner">
+			<p class="copyright">Nos-ui maintained by <a href="https://github.com/JamyGolden">NATIVEVML</a></p>
+			<p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script src="./js/jquery.plus-ui.min.js"></script>
+	<script src="./js/script.js"></script>
+
+</body>
+</html>
