@@ -2,40 +2,40 @@ $(document).ready(function() {
 	// Use something like modernizr to check
 	// if placeholder is supported natively
 	// before running this
-	$('input[placeholder]').nosInputPlaceholder();
+	$('input[placeholder]').plusInputPlaceholder();
 
-	$('.js-input-number').nosInputNumber();
+	$('.js-input-number').plusInputNumber();
 
-	$('img').nosResponsiveImages();
+	$('img').plusResponsiveImages();
 
 	// Form Select
-	$('.js-select').nosFormSelect();
+	$('.js-select').plusFormSelect();
 
 	// Form select with defaultDropdown
-	$('.js-select-alt').nosFormSelect({
+	$('.js-select-alt').plusFormSelect({
 		defaultDropdown: true,
-		namespace: 'nosui-form-select-alt'
+		namespace: 'plusui-form-select-alt'
 	});
 
 	// Input Checkbox
-	$('.checkbox').nosInputCheckbox();
+	$('.checkbox').plusInputCheckbox();
 
 	// Input Checkbox Switch
-	$('.checkbox-switch').nosInputCheckbox({
-		namespace: 'nosui-form-switch',
+	$('.checkbox-switch').plusInputCheckbox({
+		namespace: 'plusui-form-switch',
 		'switch': true
 	});
 
 	// Input Radio
-	$('input[type="radio"]').nosInputRadio();
+	$('input[type="radio"]').plusInputRadio();
 
 	// Input file
-	$('input[type="file"]').nosInputFile();
+	$('input[type="file"]').plusInputFile();
 
 	// Use something like modernizr to check
 	// if input[type="range"] is supported natively
 	// before running this
-	$('.input-range').nosInputRange();
+	$('.input-range').plusInputRange();
 	// $('input[type="range"]') doesn't return the correct element in IE7
 	// so a class was given to the element to target it.
 

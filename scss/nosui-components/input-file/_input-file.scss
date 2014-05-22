@@ -3,7 +3,7 @@
 // ==========================================================================
 $height: 25px;
 
-.nosui-form-file {
+.plusui-form-file {
 	background-image: url(../img/form-repeat/select.png);
 	@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
 	background-repeat: repeat;
@@ -24,18 +24,18 @@ $height: 25px;
 	}
 }
 
-.nosui-form-file--disabled {
+.plusui-form-file--disabled {
 	@include opacity(0.5);
 }
 
-	.nosui-form-file__placeholder {
+	.plusui-form-file__placeholder {
 		line-height: $height;
 		position: absolute;
 		left: 10px;
 		top: 0;
 	}
 
-	.nosui-form-file__button {
+	.plusui-form-file__button {
 		border-left: 1px solid #dbdbdb;
 		cursor: default;
 		height: $height;
@@ -46,7 +46,7 @@ $height: 25px;
 		top: 0;
 	}
 
-	.nosui-form-file__element {
+	.plusui-form-file__element {
 		@include opacity(0);
 
 		// Forces the browse button of the

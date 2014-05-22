@@ -3,13 +3,13 @@
 // ==========================================================================
 
 $height: 15px;
-.nosui-input-range {
+.plusui-input-range {
 	height: $height;
 	width: 500px;
 	position: relative;
 }
 
-.nosui-input-range__slider {
+.plusui-input-range__slider {
 	background-color: #ebebeb;
 	border-top: 1px solid #dfdfdf;
 	height: 3px;
@@ -18,7 +18,7 @@ $height: 15px;
 }
 
 $height: $height - 2; // Subtract border
-.nosui-input-range__handle {
+.plusui-input-range__handle {
 	background-image: url(../img/form-repeat/select.png);
 	@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
 	border: 1px solid #ababab;

@@ -6,7 +6,7 @@
 
 $height: 25px;
 
-.nosui-form-select-alt {
+.plusui-form-select-alt {
 	background-image: url(../img/form-repeat/select.png);
 	@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
 	background-repeat: repeat;
@@ -23,7 +23,7 @@ $height: 25px;
 	position: relative;
 }
 
-	.nosui-form-select-alt-element {
+	.plusui-form-select-alt-element {
 		@include opacity(0);
 		height: $height;
 		width: 100%;
@@ -31,17 +31,17 @@ $height: 25px;
 		z-index: 1;
 	}
 
-	.nosui-form-select-alt__placeholder {
+	.plusui-form-select-alt__placeholder {
 		position: absolute;
 		left: 10px;
 		top: 0;
 	}
 
-	.nosui-form-select-alt--disabled {
+	.plusui-form-select-alt--disabled {
 		background: #999;
 	}
 
-	.nosui-form-select-alt__dropdown-button {
+	.plusui-form-select-alt__dropdown-button {
 		border-left: 1px solid #dbdbdb;
 		height: $height;
 		width: $height;

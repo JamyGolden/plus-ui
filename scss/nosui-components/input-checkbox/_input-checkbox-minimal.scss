@@ -2,10 +2,10 @@
 // Form Input Checkbox
 // ==========================================================================
 
-.nosui-form-checkbox { 
-	background: red; 
-	@include inline-block(); 
-	height: 10px; 
+.plusui-form-checkbox {
+	background: red;
+	@include inline-block();
+	height: 10px;
 	-webkit-user-select: none;
 	   -moz-user-select: none;
 	        user-select: none;
@@ -16,20 +16,20 @@
 // ==========================================================================
 
 // Checked
-.nosui-form-checkbox--checked { 
-	background: green; 
+.plusui-form-checkbox--checked {
+	background: green;
 }
 
 // Disabled
-.nosui-form-checkbox--disabled { 
-	background: #999; 
+.plusui-form-checkbox--disabled {
+	background: #999;
 }
 
 // Checked and disabled
-.nosui-form-checkbox--checked.nosui-form-checkbox--disabled { 
-	background: #333; 
+.plusui-form-checkbox--checked.plusui-form-checkbox--disabled {
+	background: #333;
 }
 
-.nosui-form-checkbox--mousedown {
+.plusui-form-checkbox--mousedown {
 	background: purple;
 }

@@ -3,7 +3,7 @@
 // ==========================================================================
 
 $height: 27px;
-.nosui-form-switch {
+.plusui-form-switch {
 	border: 1px solid #ababab;
 	@include border-radius(2px);
 	height: $height;
@@ -15,12 +15,12 @@ $height: 27px;
 	   -moz-user-select: none;
 	        user-select: none;
 
-	&.nosui-form-switch--disabled {
+	&.plusui-form-switch--disabled {
 		opacity: 0.5;
 	}
 }
 
-	.nosui-form-switch__switch-handel {
+	.plusui-form-switch__switch-handel {
 		position: absolute;
 		left: 1px;
 		right: 1px;
@@ -28,7 +28,7 @@ $height: 27px;
 		bottom: 1px;
 	}
 
-		.nosui-form-switch__switch-handel-btn {
+		.plusui-form-switch__switch-handel-btn {
 			@include box-sizing(border-box);
 			@include background(linear-gradient(#f9f9f9, #e5e5e5));
 			@include border-radius(2px);
@@ -42,17 +42,17 @@ $height: 27px;
 			left: 0%;
 			z-index: 2;
 
-			.nosui-form-switch--checked & {
+			.plusui-form-switch--checked & {
 				left: 100%;
 				margin-left: - $height;
 			}
 
-			.nosui-form-switch:hover & {
+			.plusui-form-switch:hover & {
 				border-color: #666;
 			}
 		}
 
-		.nosui-form-switch__switch-label {
+		.plusui-form-switch__switch-label {
 			color: #666;
 			height: $height;
 			line-height: $height;
@@ -62,28 +62,28 @@ $height: 27px;
 			left: 0;
 		}
 
-		.nosui-form-switch__switch-label-a {
+		.plusui-form-switch__switch-label-a {
 			@include background(linear-gradient(#f1f1f1, #dfdfdf));
 			@include transition(width 0.5s ease);
 			z-index: 1;
 			width: 0;
 
-			.nosui-form-switch--checked & {
+			.plusui-form-switch--checked & {
 				width: 100%;
 			}
 		}
 
-			.nosui-form-switch__switch-label-a-text {
+			.plusui-form-switch__switch-label-a-text {
 				float: left;
 				padding-left: 5px;
 			}
 
-		.nosui-form-switch__switch-label-b {
+		.plusui-form-switch__switch-label-b {
 			background: #dfdfdf;
 			z-index: 0;
 		}
 
-			.nosui-form-switch__switch-label-b-text {
+			.plusui-form-switch__switch-label-b-text {
 				float: right;
 				padding-right: 5px;
 			}
@@ -94,36 +94,36 @@ $height: 27px;
 // ==========================================================================
 
 // Hovered
-// .nosui-form-checkbox:hover {
+// .plusui-form-checkbox:hover {
 // 	@include form-sprite(checkbox-hovered);
 
 // 	// Hovered + Pressed / Mousedown
-// 	&.nosui-form-checkbox--mousedown {
+// 	&.plusui-form-checkbox--mousedown {
 // 		@include form-sprite(checkbox-pressed);
 
 // 		// Hovered + pressed + checked
-// 		&.nosui-form-checkbox--checked {
+// 		&.plusui-form-checkbox--checked {
 // 			@include form-sprite(checkbox-checked-pressed);
 // 		}
 // 	}
 // }
 
 // // Disabled
-// .nosui-form-checkbox--disabled {
+// .plusui-form-checkbox--disabled {
 // 	@include opacity(0.5);
 // }
 
 // // Checked
-// .nosui-form-checkbox--checked {
+// .plusui-form-checkbox--checked {
 // 	@include form-sprite(checkbox-checked);
 
 // 	// Checked and pressed
-// 	&.nosui-form-checkbox--mousedown {
+// 	&.plusui-form-checkbox--mousedown {
 // 		@include form-sprite(checkbox-checked-pressed);
 // 	}
 
 // 	// Checked and hover
-// 	&.nosui-form-checkbox:hover {
+// 	&.plusui-form-checkbox:hover {
 // 		@include form-sprite(checkbox-checked-hovered);
 // 	}
 // }

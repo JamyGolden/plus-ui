@@ -1,44 +1,44 @@
 // ==========================================================================
 // Form Select
 //
-// This contains the styles for both the default select 
+// This contains the styles for both the default select
 // and the version with the custom dropdown menu
 // ==========================================================================
 
 $height: 25px;
 
-.nosui-form-select { 
+.plusui-form-select {
 	background-image: url(../img/form-repeat/select.png);
 	@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
 	background-repeat: repeat;
 	border: 1px solid #ababab;
 	@include border-radius(3px);
-	color: #444; 
-	height: $height; 
-	line-height: $height; 
-	cursor: default; 
+	color: #444;
+	height: $height;
+	line-height: $height;
+	cursor: default;
 	-webkit-user-select: none;
 	   -moz-user-select: none;
 	        user-select: none;
-	width: 200px; 
-	position: relative; 
+	width: 200px;
+	position: relative;
 }
 
-	.nosui-form-select__list { 
+	.plusui-form-select__list {
 		background-color: #dfdfdf;
 		@include background-image(linear-gradient(bottom, #dfdfdf, #f9f9f9));
 		border: 1px solid #ababab;
-		clear: both; 
-		margin: 0; 
-		padding: 0;  
-		width: 100%; 
-		position: absolute; 
+		clear: both;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		position: absolute;
 		left: -1px; // for parent border
 		right: -1px; // for parent border
-		top: $height; 
+		top: $height;
 	}
 
-		.nosui-form-select__item {
+		.plusui-form-select__item {
 			border-top: 1px solid #dbdbdb;
 			padding: 0 10px;
 
@@ -48,22 +48,22 @@ $height: 25px;
 			}
 		}
 
-		.nosui-form-select__item--first {
+		.plusui-form-select__item--first {
 			border-top: none;
 		}
 
-	.nosui-form-select__placeholder { 
+	.plusui-form-select__placeholder {
 		float: left;
 		margin-left: 10px;
 	}
 
-	.nosui-form-select__dropdown-button { 
+	.plusui-form-select__dropdown-button {
 		border-left: 1px solid #dbdbdb;
-		height: $height; 
-		width: $height; 
-		position: absolute; 
-		right: 0;  
-		top: 0; 
+		height: $height;
+		width: $height;
+		position: absolute;
+		right: 0;
+		top: 0;
 
 		// Button arrow
 		&:after {
@@ -82,26 +82,26 @@ $height: 25px;
 // Various states
 // ==========================================================================
 
-.nosui-form-select:hover {
+.plusui-form-select:hover {
 	background-image: url(../img/form-repeat/select-hovered.png);
 	@include background-image(linear-gradient(bottom, #dfdfdf, #f1f1f1));
 
-	&.nosui-form-select--mousedown {
+	&.plusui-form-select--mousedown {
 		background-image: url(../img/form-repeat/select-pressed.png);
 		@include background-image(linear-gradient(bottom, #d9d9d9, #efefef));
 	}
 }
 
-.nosui-form-select--disabled { 
+.plusui-form-select--disabled {
 	@include opacity(0.5);
 }
 
-.nosui-form-select--active { 
+.plusui-form-select--active {
 	@include border-bottom-left-radius(0);
 	@include border-bottom-right-radius(0);
 
 	// z-index is useful when there are various selects being used on the page
-	z-index: 5; 
+	z-index: 5;
 }
 
 @import "form-select-alt";

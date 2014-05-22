@@ -2,7 +2,7 @@
 // Form Input Checkbox
 // ==========================================================================
 
-.nosui-form-checkbox {
+.plusui-form-checkbox {
 	@include form-sprite(checkbox);
 	height: form-sprite-height(checkbox);
 	width: form-sprite-width(checkbox);
@@ -17,36 +17,36 @@
 // ==========================================================================
 
 // Hovered
-.nosui-form-checkbox:hover {
+.plusui-form-checkbox:hover {
 	@include form-sprite(checkbox-hovered);
 
 	// Hovered + Pressed / Mousedown
-	&.nosui-form-checkbox--mousedown {
+	&.plusui-form-checkbox--mousedown {
 		@include form-sprite(checkbox-pressed);
 
 		// Hovered + pressed + checked
-		&.nosui-form-checkbox--checked {
+		&.plusui-form-checkbox--checked {
 			@include form-sprite(checkbox-checked-pressed);
 		}
 	}
 }
 
 // Disabled
-.nosui-form-checkbox--disabled {
+.plusui-form-checkbox--disabled {
 	@include opacity(0.5);
 }
 
 // Checked
-.nosui-form-checkbox--checked {
+.plusui-form-checkbox--checked {
 	@include form-sprite(checkbox-checked);
 
 	// Checked and pressed
-	&.nosui-form-checkbox--mousedown {
+	&.plusui-form-checkbox--mousedown {
 		@include form-sprite(checkbox-checked-pressed);
 	}
 
 	// Checked and hover
-	&.nosui-form-checkbox:hover {
+	&.plusui-form-checkbox:hover {
 		@include form-sprite(checkbox-checked-hovered);
 	}
 }

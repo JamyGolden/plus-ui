@@ -1,15 +1,15 @@
 {
-    "name": "NOS-UI",
+    "name": "Plus UI",
     "description": "A form component library",
-    "version": "0.9.24",
+    "version": "0.9.25",
     "author": "Jamy Golden (http://twitter.com/jamygolden/)",
-    "homepage": "https://github.com/NATIVEVML/NOS-UI",
+    "homepage": "https://github.com/JamyGolden/plus-ui",
     "repository": {
         "type": "git",
-        "url": "git@github.com:NATIVEVML/NOS-UI.git"
+        "url": "git@github.com:JamyGolden/plus-ui.git"
     },
     "bugs": {
-        "url": "https://github.com/NATIVEVML/NOS-UI/issues"
+        "url": "https://github.com/JamyGolden/plus-ui/issues"
     },
     "devDependencies": {
         "grunt": "~0.4.1",

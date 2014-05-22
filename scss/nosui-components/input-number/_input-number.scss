@@ -5,13 +5,13 @@ $height: 25px;
 $totalWidth: 80px;
 $btnWidth: 17px;
 
-.nosui-input-number {
+.plusui-input-number {
 	border: 1px solid #ababab;
 	width: $totalWidth;
 	height: $height;
 }
 
-	.nosui-input-number__input {
+	.plusui-input-number__input {
 		border: 0;
 		@include border-radius(2px);
 		color: #444;
@@ -39,7 +39,7 @@ $btnWidth: 17px;
 		}
 	}
 
-	.nosui-input-number__btn-container {
+	.plusui-input-number__btn-container {
 		border-left: 1px solid #ababab;
 		color: #666;
 		float: right;
@@ -48,7 +48,7 @@ $btnWidth: 17px;
 		position: relative;
 	}
 
-	.nosui-input-number__btn {
+	.plusui-input-number__btn {
 		cursor: pointer;
 		background-color: #e5e5e5;
 		@include background-image(linear-gradient(bottom, #e5e5e5, #f9f9f9));
@@ -70,17 +70,17 @@ $btnWidth: 17px;
 			@include background-image(linear-gradient(bottom, #dfdfdf, #f1f1f1));
 		}
 
-		&.nosui-input-number__btn--mousedown {
+		&.plusui-input-number__btn--mousedown {
 			background-color: #f1f1f1;
 			@include background-image(linear-gradient(top, #dfdfdf, #f1f1f1));
 		}
 	}
 
-	.nosui-input-number__btn--up {
+	.plusui-input-number__btn--up {
 		top: 0;
 	}
 
-	.nosui-input-number__btn--down {
+	.plusui-input-number__btn--down {
 		border-top: 1px solid #ababab;
 		bottom: 0;
 	}

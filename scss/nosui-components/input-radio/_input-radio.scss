@@ -2,12 +2,12 @@
 // Form Input radio
 // ==========================================================================
 
-.nosui-form-radio { 
+.plusui-form-radio {
 	@include form-sprite(radio);
 	height: form-sprite-height(radio);
 	width: form-sprite-width(radio);
 
-	@include inline-block(); 
+	@include inline-block();
 	-webkit-user-select: none;
 	   -moz-user-select: none;
 	        user-select: none;}
@@ -16,36 +16,36 @@
 // ==========================================================================
 
 // Hovered
-.nosui-form-radio:hover {
+.plusui-form-radio:hover {
 	@include form-sprite(radio-hovered);
 
 	// Hovered + Pressed / Mousedown
-	&.nosui-form-radio--mousedown {
+	&.plusui-form-radio--mousedown {
 		@include form-sprite(radio-pressed);
 
 		// Hovered + pressed + checked
-		&.nosui-form-radio--checked {
+		&.plusui-form-radio--checked {
 			@include form-sprite(radio-checked-pressed);
 		}
 	}
 }
 
 // Disabled
-.nosui-form-radio--disabled { 
+.plusui-form-radio--disabled {
 	@include opacity(0.5);
 }
 
 // Checked
-.nosui-form-radio--checked { 
+.plusui-form-radio--checked {
 	@include form-sprite(radio-checked);
 
 	// Checked and pressed
-	&.nosui-form-radio--mousedown {
+	&.plusui-form-radio--mousedown {
 		@include form-sprite(radio-checked-pressed);
 	}
 
 	// Checked and hover
-	&.nosui-form-radio:hover {
+	&.plusui-form-radio:hover {
 		@include form-sprite(radio-checked-hovered);
 	}
 }
