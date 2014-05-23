@@ -653,7 +653,7 @@ $.fn.extend({
 				};
 			}
 
-			function reflectChange(e){
+			function reflectChange(isFaux){
 				// stop recursive triggering
 				o.dom.$el.off({
 					'change.plusui': reflectChange
@@ -670,7 +670,7 @@ $.fn.extend({
 					o.dom.$fauxEl.removeClass(o.elAttrNames.checkedClass);
 				};
 
-				if (o._stackOverflow <= 1) {
+				if (o._stackOverflow <= 1 && isFaux === true) {
 					o.dom.$el.trigger('change');
 
 					if (typeof o.onChange === 'function') {
@@ -728,7 +728,9 @@ $.fn.extend({
 
 			function events(){
 				o.dom.$el.on({
-					'change.plusui': reflectChange
+					'change.plusui': function() {
+						reflectChange(true);
+					}
 				});
 
 				o.dom.$fauxEl.on({
@@ -860,7 +862,7 @@ $.fn.extend({
 				};
 			};
 
-			function reflectChange(e){
+			function reflectChange(isFaux){
 				// stop recursive triggering
 				o.dom.$el.off({
 					'change.plusui': reflectChange
@@ -886,7 +888,7 @@ $.fn.extend({
 				// Check radio
 				o.dom.$fauxEl.data(PlusUIApp.namespace + '-checked', true).addClass(o.elAttrNames.checkedClass);
 
-				if (o._stackOverflow <= 1) {
+				if (o._stackOverflow <= 1 && isFaux === true) {
 					o.dom.$el.trigger('change');
 
 					if (typeof o.onChange === 'function') {
@@ -922,7 +924,7 @@ $.fn.extend({
 						// Check radio
 						o.dom.$el.prop('checked', true);
 
-						reflectChange(e);
+						reflectChange(true);
 					},
 					'mousedown.plusui': function(e) {
 						// Apply disabled styled if disabled
