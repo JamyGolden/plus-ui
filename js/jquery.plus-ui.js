@@ -549,9 +549,9 @@ $.fn.extend({
 				function reflectChange(e){
 					o._stackOverflow++;
 
-					o.dom.$selectedOption     = o.dom.$el.find('option:selected');
+					o.dom.$selectedOption      = o.dom.$el.find('option:selected');
 					var index                  = o.dom.$selectedOption.index();
-					o.dom.$fauxSelectedOption = o.dom.$fauxOptions.eq(index);
+					o.dom.$fauxSelectedOption  = o.dom.$fauxOptions.eq(index);
 					var text                   = o.dom.$fauxSelectedOption.text();
 
 					o.dom.$fauxSelectedOption.addClass(o.elAttrNames.typeCustom.activeItemClass).data('plusui-selected', 'selected')
@@ -653,13 +653,11 @@ $.fn.extend({
 				};
 			}
 
-			function reflectChange(isFaux){
+			function reflectChange(){
 				// stop recursive triggering
 				o.dom.$el.off({
 					'change.plusui': reflectChange
 				});
-
-				o._stackOverflow++;
 
 				// Toggle Attribute
 				if(o.dom.$el.prop('checked')){
@@ -670,15 +668,9 @@ $.fn.extend({
 					o.dom.$fauxEl.removeClass(o.elAttrNames.checkedClass);
 				};
 
-				if (o._stackOverflow <= 1 && isFaux === true) {
-					o.dom.$el.trigger('change');
-
-					if (typeof o.onChange === 'function') {
-						o.onChange(o.dom.$el, o.dom.$fauxEl, o);
-					}
+				if (typeof o.onChange === 'function') {
+					o.onChange(o.dom.$el, o.dom.$fauxEl, o);
 				}
-
-				o._stackOverflow = 0;
 
 				// reactivate change event
 				o.dom.$el.on({
@@ -749,7 +741,7 @@ $.fn.extend({
 							o.dom.$el.prop('checked', true);
 						};
 
-						o.dom.$el.change();
+						o.dom.$el.trigger('change');
 					},
 					'mousedown.plusui': function(e) {
 						// This applies disabled styled if disabled
@@ -862,13 +854,12 @@ $.fn.extend({
 				};
 			};
 
-			function reflectChange(isFaux){
+			function reflectChange(){
 				// stop recursive triggering
 				o.dom.$el.off({
 					'change.plusui': reflectChange
 				});
 
-				o._stackOverflow++;
 				// Faux siblings must be defined after all fauxSiblings hvae been created
 				// i.e. on click should be enough time
 				o.dom.$fauxSiblings = o.dom.$elContainerForm
@@ -888,15 +879,9 @@ $.fn.extend({
 				// Check radio
 				o.dom.$fauxEl.data(PlusUIApp.namespace + '-checked', true).addClass(o.elAttrNames.checkedClass);
 
-				if (o._stackOverflow <= 1 && isFaux === true) {
-					o.dom.$el.trigger('change');
-
-					if (typeof o.onChange === 'function') {
-						o.onChange(o.dom.$el, o.dom.$fauxEl, o);
-					}
+				if (typeof o.onChange === 'function') {
+					o.onChange(o.dom.$el, o.dom.$fauxEl, o);
 				}
-
-				o._stackOverflow = 0;
 
 				// reactivate change event
 				o.dom.$el.on({
@@ -924,7 +909,7 @@ $.fn.extend({
 						// Check radio
 						o.dom.$el.prop('checked', true);
 
-						reflectChange(true);
+						o.dom.$el.trigger('change');
 					},
 					'mousedown.plusui': function(e) {
 						// Apply disabled styled if disabled
